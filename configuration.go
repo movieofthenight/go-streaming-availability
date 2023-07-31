@@ -89,7 +89,7 @@ type Configuration struct {
 func NewConfiguration() *Configuration {
 	cfg := &Configuration{
 		DefaultHeader:    make(map[string]string),
-		UserAgent:        "go-streaming-availability/1.0.3",
+		UserAgent:        "go-streaming-availability/1.0.4",
 		Debug:            false,
 		Servers:          ServerConfigurations{
 			{
