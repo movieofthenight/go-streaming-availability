@@ -120,7 +120,7 @@ func main() {
 > Checkout [example_test.go](https://github.com/movieofthenight/go-streaming-availability/blob/main/example_test.go)
 file for the rest of the examples.
 
-### Terms & Conditions and Attribution
+## Terms & Conditions and Attribution
 
 While the client libraries have MIT licenses,
 the Streaming Availability API itself has further
