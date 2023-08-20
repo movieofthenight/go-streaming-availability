@@ -5,13 +5,18 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | Id of the service. | 
-**Countries** | [**map[string]ServiceCountryInfo**](ServiceCountryInfo.md) | Map of 2-letter country ISO code to details of the service in that country. | 
+**Name** | **string** | Name of the service. | 
+**HomePage** | **string** | Link to the homepage of the service. | 
+**ThemeColorCode** | **string** | Associated theme color hex code of the service. | 
+**Images** | [**ServiceImages**](ServiceImages.md) |  | 
+**SupportedStreamingTypes** | [**SupportedStreamingTypes**](SupportedStreamingTypes.md) |  | 
+**Addons** | [**map[string]Addon**](Addon.md) | Map of id to details of the addons supported by the service in this country. | 
 
 ## Methods
 
 ### NewService
 
-`func NewService(id string, countries map[string]ServiceCountryInfo, ) *Service`
+`func NewService(id string, name string, homePage string, themeColorCode string, images ServiceImages, supportedStreamingTypes SupportedStreamingTypes, addons map[string]Addon, ) *Service`
 
 NewService instantiates a new Service object
 This constructor will assign default values to properties that have it defined,
@@ -46,24 +51,124 @@ and a boolean to check if the value has been set.
 SetId sets Id field to given value.
 
 
-### GetCountries
+### GetName
 
-`func (o *Service) GetCountries() map[string]ServiceCountryInfo`
+`func (o *Service) GetName() string`
 
-GetCountries returns the Countries field if non-nil, zero value otherwise.
+GetName returns the Name field if non-nil, zero value otherwise.
 
-### GetCountriesOk
+### GetNameOk
 
-`func (o *Service) GetCountriesOk() (*map[string]ServiceCountryInfo, bool)`
+`func (o *Service) GetNameOk() (*string, bool)`
 
-GetCountriesOk returns a tuple with the Countries field if it's non-nil, zero value otherwise
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetCountries
+### SetName
 
-`func (o *Service) SetCountries(v map[string]ServiceCountryInfo)`
+`func (o *Service) SetName(v string)`
 
-SetCountries sets Countries field to given value.
+SetName sets Name field to given value.
+
+
+### GetHomePage
+
+`func (o *Service) GetHomePage() string`
+
+GetHomePage returns the HomePage field if non-nil, zero value otherwise.
+
+### GetHomePageOk
+
+`func (o *Service) GetHomePageOk() (*string, bool)`
+
+GetHomePageOk returns a tuple with the HomePage field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHomePage
+
+`func (o *Service) SetHomePage(v string)`
+
+SetHomePage sets HomePage field to given value.
+
+
+### GetThemeColorCode
+
+`func (o *Service) GetThemeColorCode() string`
+
+GetThemeColorCode returns the ThemeColorCode field if non-nil, zero value otherwise.
+
+### GetThemeColorCodeOk
+
+`func (o *Service) GetThemeColorCodeOk() (*string, bool)`
+
+GetThemeColorCodeOk returns a tuple with the ThemeColorCode field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetThemeColorCode
+
+`func (o *Service) SetThemeColorCode(v string)`
+
+SetThemeColorCode sets ThemeColorCode field to given value.
+
+
+### GetImages
+
+`func (o *Service) GetImages() ServiceImages`
+
+GetImages returns the Images field if non-nil, zero value otherwise.
+
+### GetImagesOk
+
+`func (o *Service) GetImagesOk() (*ServiceImages, bool)`
+
+GetImagesOk returns a tuple with the Images field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetImages
+
+`func (o *Service) SetImages(v ServiceImages)`
+
+SetImages sets Images field to given value.
+
+
+### GetSupportedStreamingTypes
+
+`func (o *Service) GetSupportedStreamingTypes() SupportedStreamingTypes`
+
+GetSupportedStreamingTypes returns the SupportedStreamingTypes field if non-nil, zero value otherwise.
+
+### GetSupportedStreamingTypesOk
+
+`func (o *Service) GetSupportedStreamingTypesOk() (*SupportedStreamingTypes, bool)`
+
+GetSupportedStreamingTypesOk returns a tuple with the SupportedStreamingTypes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSupportedStreamingTypes
+
+`func (o *Service) SetSupportedStreamingTypes(v SupportedStreamingTypes)`
+
+SetSupportedStreamingTypes sets SupportedStreamingTypes field to given value.
+
+
+### GetAddons
+
+`func (o *Service) GetAddons() map[string]Addon`
+
+GetAddons returns the Addons field if non-nil, zero value otherwise.
+
+### GetAddonsOk
+
+`func (o *Service) GetAddonsOk() (*map[string]Addon, bool)`
+
+GetAddonsOk returns a tuple with the Addons field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAddons
+
+`func (o *Service) SetAddons(v map[string]Addon)`
+
+SetAddons sets Addons field to given value.
 
 
 

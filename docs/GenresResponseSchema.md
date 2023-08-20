@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Result** | Pointer to **map[string]string** | Map of genre id to genre name. | [optional] 
+**Result** | **map[string]string** | Map of genre id to genre name. | 
 
 ## Methods
 
 ### NewGenresResponseSchema
 
-`func NewGenresResponseSchema() *GenresResponseSchema`
+`func NewGenresResponseSchema(result map[string]string, ) *GenresResponseSchema`
 
 NewGenresResponseSchema instantiates a new GenresResponseSchema object
 This constructor will assign default values to properties that have it defined,
@@ -44,11 +44,6 @@ and a boolean to check if the value has been set.
 
 SetResult sets Result field to given value.
 
-### HasResult
-
-`func (o *GenresResponseSchema) HasResult() bool`
-
-HasResult returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

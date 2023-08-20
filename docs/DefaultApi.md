@@ -5,6 +5,7 @@ All URIs are relative to *https://streaming-availability.p.rapidapi.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**Changes**](DefaultApi.md#Changes) | **Get** /changes | Changes
+[**Countries**](DefaultApi.md#Countries) | **Get** /countries | Countries
 [**Genres**](DefaultApi.md#Genres) | **Get** /genres | Genres
 [**GetById**](DefaultApi.md#GetById) | **Get** /get | Get by Id
 [**Leaving**](DefaultApi.md#Leaving) | **Get** /leaving | Leaving
@@ -79,6 +80,67 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ChangesResponseSchema**](ChangesResponseSchema.md)
+
+### Authorization
+
+[X-Rapid-API-Key](../README.md#X-Rapid-API-Key)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## Countries
+
+> CountriesResponseSchema Countries(ctx).Execute()
+
+Countries
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/movieofthenight/go-streaming-availability"
+)
+
+func main() {
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.DefaultApi.Countries(context.Background()).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.Countries``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `Countries`: CountriesResponseSchema
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.Countries`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCountriesRequest struct via the builder pattern
+
+
+### Return type
+
+[**CountriesResponseSchema**](CountriesResponseSchema.md)
 
 ### Authorization
 

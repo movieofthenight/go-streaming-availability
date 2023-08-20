@@ -7,30 +7,31 @@ info:
     name: MIT
     url: https://spdx.org/licenses/MIT.html
   title: Streaming Availability API
-  version: 3.0.0
+  version: 3.1.0
 servers:
 - url: https://streaming-availability.p.rapidapi.com
 security:
 - X-Rapid-API-Key: []
 paths:
-  /services:
+  /countries:
     get:
-      description: "Get all the supported streaming services, list of the supported\
-        \ countries for each service and other related details."
-      operationId: services
+      description: |
+        Get all the supported countries and the list of the supported services and their details for each country.
+        Details of services include names, logos, supported streaming types (subscription, rent, buy, free etc.) and list of available addons/channels.
+      operationId: countries
       responses:
         "200":
           content:
             application/json:
               examples:
-                Services:
-                  description: Services
-                  externalValue: https://www.movieofthenight.com/openapi/example/services
+                Countries:
+                  description: Countries
+                  externalValue: https://www.movieofthenight.com/openapi/example/countries
                   value: null
               schema:
-                $ref: '#/components/schemas/servicesResponseSchema'
-          description: Details of the supported services.
-      summary: Services
+                $ref: '#/components/schemas/countriesResponseSchema'
+          description: Details of the supported countries.
+      summary: Countries
   /genres:
     get:
       description: Get the ids and names of the supported genres.
@@ -894,6 +895,26 @@ paths:
                 $ref: '#/components/schemas/upcomingChangesResponseSchema'
           description: Response to a leaving query.
       summary: Leaving
+  /services:
+    get:
+      deprecated: true
+      description: |
+        Get all the supported streaming services, list of the supported countries for each service and other related details.
+        Note: This endpoint is deprecated. Please use the "/countries" endpoint instead.
+      operationId: services
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                Services:
+                  description: Services
+                  externalValue: https://www.movieofthenight.com/openapi/example/services
+                  value: null
+              schema:
+                $ref: '#/components/schemas/servicesResponseSchema'
+          description: Details of the supported services.
+      summary: Services
 components:
   parameters:
     servicesParam:
@@ -1285,6 +1306,17 @@ components:
         type: string
       style: form
   responses:
+    countriesResponse:
+      content:
+        application/json:
+          examples:
+            Countries:
+              description: Countries
+              externalValue: https://www.movieofthenight.com/openapi/example/countries
+              value: null
+          schema:
+            $ref: '#/components/schemas/countriesResponseSchema'
+      description: Details of the supported countries.
     servicesResponse:
       content:
         application/json:
@@ -1500,6 +1532,92 @@ components:
       - rent
       - subscription
       type: object
+    serviceImages:
+      additionalProperties: false
+      description: Images of a service.
+      example:
+        whiteImage: whiteImage
+        darkThemeImage: darkThemeImage
+        lightThemeImage: lightThemeImage
+      properties:
+        lightThemeImage:
+          description: Link to the logo of the service suitable for light themed background.
+          type: string
+        darkThemeImage:
+          description: Link to the logo of the service suitable for dark themed background.
+          type: string
+        whiteImage:
+          description: Link to the logo of the service that is all white.
+          type: string
+      required:
+      - darkThemeImage
+      - lightThemeImage
+      - whiteImage
+      type: object
+    addonsMap:
+      additionalProperties:
+        $ref: '#/components/schemas/addon'
+      description: Map of id to details of the addons supported by the service in
+        this country.
+      type: object
+    service:
+      additionalProperties: false
+      description: Details of a service.
+      example:
+        themeColorCode: themeColorCode
+        images:
+          whiteImage: whiteImage
+          darkThemeImage: darkThemeImage
+          lightThemeImage: lightThemeImage
+        addons:
+          key:
+            themeColorCode: themeColorCode
+            image: image
+            displayName: displayName
+            id: id
+            homePage: homePage
+        name: name
+        id: id
+        homePage: homePage
+        supportedStreamingTypes:
+          addon: true
+          buy: true
+          subscription: true
+          rent: true
+          free: true
+      properties:
+        id:
+          description: Id of the service.
+          type: string
+        name:
+          description: Name of the service.
+          type: string
+        homePage:
+          description: Link to the homepage of the service.
+          type: string
+        themeColorCode:
+          description: Associated theme color hex code of the service.
+          type: string
+        images:
+          $ref: '#/components/schemas/serviceImages'
+        supportedStreamingTypes:
+          $ref: '#/components/schemas/supportedStreamingTypes'
+        addons:
+          additionalProperties:
+            $ref: '#/components/schemas/addon'
+          description: Map of id to details of the addons supported by the service
+            in this country.
+          type: object
+      required:
+      - addons
+      - homePage
+      - id
+      - images
+      - name
+      - supportedStreamingTypes
+      - themeColorCode
+      type: object
+      x-additionalPropertiesName: country
     serviceCountryInfo:
       additionalProperties: false
       description: Details of a service in a country.
@@ -1531,7 +1649,7 @@ components:
       - supportedStreamingTypes
       type: object
       x-additionalPropertiesName: country
-    service:
+    deprecatedServiceInfo:
       additionalProperties: false
       description: Details of a service.
       example:
@@ -1564,6 +1682,52 @@ components:
       required:
       - countries
       - id
+      type: object
+    country:
+      additionalProperties: false
+      description: Details of a country.
+      example:
+        countryCode: countryCode
+        name: name
+        services:
+          key:
+            themeColorCode: themeColorCode
+            images:
+              whiteImage: whiteImage
+              darkThemeImage: darkThemeImage
+              lightThemeImage: lightThemeImage
+            addons:
+              key:
+                themeColorCode: themeColorCode
+                image: image
+                displayName: displayName
+                id: id
+                homePage: homePage
+            name: name
+            id: id
+            homePage: homePage
+            supportedStreamingTypes:
+              addon: true
+              buy: true
+              subscription: true
+              rent: true
+              free: true
+      properties:
+        countryCode:
+          description: 2-letter ISO code of the country.
+          type: string
+        name:
+          description: Name of the country.
+          type: string
+        services:
+          additionalProperties:
+            $ref: '#/components/schemas/service'
+          description: Map of service id to details of the service in this country.
+          type: object
+      required:
+      - countryCode
+      - name
+      - services
       type: object
     imdbId:
       description: "[IMDb](https://www.imdb.com/) ID of the show."
@@ -1953,8 +2117,13 @@ components:
       type: object
     servicesResult:
       additionalProperties:
-        $ref: '#/components/schemas/service'
+        $ref: '#/components/schemas/deprecatedServiceInfo'
       description: Map of service id to service details.
+      type: object
+    countriesResult:
+      additionalProperties:
+        $ref: '#/components/schemas/country'
+      description: Map of country code to country details.
       type: object
     servicesResponseSchema:
       additionalProperties: false
@@ -1980,9 +2149,50 @@ components:
       properties:
         result:
           additionalProperties:
-            $ref: '#/components/schemas/service'
+            $ref: '#/components/schemas/deprecatedServiceInfo'
           description: Map of service id to service details.
           type: object
+      required:
+      - result
+      type: object
+    countriesResponseSchema:
+      additionalProperties: false
+      example:
+        result:
+          key:
+            countryCode: countryCode
+            name: name
+            services:
+              key:
+                themeColorCode: themeColorCode
+                images:
+                  whiteImage: whiteImage
+                  darkThemeImage: darkThemeImage
+                  lightThemeImage: lightThemeImage
+                addons:
+                  key:
+                    themeColorCode: themeColorCode
+                    image: image
+                    displayName: displayName
+                    id: id
+                    homePage: homePage
+                name: name
+                id: id
+                homePage: homePage
+                supportedStreamingTypes:
+                  addon: true
+                  buy: true
+                  subscription: true
+                  rent: true
+                  free: true
+      properties:
+        result:
+          additionalProperties:
+            $ref: '#/components/schemas/country'
+          description: Map of country code to country details.
+          type: object
+      required:
+      - result
       type: object
     genresResponseSchema:
       additionalProperties: false
@@ -1996,6 +2206,8 @@ components:
             x-additionalPropertiesName: genreId
           description: Map of genre id to genre name.
           type: object
+      required:
+      - result
       type: object
     change:
       description: A past or upcoming change in a catalog.
@@ -2562,6 +2774,8 @@ components:
       properties:
         message:
           type: string
+      required:
+      - message
       type: object
     getResponseSchema:
       additionalProperties: false
@@ -2631,6 +2845,8 @@ components:
       properties:
         result:
           $ref: '#/components/schemas/show'
+      required:
+      - result
       type: object
     nextCursor:
       description: Cursor value to pass to get next set of the results. An empty string

@@ -1,46 +1,46 @@
-# ServicesResponseSchema
+# CountriesResponseSchema
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Result** | [**map[string]DeprecatedServiceInfo**](DeprecatedServiceInfo.md) | Map of service id to service details. | 
+**Result** | [**map[string]Country**](Country.md) | Map of country code to country details. | 
 
 ## Methods
 
-### NewServicesResponseSchema
+### NewCountriesResponseSchema
 
-`func NewServicesResponseSchema(result map[string]DeprecatedServiceInfo, ) *ServicesResponseSchema`
+`func NewCountriesResponseSchema(result map[string]Country, ) *CountriesResponseSchema`
 
-NewServicesResponseSchema instantiates a new ServicesResponseSchema object
+NewCountriesResponseSchema instantiates a new CountriesResponseSchema object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewServicesResponseSchemaWithDefaults
+### NewCountriesResponseSchemaWithDefaults
 
-`func NewServicesResponseSchemaWithDefaults() *ServicesResponseSchema`
+`func NewCountriesResponseSchemaWithDefaults() *CountriesResponseSchema`
 
-NewServicesResponseSchemaWithDefaults instantiates a new ServicesResponseSchema object
+NewCountriesResponseSchemaWithDefaults instantiates a new CountriesResponseSchema object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetResult
 
-`func (o *ServicesResponseSchema) GetResult() map[string]DeprecatedServiceInfo`
+`func (o *CountriesResponseSchema) GetResult() map[string]Country`
 
 GetResult returns the Result field if non-nil, zero value otherwise.
 
 ### GetResultOk
 
-`func (o *ServicesResponseSchema) GetResultOk() (*map[string]DeprecatedServiceInfo, bool)`
+`func (o *CountriesResponseSchema) GetResultOk() (*map[string]Country, bool)`
 
 GetResultOk returns a tuple with the Result field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetResult
 
-`func (o *ServicesResponseSchema) SetResult(v map[string]DeprecatedServiceInfo)`
+`func (o *CountriesResponseSchema) SetResult(v map[string]Country)`
 
 SetResult sets Result field to given value.
 

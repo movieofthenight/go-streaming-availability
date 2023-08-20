@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Message** | Pointer to **string** |  | [optional] 
+**Message** | **string** |  | 
 
 ## Methods
 
 ### NewNotFoundResponseSchema
 
-`func NewNotFoundResponseSchema() *NotFoundResponseSchema`
+`func NewNotFoundResponseSchema(message string, ) *NotFoundResponseSchema`
 
 NewNotFoundResponseSchema instantiates a new NotFoundResponseSchema object
 This constructor will assign default values to properties that have it defined,
@@ -44,11 +44,6 @@ and a boolean to check if the value has been set.
 
 SetMessage sets Message field to given value.
 
-### HasMessage
-
-`func (o *NotFoundResponseSchema) HasMessage() bool`
-
-HasMessage returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
