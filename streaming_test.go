@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/movieofthenight/go-streaming-availability"
+	"github.com/movieofthenight/go-streaming-availability/v2"
 )
 
 func TestStreaming(t *testing.T) {
@@ -17,7 +17,7 @@ func TestStreaming(t *testing.T) {
 	}
 	configuration := streaming.NewConfiguration()
 	configuration.AddDefaultHeader("X-RapidAPI-Key", rapidApiKey)
-	client := streaming.NewAPIClient(configuration).DefaultApi
+	client := streaming.NewAPIClient(configuration).DefaultAPI
 	for testName, testFunc := range testFuncMap {
 		t.Run(testName, func(t *testing.T) {
 			c, cancel := context.WithTimeout(context.Background(), 10*time.Second)
@@ -27,7 +27,7 @@ func TestStreaming(t *testing.T) {
 	}
 }
 
-type testFunc func(t *testing.T, client *streaming.DefaultApiService, c context.Context)
+type testFunc func(t *testing.T, client *streaming.DefaultAPIService, c context.Context)
 
 var testFuncMap = map[string]testFunc{
 	"countries":       testCountries,
@@ -39,31 +39,31 @@ var testFuncMap = map[string]testFunc{
 	"leaving":         testLeaving,
 }
 
-func testCountries(t *testing.T, client *streaming.DefaultApiService, c context.Context) {
+func testCountries(t *testing.T, client *streaming.DefaultAPIService, c context.Context) {
 	validate(t, client.Countries(c).Execute)
 }
 
-func testGenres(t *testing.T, client *streaming.DefaultApiService, c context.Context) {
+func testGenres(t *testing.T, client *streaming.DefaultAPIService, c context.Context) {
 	validate(t, client.Genres(c).Execute)
 }
 
-func testGyById(t *testing.T, client *streaming.DefaultApiService, c context.Context) {
+func testGyById(t *testing.T, client *streaming.DefaultAPIService, c context.Context) {
 	validate(t, client.GetById(c).ImdbId("tt0120338").Execute)
 }
 
-func testSearchByFilters(t *testing.T, client *streaming.DefaultApiService, c context.Context) {
+func testSearchByFilters(t *testing.T, client *streaming.DefaultAPIService, c context.Context) {
 	validate(t, client.SearchByFilters(c).Country("us").Services("netflix").Execute)
 }
 
-func testSearchByTitle(t *testing.T, client *streaming.DefaultApiService, c context.Context) {
+func testSearchByTitle(t *testing.T, client *streaming.DefaultAPIService, c context.Context) {
 	validate(t, client.SearchByTitle(c).Country("us").Title("batman").Execute)
 }
 
-func testChanges(t *testing.T, client *streaming.DefaultApiService, c context.Context) {
+func testChanges(t *testing.T, client *streaming.DefaultAPIService, c context.Context) {
 	validate(t, client.Changes(c).Country("us").Services("netflix").ChangeType("updated").TargetType("show").Execute)
 }
 
-func testLeaving(t *testing.T, client *streaming.DefaultApiService, c context.Context) {
+func testLeaving(t *testing.T, client *streaming.DefaultAPIService, c context.Context) {
 	validate(t, client.Leaving(c).Country("us").Services("netflix").TargetType("show").Execute)
 }
 

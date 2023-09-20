@@ -7,7 +7,7 @@ info:
     name: MIT
     url: https://spdx.org/licenses/MIT.html
   title: Streaming Availability API
-  version: 3.1.0
+  version: 3.2.0
 servers:
 - url: https://streaming-availability.p.rapidapi.com
 security:
@@ -27,7 +27,6 @@ paths:
                 Countries:
                   description: Countries
                   externalValue: https://www.movieofthenight.com/openapi/example/countries
-                  value: null
               schema:
                 $ref: '#/components/schemas/countriesResponseSchema'
           description: Details of the supported countries.
@@ -44,7 +43,6 @@ paths:
                 Genres:
                   description: Genres
                   externalValue: https://www.movieofthenight.com/openapi/example/genres
-                  value: null
               schema:
                 $ref: '#/components/schemas/genresResponseSchema'
           description: Id to name mapping of the supported genres.
@@ -88,6 +86,36 @@ paths:
           type: string
         style: form
       - description: |
+          "series_granularity" determines the level of detail for series. It does not affect movies.
+          If "series_granularity" is "show", then the output will not include season and episode info.
+          If "series_granularity" is "season", then the output will include season info but not episode info.
+          If "series_granularity" is "episode", then the output will include season and episode info.
+          If you do not need season and episode info, then it is recommended to set "series_granularity" as "show" to reduce the size of the response and increase the performance. Depending on the query (i.e. if the result set includes series with high amount of seasons/episodes), this can reduce the response size and the response time drastically.
+          If you need deep links for individual seasons and episodes, then you should set "series_granularity" as "episode". In this case response will include full streaming info for seasons and episodes, similar to the streaming info for movies and series; including deep links into seasons and episodes, individual subtitle/audio and video quality info etc.
+          If "series_granularity" is not supplied, then it is set as "episode" by default.
+        examples:
+          Show:
+            description: Do not include season or episode info.
+            value: show
+          Season:
+            description: Include season info but not episode info.
+            value: season
+          Episode:
+            description: Include season and episode info.
+            value: episode
+        explode: true
+        in: query
+        name: series_granularity
+        required: false
+        schema:
+          default: episode
+          enum:
+          - show
+          - season
+          - episode
+          type: string
+        style: form
+      - description: |
           [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639-1) code of the output language. Determines in which language the output field "title" will be in. It also effects how the keyword input will be handled in search endpoints. (i.e. if "output_language" is "es", then the "keyword" will be treated as a Spanish word).
         examples:
           English:
@@ -118,22 +146,18 @@ paths:
                   description: |
                     "imdb_id=tt0944947" or "tmdb_id=tv/1399"
                   externalValue: https://www.movieofthenight.com/openapi/example/get/game-of-thrones
-                  value: null
                 The Godfather:
                   description: |
                     "imdb_id=tt0068646" or "tmdb_id=movie/238"
                   externalValue: https://www.movieofthenight.com/openapi/example/get/the-godfather
-                  value: null
                 The Queen's Gambit:
                   description: |
                     "imdb_id=tt10048342" or "tmdb_id=tv/87739"
                   externalValue: https://www.movieofthenight.com/openapi/example/get/the-queens-gambit
-                  value: null
                 Palm Springs:
                   description: |
                     "imdb_id=tt9484998" or "tmdb_id=movie/587792"
                   externalValue: https://www.movieofthenight.com/openapi/example/get/palm-springs
-                  value: null
               schema:
                 $ref: '#/components/schemas/getResponseSchema'
           description: Details of the show.
@@ -155,15 +179,33 @@ paths:
         Search through the catalog of the given streaming services in the given country. Provides filters such as show language, genre, keyword and release year. Items per page is "25". Can pass up to "16" services in the "services" parameter Output includes all the information about the shows, such as title, IMDb ID, TMDb ID, release year, link to shows' pages in streaming services (including individual season/episode links), available subtitles, audios, available video quality and many more! Apart from the info about the given country-service combinations, output also includes information about streaming availability in the other services for the given country.
       operationId: searchByFilters
       parameters:
-      - description: "[ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)\
-          \ code of the target country."
+      - description: |
+          [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code of the target country. See "/countries" endpoint to get the list of supported countries.
         examples:
+          Canada:
+            description: ISO 3166-1 alpha-2 code of Canada.
+            value: ca
           United States:
             description: ISO 3166-1 alpha-2 code of United States.
             value: us
+          Brazil:
+            description: ISO 3166-1 alpha-2 code of Brazil.
+            value: br
           United Kingdom:
             description: ISO 3166-1 alpha-2 code of United Kingdom.
             value: gb
+          Germany:
+            description: ISO 3166-1 alpha-2 code of Germany.
+            value: de
+          South Africa:
+            description: ISO 3166-1 alpha-2 code of South Africa.
+            value: za
+          India:
+            description: ISO 3166-1 alpha-2 code of India.
+            value: in
+          Japan:
+            description: ISO 3166-1 alpha-2 code of Japan.
+            value: jp
         explode: true
         in: query
         name: country
@@ -255,6 +297,36 @@ paths:
           - movie
           - series
           - all
+          type: string
+        style: form
+      - description: |
+          "series_granularity" determines the level of detail for series. It does not affect movies.
+          If "series_granularity" is "show", then the output will not include season and episode info.
+          If "series_granularity" is "season", then the output will include season info but not episode info.
+          If "series_granularity" is "episode", then the output will include season and episode info.
+          If you do not need season and episode info, then it is recommended to set "series_granularity" as "show" to reduce the size of the response and increase the performance. Depending on the query (i.e. if the result set includes series with high amount of seasons/episodes), this can reduce the response size and the response time drastically.
+          If you need deep links for individual seasons and episodes, then you should set "series_granularity" as "episode". In this case response will include full streaming info for seasons and episodes, similar to the streaming info for movies and series; including deep links into seasons and episodes, individual subtitle/audio and video quality info etc.
+          If "series_granularity" is not supplied, then it is set as "episode" by default.
+        examples:
+          Show:
+            description: Do not include season or episode info.
+            value: show
+          Season:
+            description: Include season info but not episode info.
+            value: season
+          Episode:
+            description: Include season and episode info.
+            value: episode
+        explode: true
+        in: query
+        name: series_granularity
+        required: false
+        schema:
+          default: episode
+          enum:
+          - show
+          - season
+          - episode
           type: string
         style: form
       - description: |
@@ -363,11 +435,23 @@ paths:
       - description: Determines the ordering of the results.
         examples:
           Original Title:
-            description: Order alphabetically by original titles
+            description: Order alphabetically by original titles.
             value: original_title
           Year:
-            description: Order by release/air years
+            description: Order by release/air years.
             value: year
+          Popularity Alltime:
+            description: Order by all time popularity in the country.
+            value: popularity_alltime
+          Popularity 1 Year:
+            description: Order by popularity in the last 365 days in the country.
+            value: popularity_1year
+          Popularity 1 Month:
+            description: Order by popularity in the last 31 days in the country.
+            value: popularity_1month
+          Popularity 1 Week:
+            description: Order by popularity in the last 7 days in the country.
+            value: popularity_1week
         explode: true
         in: query
         name: order_by
@@ -377,6 +461,10 @@ paths:
           enum:
           - original_title
           - year
+          - popularity_alltime
+          - popularity_1year
+          - popularity_1month
+          - popularity_1week
           type: string
         style: form
       - description: The results are ordered in descending order if set true.
@@ -414,22 +502,18 @@ paths:
                   description: |
                     "country=us&services=netflix&show_type=movie&genres=28&keyword=zombie"
                   externalValue: https://www.movieofthenight.com/openapi/example/search/filters/netflix-zombie-action-movies
-                  value: null
-                Comedy Series on Hulu:
+                All-Time Most Popular Comedy Series on Hulu:
                   description: |
-                    "country=us&services=hulu.subscription&show_type=series&genres=35"
+                    "country=us&services=hulu.subscription&show_type=series&genres=35&order_by=popularity_alltime&desc=true"
                   externalValue: https://www.movieofthenight.com/openapi/example/search/filters/hulu-comedy-series
-                  value: null
                 Recent RomCom Shows on Netflix and Prime Video Canada:
                   description: |
                     "country=ca&services=netflix,prime.subscription&show_type=all&genres=35,10749&genres_relation=and&order_by=year&desc=true"
                   externalValue: https://www.movieofthenight.com/openapi/example/search/filters/netflix-prime-recent-romcom-shows
-                  value: null
                 Rentable/Buyable Movies from 80s on Apple TV US:
                   description: |
                     "country=us&services=apple.buy,apple.rent&show_type=movie&year_min=1980&year_max=1989"
                   externalValue: https://www.movieofthenight.com/openapi/example/search/filters/apple-rentable-buyable-80s-movies
-                  value: null
               schema:
                 $ref: '#/components/schemas/searchFiltersResponseSchema'
           description: Response to a search by filters query.
@@ -479,20 +563,68 @@ paths:
           - all
           type: string
         style: form
-      - description: "[ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)\
-          \ code of the target country."
+      - description: |
+          [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code of the target country. See "/countries" endpoint to get the list of supported countries.
         examples:
+          Canada:
+            description: ISO 3166-1 alpha-2 code of Canada.
+            value: ca
           United States:
             description: ISO 3166-1 alpha-2 code of United States.
             value: us
+          Brazil:
+            description: ISO 3166-1 alpha-2 code of Brazil.
+            value: br
           United Kingdom:
             description: ISO 3166-1 alpha-2 code of United Kingdom.
             value: gb
+          Germany:
+            description: ISO 3166-1 alpha-2 code of Germany.
+            value: de
+          South Africa:
+            description: ISO 3166-1 alpha-2 code of South Africa.
+            value: za
+          India:
+            description: ISO 3166-1 alpha-2 code of India.
+            value: in
+          Japan:
+            description: ISO 3166-1 alpha-2 code of Japan.
+            value: jp
         explode: true
         in: query
         name: country
         required: true
         schema:
+          type: string
+        style: form
+      - description: |
+          "series_granularity" determines the level of detail for series. It does not affect movies.
+          If "series_granularity" is "show", then the output will not include season and episode info.
+          If "series_granularity" is "season", then the output will include season info but not episode info.
+          If "series_granularity" is "episode", then the output will include season and episode info.
+          If you do not need season and episode info, then it is recommended to set "series_granularity" as "show" to reduce the size of the response and increase the performance. Depending on the query (i.e. if the result set includes series with high amount of seasons/episodes), this can reduce the response size and the response time drastically.
+          If you need deep links for individual seasons and episodes, then you should set "series_granularity" as "episode". In this case response will include full streaming info for seasons and episodes, similar to the streaming info for movies and series; including deep links into seasons and episodes, individual subtitle/audio and video quality info etc.
+          If "series_granularity" is not supplied, then it is set as "episode" by default.
+        examples:
+          Show:
+            description: Do not include season or episode info.
+            value: show
+          Season:
+            description: Include season info but not episode info.
+            value: season
+          Episode:
+            description: Include season and episode info.
+            value: episode
+        explode: true
+        in: query
+        name: series_granularity
+        required: false
+        schema:
+          default: episode
+          enum:
+          - show
+          - season
+          - episode
           type: string
         style: form
       - description: |
@@ -526,12 +658,10 @@ paths:
                   description: |
                     "title=Batman&country=us"
                   externalValue: https://www.movieofthenight.com/openapi/example/search/title/batman
-                  value: null
                 Harry Potter Movies:
                   description: |
-                    "title=Harry Potter&show_type=movie&country=us"
+                    "title=Harry%20Potter&show_type=movie&country=us"
                   externalValue: https://www.movieofthenight.com/openapi/example/search/title/harry-potter
-                  value: null
               schema:
                 $ref: '#/components/schemas/searchTitleResponseSchema'
           description: Response to a search by title query.
@@ -543,15 +673,33 @@ paths:
         Note that changes for the same show are aggregated together into a single "changes" array for that show. Which means there might be cases where the count of the items in the result array might be fewer than the maximum changes listed per page. (i.e. When "target_type" is "season", there might be 10 items in the result array, but the overall total number of changes listed across the "changes" arrays will be still 50, given that there are at least 50 changes matches with the given query.)
       operationId: changes
       parameters:
-      - description: "[ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)\
-          \ code of the target country."
+      - description: |
+          [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code of the target country. See "/countries" endpoint to get the list of supported countries.
         examples:
+          Canada:
+            description: ISO 3166-1 alpha-2 code of Canada.
+            value: ca
           United States:
             description: ISO 3166-1 alpha-2 code of United States.
             value: us
+          Brazil:
+            description: ISO 3166-1 alpha-2 code of Brazil.
+            value: br
           United Kingdom:
             description: ISO 3166-1 alpha-2 code of United Kingdom.
             value: gb
+          Germany:
+            description: ISO 3166-1 alpha-2 code of Germany.
+            value: de
+          South Africa:
+            description: ISO 3166-1 alpha-2 code of South Africa.
+            value: za
+          India:
+            description: ISO 3166-1 alpha-2 code of India.
+            value: in
+          Japan:
+            description: ISO 3166-1 alpha-2 code of Japan.
+            value: jp
         explode: true
         in: query
         name: country
@@ -730,17 +878,14 @@ paths:
                   description: |
                     "country=us&services=netflix&change_type=updated&target_type=show&desc=true"
                   externalValue: https://www.movieofthenight.com/openapi/example/changes/netflix/updated/show
-                  value: null
                 Movies Removed from Disney+ Germany:
                   description: |
                     "country=de&services=disney&change_type=removed&target_type=movie&desc=true"
                   externalValue: https://www.movieofthenight.com/openapi/example/changes/disney/removed/movie
-                  value: null
                 New Series Episodes on Max:
                   description: |
                     "country=us&services=hbo&change_type=new&target_type=episode&desc=true"
                   externalValue: https://www.movieofthenight.com/openapi/example/changes/hbo/new/episode
-                  value: null
               schema:
                 $ref: '#/components/schemas/changesResponseSchema'
           description: Response to a change query.
@@ -752,15 +897,33 @@ paths:
         Note that upcoming changes for the same show are aggregated together into a single "upcomingChanges" array for that show. Which means there might be cases where the count of the items in the result array might be fewer than the maximum upcoming changes listed per page. (i.e. When "target_type" is "season", there might be 10 items in the result array, but the overall total number of upcoming changes listed across the "upcomingChanges" arrays will be still 50, given that there are at least 50 upcoming changes matches with the given query.)
       operationId: leaving
       parameters:
-      - description: "[ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)\
-          \ code of the target country."
+      - description: |
+          [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code of the target country. See "/countries" endpoint to get the list of supported countries.
         examples:
+          Canada:
+            description: ISO 3166-1 alpha-2 code of Canada.
+            value: ca
           United States:
             description: ISO 3166-1 alpha-2 code of United States.
             value: us
+          Brazil:
+            description: ISO 3166-1 alpha-2 code of Brazil.
+            value: br
           United Kingdom:
             description: ISO 3166-1 alpha-2 code of United Kingdom.
             value: gb
+          Germany:
+            description: ISO 3166-1 alpha-2 code of Germany.
+            value: de
+          South Africa:
+            description: ISO 3166-1 alpha-2 code of South Africa.
+            value: za
+          India:
+            description: ISO 3166-1 alpha-2 code of India.
+            value: in
+          Japan:
+            description: ISO 3166-1 alpha-2 code of Japan.
+            value: jp
         explode: true
         in: query
         name: country
@@ -880,17 +1043,14 @@ paths:
                   description: |
                     "country=us&services=hulu.subscription&target_type=show"
                   externalValue: https://www.movieofthenight.com/openapi/example/leaving/hulu/show
-                  value: null
                 Movies Leaving Max:
                   description: |
                     "country=us&services=hbo.subscription&target_type=movie"
                   externalValue: https://www.movieofthenight.com/openapi/example/leaving/hbo/movie
-                  value: null
                 Series Leaving Paramount+ Germany:
                   description: |
                     "country=de&services=paramount&target_type=series"
                   externalValue: https://www.movieofthenight.com/openapi/example/leaving/paramount/series
-                  value: null
               schema:
                 $ref: '#/components/schemas/upcomingChangesResponseSchema'
           description: Response to a leaving query.
@@ -910,7 +1070,6 @@ paths:
                 Services:
                   description: Services
                   externalValue: https://www.movieofthenight.com/openapi/example/services
-                  value: null
               schema:
                 $ref: '#/components/schemas/servicesResponseSchema'
           description: Details of the supported services.
@@ -1137,11 +1296,23 @@ components:
       description: Determines the ordering of the results.
       examples:
         Original Title:
-          description: Order alphabetically by original titles
+          description: Order alphabetically by original titles.
           value: original_title
         Year:
-          description: Order by release/air years
+          description: Order by release/air years.
           value: year
+        Popularity Alltime:
+          description: Order by all time popularity in the country.
+          value: popularity_alltime
+        Popularity 1 Year:
+          description: Order by popularity in the last 365 days in the country.
+          value: popularity_1year
+        Popularity 1 Month:
+          description: Order by popularity in the last 31 days in the country.
+          value: popularity_1month
+        Popularity 1 Week:
+          description: Order by popularity in the last 7 days in the country.
+          value: popularity_1week
       explode: true
       in: query
       name: order_by
@@ -1151,6 +1322,10 @@ components:
         enum:
         - original_title
         - year
+        - popularity_alltime
+        - popularity_1year
+        - popularity_1month
+        - popularity_1week
         type: string
       style: form
     descParam:
@@ -1232,15 +1407,33 @@ components:
         type: string
       style: form
     countryParam:
-      description: "[ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)\
-        \ code of the target country."
+      description: |
+        [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code of the target country. See "/countries" endpoint to get the list of supported countries.
       examples:
+        Canada:
+          description: ISO 3166-1 alpha-2 code of Canada.
+          value: ca
         United States:
           description: ISO 3166-1 alpha-2 code of United States.
           value: us
+        Brazil:
+          description: ISO 3166-1 alpha-2 code of Brazil.
+          value: br
         United Kingdom:
           description: ISO 3166-1 alpha-2 code of United Kingdom.
           value: gb
+        Germany:
+          description: ISO 3166-1 alpha-2 code of Germany.
+          value: de
+        South Africa:
+          description: ISO 3166-1 alpha-2 code of South Africa.
+          value: za
+        India:
+          description: ISO 3166-1 alpha-2 code of India.
+          value: in
+        Japan:
+          description: ISO 3166-1 alpha-2 code of Japan.
+          value: jp
       explode: true
       in: query
       name: country
@@ -1305,6 +1498,37 @@ components:
         - fr
         type: string
       style: form
+    granularityParam:
+      description: |
+        "series_granularity" determines the level of detail for series. It does not affect movies.
+        If "series_granularity" is "show", then the output will not include season and episode info.
+        If "series_granularity" is "season", then the output will include season info but not episode info.
+        If "series_granularity" is "episode", then the output will include season and episode info.
+        If you do not need season and episode info, then it is recommended to set "series_granularity" as "show" to reduce the size of the response and increase the performance. Depending on the query (i.e. if the result set includes series with high amount of seasons/episodes), this can reduce the response size and the response time drastically.
+        If you need deep links for individual seasons and episodes, then you should set "series_granularity" as "episode". In this case response will include full streaming info for seasons and episodes, similar to the streaming info for movies and series; including deep links into seasons and episodes, individual subtitle/audio and video quality info etc.
+        If "series_granularity" is not supplied, then it is set as "episode" by default.
+      examples:
+        Show:
+          description: Do not include season or episode info.
+          value: show
+        Season:
+          description: Include season info but not episode info.
+          value: season
+        Episode:
+          description: Include season and episode info.
+          value: episode
+      explode: true
+      in: query
+      name: series_granularity
+      required: false
+      schema:
+        default: episode
+        enum:
+        - show
+        - season
+        - episode
+        type: string
+      style: form
   responses:
     countriesResponse:
       content:
@@ -1313,7 +1537,6 @@ components:
             Countries:
               description: Countries
               externalValue: https://www.movieofthenight.com/openapi/example/countries
-              value: null
           schema:
             $ref: '#/components/schemas/countriesResponseSchema'
       description: Details of the supported countries.
@@ -1324,7 +1547,6 @@ components:
             Services:
               description: Services
               externalValue: https://www.movieofthenight.com/openapi/example/services
-              value: null
           schema:
             $ref: '#/components/schemas/servicesResponseSchema'
       description: Details of the supported services.
@@ -1335,7 +1557,6 @@ components:
             Genres:
               description: Genres
               externalValue: https://www.movieofthenight.com/openapi/example/genres
-              value: null
           schema:
             $ref: '#/components/schemas/genresResponseSchema'
       description: Id to name mapping of the supported genres.
@@ -1358,22 +1579,18 @@ components:
               description: |
                 "imdb_id=tt0944947" or "tmdb_id=tv/1399"
               externalValue: https://www.movieofthenight.com/openapi/example/get/game-of-thrones
-              value: null
             The Godfather:
               description: |
                 "imdb_id=tt0068646" or "tmdb_id=movie/238"
               externalValue: https://www.movieofthenight.com/openapi/example/get/the-godfather
-              value: null
             The Queen's Gambit:
               description: |
                 "imdb_id=tt10048342" or "tmdb_id=tv/87739"
               externalValue: https://www.movieofthenight.com/openapi/example/get/the-queens-gambit
-              value: null
             Palm Springs:
               description: |
                 "imdb_id=tt9484998" or "tmdb_id=movie/587792"
               externalValue: https://www.movieofthenight.com/openapi/example/get/palm-springs
-              value: null
           schema:
             $ref: '#/components/schemas/getResponseSchema'
       description: Details of the show.
@@ -1385,22 +1602,18 @@ components:
               description: |
                 "country=us&services=netflix&show_type=movie&genres=28&keyword=zombie"
               externalValue: https://www.movieofthenight.com/openapi/example/search/filters/netflix-zombie-action-movies
-              value: null
-            Comedy Series on Hulu:
+            All-Time Most Popular Comedy Series on Hulu:
               description: |
-                "country=us&services=hulu.subscription&show_type=series&genres=35"
+                "country=us&services=hulu.subscription&show_type=series&genres=35&order_by=popularity_alltime&desc=true"
               externalValue: https://www.movieofthenight.com/openapi/example/search/filters/hulu-comedy-series
-              value: null
             Recent RomCom Shows on Netflix and Prime Video Canada:
               description: |
                 "country=ca&services=netflix,prime.subscription&show_type=all&genres=35,10749&genres_relation=and&order_by=year&desc=true"
               externalValue: https://www.movieofthenight.com/openapi/example/search/filters/netflix-prime-recent-romcom-shows
-              value: null
             Rentable/Buyable Movies from 80s on Apple TV US:
               description: |
                 "country=us&services=apple.buy,apple.rent&show_type=movie&year_min=1980&year_max=1989"
               externalValue: https://www.movieofthenight.com/openapi/example/search/filters/apple-rentable-buyable-80s-movies
-              value: null
           schema:
             $ref: '#/components/schemas/searchFiltersResponseSchema'
       description: Response to a search by filters query.
@@ -1412,12 +1625,10 @@ components:
               description: |
                 "title=Batman&country=us"
               externalValue: https://www.movieofthenight.com/openapi/example/search/title/batman
-              value: null
             Harry Potter Movies:
               description: |
-                "title=Harry Potter&show_type=movie&country=us"
+                "title=Harry%20Potter&show_type=movie&country=us"
               externalValue: https://www.movieofthenight.com/openapi/example/search/title/harry-potter
-              value: null
           schema:
             $ref: '#/components/schemas/searchTitleResponseSchema'
       description: Response to a search by title query.
@@ -1429,17 +1640,14 @@ components:
               description: |
                 "country=us&services=netflix&change_type=updated&target_type=show&desc=true"
               externalValue: https://www.movieofthenight.com/openapi/example/changes/netflix/updated/show
-              value: null
             Movies Removed from Disney+ Germany:
               description: |
                 "country=de&services=disney&change_type=removed&target_type=movie&desc=true"
               externalValue: https://www.movieofthenight.com/openapi/example/changes/disney/removed/movie
-              value: null
             New Series Episodes on Max:
               description: |
                 "country=us&services=hbo&change_type=new&target_type=episode&desc=true"
               externalValue: https://www.movieofthenight.com/openapi/example/changes/hbo/new/episode
-              value: null
           schema:
             $ref: '#/components/schemas/changesResponseSchema'
       description: Response to a change query.
@@ -1451,17 +1659,14 @@ components:
               description: |
                 "country=us&services=hulu.subscription&target_type=show"
               externalValue: https://www.movieofthenight.com/openapi/example/leaving/hulu/show
-              value: null
             Movies Leaving Max:
               description: |
                 "country=us&services=hbo.subscription&target_type=movie"
               externalValue: https://www.movieofthenight.com/openapi/example/leaving/hbo/movie
-              value: null
             Series Leaving Paramount+ Germany:
               description: |
                 "country=de&services=paramount&target_type=series"
               externalValue: https://www.movieofthenight.com/openapi/example/leaving/paramount/series
-              value: null
           schema:
             $ref: '#/components/schemas/upcomingChangesResponseSchema'
       description: Response to a leaving query.
