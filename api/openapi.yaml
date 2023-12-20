@@ -7,7 +7,7 @@ info:
     name: MIT
     url: https://spdx.org/licenses/MIT.html
   title: Streaming Availability API
-  version: 3.3.0
+  version: 3.3.1
 servers:
 - url: https://streaming-availability.p.rapidapi.com
 security:
@@ -1717,6 +1717,7 @@ components:
       - homePage
       - id
       - image
+      - images
       - themeColorCode
       type: object
       x-additionalPropertiesName: addon

@@ -9,13 +9,13 @@ Name | Type | Description | Notes
 **HomePage** | **string** | Link to the homepage of the addon. | 
 **ThemeColorCode** | **string** | Associated theme color hex code of the addon. | 
 **Image** | **string** | Link to the logo of the addon. Deprecated, use \&quot;images\&quot; instead. | 
-**Images** | Pointer to [**ImageSet**](ImageSet.md) |  | [optional] 
+**Images** | [**ImageSet**](ImageSet.md) |  | 
 
 ## Methods
 
 ### NewAddon
 
-`func NewAddon(id string, displayName string, homePage string, themeColorCode string, image string, ) *Addon`
+`func NewAddon(id string, displayName string, homePage string, themeColorCode string, image string, images ImageSet, ) *Addon`
 
 NewAddon instantiates a new Addon object
 This constructor will assign default values to properties that have it defined,
@@ -149,11 +149,6 @@ and a boolean to check if the value has been set.
 
 SetImages sets Images field to given value.
 
-### HasImages
-
-`func (o *Addon) HasImages() bool`
-
-HasImages returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
