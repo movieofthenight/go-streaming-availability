@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Name** | **string** | Name of the service. | 
 **HomePage** | **string** | Link to the homepage of the service. | 
 **ThemeColorCode** | **string** | Associated theme color hex code of the service. | 
-**Images** | [**ServiceImages**](ServiceImages.md) |  | 
+**Images** | [**ImageSet**](ImageSet.md) |  | 
 **SupportedStreamingTypes** | [**SupportedStreamingTypes**](SupportedStreamingTypes.md) |  | 
 **Addons** | [**map[string]Addon**](Addon.md) | Map of id to details of the addons supported by the service in this country. | 
 
@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 
 ### NewService
 
-`func NewService(id string, name string, homePage string, themeColorCode string, images ServiceImages, supportedStreamingTypes SupportedStreamingTypes, addons map[string]Addon, ) *Service`
+`func NewService(id string, name string, homePage string, themeColorCode string, images ImageSet, supportedStreamingTypes SupportedStreamingTypes, addons map[string]Addon, ) *Service`
 
 NewService instantiates a new Service object
 This constructor will assign default values to properties that have it defined,
@@ -113,20 +113,20 @@ SetThemeColorCode sets ThemeColorCode field to given value.
 
 ### GetImages
 
-`func (o *Service) GetImages() ServiceImages`
+`func (o *Service) GetImages() ImageSet`
 
 GetImages returns the Images field if non-nil, zero value otherwise.
 
 ### GetImagesOk
 
-`func (o *Service) GetImagesOk() (*ServiceImages, bool)`
+`func (o *Service) GetImagesOk() (*ImageSet, bool)`
 
 GetImagesOk returns a tuple with the Images field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetImages
 
-`func (o *Service) SetImages(v ServiceImages)`
+`func (o *Service) SetImages(v ImageSet)`
 
 SetImages sets Images field to given value.
 

@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/movieofthenight/go-streaming-availability/v2"
+	"github.com/movieofthenight/go-streaming-availability/v3"
 )
 
 func TestStreaming(t *testing.T) {

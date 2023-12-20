@@ -2,12 +2,12 @@ openapi: 3.0.3
 info:
   description: "Streaming Availability API allows getting streaming availability information\
     \ of movies and series; and querying the list of available shows on streaming\
-    \ services such as Netflix, Disney+, Apple TV, Max and Hulu across 58 countries!"
+    \ services such as Netflix, Disney+, Apple TV, Max and Hulu across 59 countries!"
   license:
     name: MIT
     url: https://spdx.org/licenses/MIT.html
   title: Streaming Availability API
-  version: 3.2.0
+  version: 3.3.0
 servers:
 - url: https://streaming-availability.p.rapidapi.com
 security:
@@ -441,16 +441,20 @@ paths:
             description: Order by release/air years.
             value: year
           Popularity Alltime:
-            description: Order by all time popularity in the country.
+            description: |
+              Order by all-time popularity in the country. Make sure to set "desc" as "true" so that you will get the most popular shows first.
             value: popularity_alltime
           Popularity 1 Year:
-            description: Order by popularity in the last 365 days in the country.
+            description: |
+              Order by popularity in the last 365 days in the country. Make sure to set "desc" as "true" so that you will get the most popular shows first.
             value: popularity_1year
           Popularity 1 Month:
-            description: Order by popularity in the last 31 days in the country.
+            description: |
+              Order by popularity in the last 31 days in the country. Make sure to set "desc" as "true" so that you will get the most popular shows first.
             value: popularity_1month
           Popularity 1 Week:
-            description: Order by popularity in the last 7 days in the country.
+            description: |
+              Order by popularity in the last 7 days in the country. Make sure to set "desc" as "true" so that you will get the most popular shows first.
             value: popularity_1week
         explode: true
         in: query
@@ -1302,16 +1306,20 @@ components:
           description: Order by release/air years.
           value: year
         Popularity Alltime:
-          description: Order by all time popularity in the country.
+          description: |
+            Order by all-time popularity in the country. Make sure to set "desc" as "true" so that you will get the most popular shows first.
           value: popularity_alltime
         Popularity 1 Year:
-          description: Order by popularity in the last 365 days in the country.
+          description: |
+            Order by popularity in the last 365 days in the country. Make sure to set "desc" as "true" so that you will get the most popular shows first.
           value: popularity_1year
         Popularity 1 Month:
-          description: Order by popularity in the last 31 days in the country.
+          description: |
+            Order by popularity in the last 31 days in the country. Make sure to set "desc" as "true" so that you will get the most popular shows first.
           value: popularity_1month
         Popularity 1 Week:
-          description: Order by popularity in the last 7 days in the country.
+          description: |
+            Order by popularity in the last 7 days in the country. Make sure to set "desc" as "true" so that you will get the most popular shows first.
           value: popularity_1week
       explode: true
       in: query
@@ -1677,6 +1685,10 @@ components:
       example:
         themeColorCode: themeColorCode
         image: image
+        images:
+          whiteImage: whiteImage
+          darkThemeImage: darkThemeImage
+          lightThemeImage: lightThemeImage
         displayName: displayName
         id: id
         homePage: homePage
@@ -1694,8 +1706,12 @@ components:
           description: Associated theme color hex code of the addon.
           type: string
         image:
-          description: Link to the logo of the addon.
+          deprecated: true
+          description: "Link to the logo of the addon. Deprecated, use \"images\"\
+            \ instead."
           type: string
+        images:
+          $ref: '#/components/schemas/imageSet'
       required:
       - displayName
       - homePage
@@ -1737,22 +1753,22 @@ components:
       - rent
       - subscription
       type: object
-    serviceImages:
+    imageSet:
       additionalProperties: false
-      description: Images of a service.
+      description: Image set of a service or an addon.
       example:
         whiteImage: whiteImage
         darkThemeImage: darkThemeImage
         lightThemeImage: lightThemeImage
       properties:
         lightThemeImage:
-          description: Link to the logo of the service suitable for light themed background.
+          description: Link to the logo suitable for light themed background.
           type: string
         darkThemeImage:
-          description: Link to the logo of the service suitable for dark themed background.
+          description: Link to the logo suitable for dark themed background.
           type: string
         whiteImage:
-          description: Link to the logo of the service that is all white.
+          description: Link to the logo that is all white.
           type: string
       required:
       - darkThemeImage
@@ -1778,6 +1794,10 @@ components:
           key:
             themeColorCode: themeColorCode
             image: image
+            images:
+              whiteImage: whiteImage
+              darkThemeImage: darkThemeImage
+              lightThemeImage: lightThemeImage
             displayName: displayName
             id: id
             homePage: homePage
@@ -1804,7 +1824,7 @@ components:
           description: Associated theme color hex code of the service.
           type: string
         images:
-          $ref: '#/components/schemas/serviceImages'
+          $ref: '#/components/schemas/imageSet'
         supportedStreamingTypes:
           $ref: '#/components/schemas/supportedStreamingTypes'
         addons:
@@ -1831,6 +1851,10 @@ components:
           key:
             themeColorCode: themeColorCode
             image: image
+            images:
+              whiteImage: whiteImage
+              darkThemeImage: darkThemeImage
+              lightThemeImage: lightThemeImage
             displayName: displayName
             id: id
             homePage: homePage
@@ -1865,6 +1889,10 @@ components:
               key:
                 themeColorCode: themeColorCode
                 image: image
+                images:
+                  whiteImage: whiteImage
+                  darkThemeImage: darkThemeImage
+                  lightThemeImage: lightThemeImage
                 displayName: displayName
                 id: id
                 homePage: homePage
@@ -1905,6 +1933,10 @@ components:
               key:
                 themeColorCode: themeColorCode
                 image: image
+                images:
+                  whiteImage: whiteImage
+                  darkThemeImage: darkThemeImage
+                  lightThemeImage: lightThemeImage
                 displayName: displayName
                 id: id
                 homePage: homePage
@@ -2342,6 +2374,10 @@ components:
                   key:
                     themeColorCode: themeColorCode
                     image: image
+                    images:
+                      whiteImage: whiteImage
+                      darkThemeImage: darkThemeImage
+                      lightThemeImage: lightThemeImage
                     displayName: displayName
                     id: id
                     homePage: homePage
@@ -2378,6 +2414,10 @@ components:
                   key:
                     themeColorCode: themeColorCode
                     image: image
+                    images:
+                      whiteImage: whiteImage
+                      darkThemeImage: darkThemeImage
+                      lightThemeImage: lightThemeImage
                     displayName: displayName
                     id: id
                     homePage: homePage

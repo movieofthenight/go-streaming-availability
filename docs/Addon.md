@@ -8,7 +8,8 @@ Name | Type | Description | Notes
 **DisplayName** | **string** | Name of the addon. | 
 **HomePage** | **string** | Link to the homepage of the addon. | 
 **ThemeColorCode** | **string** | Associated theme color hex code of the addon. | 
-**Image** | **string** | Link to the logo of the addon. | 
+**Image** | **string** | Link to the logo of the addon. Deprecated, use \&quot;images\&quot; instead. | 
+**Images** | Pointer to [**ImageSet**](ImageSet.md) |  | [optional] 
 
 ## Methods
 
@@ -128,6 +129,31 @@ and a boolean to check if the value has been set.
 
 SetImage sets Image field to given value.
 
+
+### GetImages
+
+`func (o *Addon) GetImages() ImageSet`
+
+GetImages returns the Images field if non-nil, zero value otherwise.
+
+### GetImagesOk
+
+`func (o *Addon) GetImagesOk() (*ImageSet, bool)`
+
+GetImagesOk returns a tuple with the Images field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetImages
+
+`func (o *Addon) SetImages(v ImageSet)`
+
+SetImages sets Images field to given value.
+
+### HasImages
+
+`func (o *Addon) HasImages() bool`
+
+HasImages returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

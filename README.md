@@ -5,7 +5,7 @@
 
 ## Streaming Availability API
 
-Streaming Availability API allows getting streaming availability information of movies and series; and querying the list of available shows on streaming services such as Netflix, Disney+, Apple TV, Max and Hulu across 58 countries!
+Streaming Availability API allows getting streaming availability information of movies and series; and querying the list of available shows on streaming services such as Netflix, Disney+, Apple TV, Max and Hulu across 59 countries!
 
 ### API Key
 
@@ -57,7 +57,7 @@ movies, series, seasons and episodes,
 Run
 
 ```shell
-go get github.com/movieofthenight/go-streaming-availability/v2
+go get github.com/movieofthenight/go-streaming-availability/v3
 ```
 
 ## Usage
@@ -65,7 +65,7 @@ go get github.com/movieofthenight/go-streaming-availability/v2
 ```go
 package main
 
-import "github.com/movieofthenight/go-streaming-availability/v2"
+import "github.com/movieofthenight/go-streaming-availability/v3"
 
 const RapidApiKey = "PUT_YOUR_RAPIDAPI_KEY_HERE"
 
@@ -90,7 +90,7 @@ import (
 	"log"
 	"strings"
 
-	"github.com/movieofthenight/go-streaming-availability/v2"
+	"github.com/movieofthenight/go-streaming-availability/v3"
 )
 
 func main() {
@@ -100,7 +100,7 @@ func main() {
 	configuration.AddDefaultHeader("X-RapidAPI-Key", RapidApiKey)
 	client := streaming.NewAPIClient(configuration).DefaultAPI
 
-	country := "us"       // Update with other country codes as you want, we support 58 countries!
+	country := "us"       // Update with other country codes as you want, we support 59 countries!
 	imdbId := "tt0468569" // Imdb id of The Dark Knight
 
 	response, _, err := client.GetById(context.Background()).ImdbId(imdbId).Execute()
@@ -196,8 +196,8 @@ RapidAPI and start using the Streaming Availability API through RapidAPI right a
 
 | Service Id | Service Name | Supported Countries |
 | ---------- | ------------ | ------------------- |
-| `netflix` | Netflix | 57 Countries |
-| `prime` | Amazon Prime Video | 56 Countries |
+| `netflix` | Netflix | 58 Countries |
+| `prime` | Prime Video | 56 Countries |
 | `disney` | Disney+ | 35 Countries |
 | `hbo` | HBO Max | 24 Countries |
 | `hulu` | Hulu | United States |
@@ -275,6 +275,7 @@ RapidAPI and start using the Streaming Availability API through RapidAPI right a
 | `ru` | Russia |
 | `se` | Sweden |
 | `sg` | Singapore |
+| `si` | Slovenia |
 | `th` | Thailand |
 | `tr` | Turkey |
 | `ua` | Ukraine |

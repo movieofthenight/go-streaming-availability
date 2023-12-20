@@ -18,6 +18,7 @@ docs/Episode.md
 docs/Genre.md
 docs/GenresResponseSchema.md
 docs/GetResponseSchema.md
+docs/ImageSet.md
 docs/Locale.md
 docs/NotFoundResponseSchema.md
 docs/Price.md
@@ -27,7 +28,6 @@ docs/Season.md
 docs/SeriesStatus.md
 docs/Service.md
 docs/ServiceCountryInfo.md
-docs/ServiceImages.md
 docs/ServicesResponseSchema.md
 docs/Show.md
 docs/StreamingOption.md
@@ -50,6 +50,7 @@ model_episode.go
 model_genre.go
 model_genres_response_schema.go
 model_get_response_schema.go
+model_image_set.go
 model_locale.go
 model_not_found_response_schema.go
 model_price.go
@@ -59,7 +60,6 @@ model_season.go
 model_series_status.go
 model_service.go
 model_service_country_info.go
-model_service_images.go
 model_services_response_schema.go
 model_show.go
 model_streaming_option.go

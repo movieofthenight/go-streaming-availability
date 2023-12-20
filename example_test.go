@@ -4,30 +4,31 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"os"
 	"strings"
 
-	"github.com/movieofthenight/go-streaming-availability/v2"
+	"github.com/movieofthenight/go-streaming-availability/v3"
 )
 
 func ExampleConfiguration() {
-	const RapidApiKey = "PUT_YOUR_RAPIDAPI_KEY_HERE"
+	var rapidApiKey, _ = os.LookupEnv("RAPID_API_KEY")
 	configuration := streaming.NewConfiguration()
-	configuration.AddDefaultHeader("X-RapidAPI-Key", RapidApiKey)
+	configuration.AddDefaultHeader("X-RapidAPI-Key", rapidApiKey)
 }
 
 func ExampleNewAPIClient() {
-	const RapidApiKey = "PUT_YOUR_RAPIDAPI_KEY_HERE"
+	var rapidApiKey, _ = os.LookupEnv("RAPID_API_KEY")
 	configuration := streaming.NewConfiguration()
-	configuration.AddDefaultHeader("X-RapidAPI-Key", RapidApiKey)
+	configuration.AddDefaultHeader("X-RapidAPI-Key", rapidApiKey)
 	streaming.NewAPIClient(configuration)
 }
 
 // Get The Dark Knight's Streaming Info
 func ExampleDefaultAPIService_GetById() {
-	const RapidApiKey = "PUT_YOUR_RAPIDAPI_KEY_HERE"
+	var rapidApiKey, _ = os.LookupEnv("RAPID_API_KEY")
 
 	configuration := streaming.NewConfiguration()
-	configuration.AddDefaultHeader("X-RapidAPI-Key", RapidApiKey)
+	configuration.AddDefaultHeader("X-RapidAPI-Key", rapidApiKey)
 	client := streaming.NewAPIClient(configuration).DefaultAPI
 
 	country := "us"
@@ -52,10 +53,10 @@ func ExampleDefaultAPIService_GetById() {
 
 // Search for Science Fiction Movies on Netflix and Disney+
 func ExampleDefaultAPIService_SearchByFilters_scienceFictionMovies() {
-	const RapidApiKey = "PUT_YOUR_RAPIDAPI_KEY_HERE"
+	var rapidApiKey, _ = os.LookupEnv("RAPID_API_KEY")
 
 	configuration := streaming.NewConfiguration()
-	configuration.AddDefaultHeader("X-RapidAPI-Key", RapidApiKey)
+	configuration.AddDefaultHeader("X-RapidAPI-Key", rapidApiKey)
 	client := streaming.NewAPIClient(configuration).DefaultAPI
 
 	country := "us"
@@ -102,10 +103,10 @@ func ExampleDefaultAPIService_SearchByFilters_scienceFictionMovies() {
 
 // Search for Science Fiction Movies on Netflix and Disney+
 func ExampleDefaultAPIService_SearchByFilters_zombieActionMovies() {
-	const RapidApiKey = "PUT_YOUR_RAPIDAPI_KEY_HERE"
+	var rapidApiKey, _ = os.LookupEnv("RAPID_API_KEY")
 
 	configuration := streaming.NewConfiguration()
-	configuration.AddDefaultHeader("X-RapidAPI-Key", RapidApiKey)
+	configuration.AddDefaultHeader("X-RapidAPI-Key", rapidApiKey)
 	client := streaming.NewAPIClient(configuration).DefaultAPI
 
 	country := "us"
@@ -154,10 +155,10 @@ func ExampleDefaultAPIService_SearchByFilters_zombieActionMovies() {
 
 // Search for Spider-Man Movies
 func ExampleDefaultAPIService_SearchByTitle() {
-	const RapidApiKey = "PUT_YOUR_RAPIDAPI_KEY_HERE"
+	var rapidApiKey, _ = os.LookupEnv("RAPID_API_KEY")
 
 	configuration := streaming.NewConfiguration()
-	configuration.AddDefaultHeader("X-RapidAPI-Key", RapidApiKey)
+	configuration.AddDefaultHeader("X-RapidAPI-Key", rapidApiKey)
 	client := streaming.NewAPIClient(configuration).DefaultAPI
 
 	country := "us"
