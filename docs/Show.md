@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** | Type of the show. | 
 **Title** | **string** | Title of the show. | 
+**Overview** | **string** | A brief overview of the plot. | 
 **Year** | Pointer to **int32** | The year that the movie was released. | [optional] 
 **FirstAirYear** | Pointer to **int32** | The first year that the series aired. | [optional] 
 **LastAirYear** | Pointer to **int32** | The last year that the series aired. | [optional] 
@@ -15,6 +16,7 @@ Name | Type | Description | Notes
 **Genres** | [**[]Genre**](Genre.md) | Array of the genres associated with the show. | 
 **Directors** | Pointer to **[]string** | Array of the directors of the movie. | [optional] 
 **Creators** | Pointer to **[]string** | Array of the creators of the series. | [optional] 
+**Cast** | **[]string** | Array of the cast of the show. | 
 **Status** | Pointer to [**SeriesStatus**](SeriesStatus.md) |  | [optional] 
 **SeasonCount** | Pointer to **int32** | Number of seasons that are either available or announced. | [optional] 
 **EpisodeCount** | Pointer to **int32** | Number of episodes that are either available or announced. | [optional] 
@@ -25,7 +27,7 @@ Name | Type | Description | Notes
 
 ### NewShow
 
-`func NewShow(type_ string, title string, imdbId string, tmdbId int32, originalTitle string, genres []Genre, streamingInfo map[string][]StreamingOption, ) *Show`
+`func NewShow(type_ string, title string, overview string, imdbId string, tmdbId int32, originalTitle string, genres []Genre, cast []string, streamingInfo map[string][]StreamingOption, ) *Show`
 
 NewShow instantiates a new Show object
 This constructor will assign default values to properties that have it defined,
@@ -78,6 +80,26 @@ and a boolean to check if the value has been set.
 `func (o *Show) SetTitle(v string)`
 
 SetTitle sets Title field to given value.
+
+
+### GetOverview
+
+`func (o *Show) GetOverview() string`
+
+GetOverview returns the Overview field if non-nil, zero value otherwise.
+
+### GetOverviewOk
+
+`func (o *Show) GetOverviewOk() (*string, bool)`
+
+GetOverviewOk returns a tuple with the Overview field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOverview
+
+`func (o *Show) SetOverview(v string)`
+
+SetOverview sets Overview field to given value.
 
 
 ### GetYear
@@ -284,6 +306,26 @@ SetCreators sets Creators field to given value.
 `func (o *Show) HasCreators() bool`
 
 HasCreators returns a boolean if a field has been set.
+
+### GetCast
+
+`func (o *Show) GetCast() []string`
+
+GetCast returns the Cast field if non-nil, zero value otherwise.
+
+### GetCastOk
+
+`func (o *Show) GetCastOk() (*[]string, bool)`
+
+GetCastOk returns a tuple with the Cast field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCast
+
+`func (o *Show) SetCast(v []string)`
+
+SetCast sets Cast field to given value.
+
 
 ### GetStatus
 

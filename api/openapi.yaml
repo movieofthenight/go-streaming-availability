@@ -7,7 +7,7 @@ info:
     name: MIT
     url: https://spdx.org/licenses/MIT.html
   title: Streaming Availability API
-  version: 3.3.1
+  version: 3.4.0
 servers:
 - url: https://streaming-availability.p.rapidapi.com
 security:
@@ -214,14 +214,14 @@ paths:
           type: string
         style: form
       - description: |
-          A comma separated list of up to services to search in. See "/services" endpoint to get the supported services and their ids/names.
+          A comma separated list of up to services to search in. See "/countries" endpoint to get the supported services in each country and their ids/names.
           Maximum amount of services allowed depends on the endpoint.
           If a service supports both "free" and "subscription", then results included under "subscription" will always include the "free" shows as well.
           When multiple values are passed as a comma separated list, any show that satisfies at least one of the values will be included in the result.
           Syntax of the values supplied in the list can be as the followings:
           - "<sevice_id>": Searches in the entire catalog of that service, including (if applicable) rentable, buyable shows or shows available through addons i.e. "netflix", "prime", "apple"
           - "<sevice_id>.<streaming_type>": Only returns the shows that are available in that service with the given streaming type. Valid streaming type values are "subscription", "free", "rent", "buy" and "addon" i.e. "peacock.free" only returns the shows on Peacock that are free to watch, "prime.subscription" only returns the shows on Prime Video that are available to watch with a Prime subscription. "hulu.addon" only returns the shows on Hulu that are available via an addon, "prime.rent" only returns the shows on Prime Video that are rentable.
-          - "<sevice_id>.addon.<addon_id>": Only returns the shows that are available in that service with the given addon. Check "/services" endpoint to fetch the available addons for a service. Some sample values are: "hulu.addon.hbo", "prime.addon.hbomaxus".
+          - "<sevice_id>.addon.<addon_id>": Only returns the shows that are available in that service with the given addon. Check "/countries" endpoint to fetch the available addons for a service in each country. Some sample values are: "hulu.addon.hbo", "prime.addon.hbomaxus".
         examples:
           Netflix:
             description: Search in Netflix
@@ -712,14 +712,14 @@ paths:
           type: string
         style: form
       - description: |
-          A comma separated list of up to services to search in. See "/services" endpoint to get the supported services and their ids/names.
+          A comma separated list of up to services to search in. See "/countries" endpoint to get the supported services in each country and their ids/names.
           Maximum amount of services allowed depends on the endpoint.
           If a service supports both "free" and "subscription", then results included under "subscription" will always include the "free" shows as well.
           When multiple values are passed as a comma separated list, any show that satisfies at least one of the values will be included in the result.
           Syntax of the values supplied in the list can be as the followings:
           - "<sevice_id>": Searches in the entire catalog of that service, including (if applicable) rentable, buyable shows or shows available through addons i.e. "netflix", "prime", "apple"
           - "<sevice_id>.<streaming_type>": Only returns the shows that are available in that service with the given streaming type. Valid streaming type values are "subscription", "free", "rent", "buy" and "addon" i.e. "peacock.free" only returns the shows on Peacock that are free to watch, "prime.subscription" only returns the shows on Prime Video that are available to watch with a Prime subscription. "hulu.addon" only returns the shows on Hulu that are available via an addon, "prime.rent" only returns the shows on Prime Video that are rentable.
-          - "<sevice_id>.addon.<addon_id>": Only returns the shows that are available in that service with the given addon. Check "/services" endpoint to fetch the available addons for a service. Some sample values are: "hulu.addon.hbo", "prime.addon.hbomaxus".
+          - "<sevice_id>.addon.<addon_id>": Only returns the shows that are available in that service with the given addon. Check "/countries" endpoint to fetch the available addons for a service in each country. Some sample values are: "hulu.addon.hbo", "prime.addon.hbomaxus".
         examples:
           Netflix:
             description: Search in Netflix
@@ -936,14 +936,14 @@ paths:
           type: string
         style: form
       - description: |
-          A comma separated list of up to services to search in. See "/services" endpoint to get the supported services and their ids/names.
+          A comma separated list of up to services to search in. See "/countries" endpoint to get the supported services in each country and their ids/names.
           Maximum amount of services allowed depends on the endpoint.
           If a service supports both "free" and "subscription", then results included under "subscription" will always include the "free" shows as well.
           When multiple values are passed as a comma separated list, any show that satisfies at least one of the values will be included in the result.
           Syntax of the values supplied in the list can be as the followings:
           - "<sevice_id>": Searches in the entire catalog of that service, including (if applicable) rentable, buyable shows or shows available through addons i.e. "netflix", "prime", "apple"
           - "<sevice_id>.<streaming_type>": Only returns the shows that are available in that service with the given streaming type. Valid streaming type values are "subscription", "free", "rent", "buy" and "addon" i.e. "peacock.free" only returns the shows on Peacock that are free to watch, "prime.subscription" only returns the shows on Prime Video that are available to watch with a Prime subscription. "hulu.addon" only returns the shows on Hulu that are available via an addon, "prime.rent" only returns the shows on Prime Video that are rentable.
-          - "<sevice_id>.addon.<addon_id>": Only returns the shows that are available in that service with the given addon. Check "/services" endpoint to fetch the available addons for a service. Some sample values are: "hulu.addon.hbo", "prime.addon.hbomaxus".
+          - "<sevice_id>.addon.<addon_id>": Only returns the shows that are available in that service with the given addon. Check "/countries" endpoint to fetch the available addons for a service in each country. Some sample values are: "hulu.addon.hbo", "prime.addon.hbomaxus".
         examples:
           Netflix:
             description: Search in Netflix
@@ -1082,14 +1082,14 @@ components:
   parameters:
     servicesParam:
       description: |
-        A comma separated list of up to services to search in. See "/services" endpoint to get the supported services and their ids/names.
+        A comma separated list of up to services to search in. See "/countries" endpoint to get the supported services in each country and their ids/names.
         Maximum amount of services allowed depends on the endpoint.
         If a service supports both "free" and "subscription", then results included under "subscription" will always include the "free" shows as well.
         When multiple values are passed as a comma separated list, any show that satisfies at least one of the values will be included in the result.
         Syntax of the values supplied in the list can be as the followings:
         - "<sevice_id>": Searches in the entire catalog of that service, including (if applicable) rentable, buyable shows or shows available through addons i.e. "netflix", "prime", "apple"
         - "<sevice_id>.<streaming_type>": Only returns the shows that are available in that service with the given streaming type. Valid streaming type values are "subscription", "free", "rent", "buy" and "addon" i.e. "peacock.free" only returns the shows on Peacock that are free to watch, "prime.subscription" only returns the shows on Prime Video that are available to watch with a Prime subscription. "hulu.addon" only returns the shows on Hulu that are available via an addon, "prime.rent" only returns the shows on Prime Video that are rentable.
-        - "<sevice_id>.addon.<addon_id>": Only returns the shows that are available in that service with the given addon. Check "/services" endpoint to fetch the available addons for a service. Some sample values are: "hulu.addon.hbo", "prime.addon.hbomaxus".
+        - "<sevice_id>.addon.<addon_id>": Only returns the shows that are available in that service with the given addon. Check "/countries" endpoint to fetch the available addons for a service in each country. Some sample values are: "hulu.addon.hbo", "prime.addon.hbomaxus".
       examples:
         Netflix:
           description: Search in Netflix
@@ -1977,6 +1977,7 @@ components:
       additionalProperties: false
       description: Details of a show.
       example:
+        overview: overview
         seasons:
         - firstAirYear: 3
           lastAirYear: 2
@@ -2023,6 +2024,9 @@ components:
         - directors
         type: movie
         title: title
+        cast:
+        - cast
+        - cast
         tmdbId: 5
         seasonCount: 7
         firstAirYear: 6
@@ -2047,6 +2051,9 @@ components:
           type: string
         title:
           description: Title of the show.
+          type: string
+        overview:
+          description: A brief overview of the plot.
           type: string
         year:
           description: The year that the movie was released.
@@ -2081,6 +2088,11 @@ components:
           items:
             type: string
           type: array
+        cast:
+          description: Array of the cast of the show.
+          items:
+            type: string
+          type: array
         status:
           $ref: '#/components/schemas/seriesStatus'
         seasonCount:
@@ -2099,9 +2111,11 @@ components:
             $ref: '#/components/schemas/season'
           type: array
       required:
+      - cast
       - genres
       - imdbId
       - originalTitle
+      - overview
       - streamingInfo
       - title
       - tmdbId
@@ -2506,6 +2520,7 @@ components:
           time: 1
           streamingType: null
         show:
+          overview: overview
           seasons:
           - firstAirYear: 3
             lastAirYear: 2
@@ -2552,6 +2567,9 @@ components:
           - directors
           type: movie
           title: title
+          cast:
+          - cast
+          - cast
           tmdbId: 5
           seasonCount: 7
           firstAirYear: 6
@@ -2595,6 +2613,7 @@ components:
           time: 1
           streamingType: null
         show:
+          overview: overview
           seasons:
           - firstAirYear: 3
             lastAirYear: 2
@@ -2641,6 +2660,9 @@ components:
           - directors
           type: movie
           title: title
+          cast:
+          - cast
+          - cast
           tmdbId: 5
           seasonCount: 7
           firstAirYear: 6
@@ -2685,6 +2707,7 @@ components:
             time: 1
             streamingType: null
           show:
+            overview: overview
             seasons:
             - firstAirYear: 3
               lastAirYear: 2
@@ -2731,6 +2754,9 @@ components:
             - directors
             type: movie
             title: title
+            cast:
+            - cast
+            - cast
             tmdbId: 5
             seasonCount: 7
             firstAirYear: 6
@@ -2760,6 +2786,7 @@ components:
             time: 1
             streamingType: null
           show:
+            overview: overview
             seasons:
             - firstAirYear: 3
               lastAirYear: 2
@@ -2806,6 +2833,9 @@ components:
             - directors
             type: movie
             title: title
+            cast:
+            - cast
+            - cast
             tmdbId: 5
             seasonCount: 7
             firstAirYear: 6
@@ -2859,6 +2889,7 @@ components:
             time: 1
             streamingType: null
           show:
+            overview: overview
             seasons:
             - firstAirYear: 3
               lastAirYear: 2
@@ -2905,6 +2936,9 @@ components:
             - directors
             type: movie
             title: title
+            cast:
+            - cast
+            - cast
             tmdbId: 5
             seasonCount: 7
             firstAirYear: 6
@@ -2934,6 +2968,7 @@ components:
             time: 1
             streamingType: null
           show:
+            overview: overview
             seasons:
             - firstAirYear: 3
               lastAirYear: 2
@@ -2980,6 +3015,9 @@ components:
             - directors
             type: movie
             title: title
+            cast:
+            - cast
+            - cast
             tmdbId: 5
             seasonCount: 7
             firstAirYear: 6
@@ -3027,6 +3065,7 @@ components:
       additionalProperties: false
       example:
         result:
+          overview: overview
           seasons:
           - firstAirYear: 3
             lastAirYear: 2
@@ -3073,6 +3112,9 @@ components:
           - directors
           type: movie
           title: title
+          cast:
+          - cast
+          - cast
           tmdbId: 5
           seasonCount: 7
           firstAirYear: 6
@@ -3105,7 +3147,8 @@ components:
       additionalProperties: false
       example:
         result:
-        - seasons:
+        - overview: overview
+          seasons:
           - firstAirYear: 3
             lastAirYear: 2
             streamingInfo:
@@ -3151,6 +3194,9 @@ components:
           - directors
           type: movie
           title: title
+          cast:
+          - cast
+          - cast
           tmdbId: 5
           seasonCount: 7
           firstAirYear: 6
@@ -3166,7 +3212,8 @@ components:
           status:
             statusText: Returning Series
             statusCode: 2
-        - seasons:
+        - overview: overview
+          seasons:
           - firstAirYear: 3
             lastAirYear: 2
             streamingInfo:
@@ -3212,6 +3259,9 @@ components:
           - directors
           type: movie
           title: title
+          cast:
+          - cast
+          - cast
           tmdbId: 5
           seasonCount: 7
           firstAirYear: 6
@@ -3251,7 +3301,8 @@ components:
       additionalProperties: false
       example:
         result:
-        - seasons:
+        - overview: overview
+          seasons:
           - firstAirYear: 3
             lastAirYear: 2
             streamingInfo:
@@ -3297,6 +3348,9 @@ components:
           - directors
           type: movie
           title: title
+          cast:
+          - cast
+          - cast
           tmdbId: 5
           seasonCount: 7
           firstAirYear: 6
@@ -3312,7 +3366,8 @@ components:
           status:
             statusText: Returning Series
             statusCode: 2
-        - seasons:
+        - overview: overview
+          seasons:
           - firstAirYear: 3
             lastAirYear: 2
             streamingInfo:
@@ -3358,6 +3413,9 @@ components:
           - directors
           type: movie
           title: title
+          cast:
+          - cast
+          - cast
           tmdbId: 5
           seasonCount: 7
           firstAirYear: 6
