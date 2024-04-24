@@ -8,13 +8,13 @@ Name | Type | Description | Notes
 **ItemType** | [**ItemType**](ItemType.md) | Type of the item affected from the change. | 
 **ShowId** | **string** | Id of the show affected from the change. | 
 **ShowType** | [**ShowType**](ShowType.md) | Type of the show affected from the change. | 
-**Season** | Pointer to **int32** | Number of the season affected from the change. Omitted if &#x60;item_type&#x60; is not &#x60;season&#x60;or &#x60;episode&#x60;. | [optional] 
-**Episode** | Pointer to **int32** | Number of the episode affected from the change. Omitted if &#x60;item_type&#x60; is not &#x60;episode&#x60;. | [optional] 
+**Season** | Pointer to **int32** | Number of the season affected from the change. Omitted if item_type is not seasonor episode. | [optional] 
+**Episode** | Pointer to **int32** | Number of the episode affected from the change. Omitted if item_type is not episode. | [optional] 
 **Service** | [**ServiceInfo**](ServiceInfo.md) | Service affected from the change. | 
 **StreamingOptionType** | [**StreamingOptionType**](StreamingOptionType.md) |  | 
-**Addon** | Pointer to [**Addon**](Addon.md) | Addon info, if the &#x60;streamingOptionType&#x60; is &#x60;addon&#x60;. Otherwise omitted. | [optional] 
-**Timestamp** | Pointer to **int64** | [Unix Time Stamp](https://www.unixtimestamp.com/) of the change. Past changes (&#x60;new&#x60;, &#x60;updated&#x60;, &#x60;removed&#x60;) will always have a timestamp. Future changes (&#x60;expiring&#x60;, &#x60;upcoming&#x60;) will have a timestamp if the exact date is known. If not, timestamp will be omitted, e.g. a show is known to be expiring soon, but the exact date is not known.  | [optional] 
-**Link** | Pointer to **string** | Deep link to the affected streaming option&#39;s page in the web app of the streaming service. This field is guaranteed to be populated when &#x60;changeType&#x60; is &#x60;new&#x60;, &#x60;updated&#x60;, &#x60;expiring&#x60; or &#x60;removed&#x60;. When &#x60;changeType&#x60; is &#x60;upcoming&#x60;, this field might be populated or null depending on if the link of the future streaming option is known.  | [optional] 
+**Addon** | Pointer to [**Addon**](Addon.md) | Addon info, if the streamingOptionType is addon. Otherwise omitted. | [optional] 
+**Timestamp** | Pointer to **int64** | [Unix Time Stamp](https://www.unixtimestamp.com/) of the change. Past changes (new, updated, removed) will always have a timestamp. Future changes (expiring, upcoming) will have a timestamp if the exact date is known. If not, timestamp will be omitted, e.g. a show is known to be expiring soon, but the exact date is not known.  | [optional] 
+**Link** | Pointer to **string** | Deep link to the affected streaming option&#39;s page in the web app of the streaming service. This field is guaranteed to be populated when changeType is new, updated, expiring or removed. When changeType is upcoming, this field might be populated or null depending on if the link of the future streaming option is known.  | [optional] 
 
 ## Methods
 

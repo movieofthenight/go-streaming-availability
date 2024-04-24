@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ItemType** | **string** | Type of the item. Always &#x60;show&#x60;. | 
+**ItemType** | **string** | Type of the item. Always show. | 
 **ShowType** | [**ShowType**](ShowType.md) | Type of the show. Based on the type, some properties might be omitted. | 
 **Id** | **string** | Id of the show. | 
 **ImdbId** | **string** | [IMDb](https://www.imdb.com/) id of the show. | 

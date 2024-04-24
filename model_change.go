@@ -19,7 +19,7 @@ import (
 // checks if the Change type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &Change{}
 
-// Change A change object represents a future or past change in a streaming catalog. It contains the details such as the type of the change (could be past change such as like `new`, `updated`, `removed`; or a future change such as `expiring`, `upcoming`), the affected item type (`show`, `season` or `episode`), timestamp of the change and more.  Via change endpoints, you can get the most recent updates in the streaming catalogs. On top of the changes, you can also get the details of the affected shows. Every change object has a `showId` field. You can find the list of shows affected by the changes in the `shows` field of the response, and match the show ids with the `showId` field of the change objects. 
+// Change A change object represents a future or past change in a streaming catalog. It contains the details such as the type of the change (could be past change such as like new, updated, removed; or a future change such as expiring, upcoming), the affected item type (show, season or episode), timestamp of the change and more.  Via change endpoints, you can get the most recent updates in the streaming catalogs. On top of the changes, you can also get the details of the affected shows. Every change object has a showId field. You can find the list of shows affected by the changes in the shows field of the response, and match the show ids with the showId field of the change objects. 
 type Change struct {
 	// Type of the change.
 	ChangeType ChangeType `json:"changeType"`
@@ -29,18 +29,18 @@ type Change struct {
 	ShowId string `json:"showId"`
 	// Type of the show affected from the change.
 	ShowType ShowType `json:"showType"`
-	// Number of the season affected from the change. Omitted if `item_type` is not `season`or `episode`.
+	// Number of the season affected from the change. Omitted if item_type is not seasonor episode.
 	Season *int32 `json:"season,omitempty"`
-	// Number of the episode affected from the change. Omitted if `item_type` is not `episode`.
+	// Number of the episode affected from the change. Omitted if item_type is not episode.
 	Episode *int32 `json:"episode,omitempty"`
 	// Service affected from the change.
 	Service ServiceInfo `json:"service"`
 	StreamingOptionType StreamingOptionType `json:"streamingOptionType"`
-	// Addon info, if the `streamingOptionType` is `addon`. Otherwise omitted.
+	// Addon info, if the streamingOptionType is addon. Otherwise omitted.
 	Addon *Addon `json:"addon,omitempty"`
-	// [Unix Time Stamp](https://www.unixtimestamp.com/) of the change. Past changes (`new`, `updated`, `removed`) will always have a timestamp. Future changes (`expiring`, `upcoming`) will have a timestamp if the exact date is known. If not, timestamp will be omitted, e.g. a show is known to be expiring soon, but the exact date is not known. 
+	// [Unix Time Stamp](https://www.unixtimestamp.com/) of the change. Past changes (new, updated, removed) will always have a timestamp. Future changes (expiring, upcoming) will have a timestamp if the exact date is known. If not, timestamp will be omitted, e.g. a show is known to be expiring soon, but the exact date is not known. 
 	Timestamp *int64 `json:"timestamp,omitempty"`
-	// Deep link to the affected streaming option's page in the web app of the streaming service. This field is guaranteed to be populated when `changeType` is `new`, `updated`, `expiring` or `removed`. When `changeType` is `upcoming`, this field might be populated or null depending on if the link of the future streaming option is known. 
+	// Deep link to the affected streaming option's page in the web app of the streaming service. This field is guaranteed to be populated when changeType is new, updated, expiring or removed. When changeType is upcoming, this field might be populated or null depending on if the link of the future streaming option is known. 
 	Link *string `json:"link,omitempty"`
 }
 

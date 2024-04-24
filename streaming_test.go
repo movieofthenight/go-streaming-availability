@@ -12,9 +12,7 @@ import (
 
 func TestGetTheGodfather(t *testing.T) {
 	rapidApiKey, _ := os.LookupEnv("RAPID_API_KEY")
-	configuration := streaming.NewConfiguration()
-	configuration.AddDefaultHeader("X-RapidAPI-Key", rapidApiKey)
-	client := streaming.NewAPIClient(configuration)
+	client := streaming.NewAPIClientFromRapidAPIKey(rapidApiKey, nil)
 	show, _, err := client.ShowsAPI.GetShow(context.Background(), "tt0068646").Country("us").Execute()
 	if err != nil {
 		log.Fatal(err)
@@ -48,9 +46,7 @@ func TestGetTheGodfather(t *testing.T) {
 
 func TestSearchPopularComedyShowsOnNetflix(t *testing.T) {
 	rapidApiKey, _ := os.LookupEnv("RAPID_API_KEY")
-	configuration := streaming.NewConfiguration()
-	configuration.AddDefaultHeader("X-RapidAPI-Key", rapidApiKey)
-	client := streaming.NewAPIClient(configuration)
+	client := streaming.NewAPIClientFromRapidAPIKey(rapidApiKey, nil)
 	searchResult, _, err := client.ShowsAPI.SearchShowsByFilters(context.Background()).
 		Genres([]string{"comedy"}).
 		OrderBy("popularity_1year").

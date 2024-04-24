@@ -7,8 +7,8 @@ Name | Type | Description | Notes
 **Service** | [**ServiceInfo**](ServiceInfo.md) |  | 
 **Type** | [**StreamingOptionType**](StreamingOptionType.md) |  | 
 **Addon** | Pointer to [**Addon**](Addon.md) | Addon that the streaming option is available through. Omitted if the streaming option is not available through an addon.  | [optional] 
-**Link** | **string** | Deep link to the streaming option&#39;s page in the web app of the streaming service. Unlike &#x60;videoLink&#x60;, this field is guaranteed to be populated.  | 
-**VideoLink** | Pointer to **string** | Deep link to the video associated with the streaming option. Omitted if there&#39;s no direct link to the video. Might have the same value as &#x60;link&#x60;.  | [optional] 
+**Link** | **string** | Deep link to the streaming option&#39;s page in the web app of the streaming service. Unlike videoLink, this field is guaranteed to be populated.  | 
+**VideoLink** | Pointer to **string** | Deep link to the video associated with the streaming option. Omitted if there&#39;s no direct link to the video. Might have the same value as link.  | [optional] 
 **Quality** | Pointer to **string** | Maximum supported video quality of the streaming option. | [optional] 
 **Audios** | [**[]Locale**](Locale.md) | Array of the available audios. | 
 **Subtitles** | [**[]Subtitle**](Subtitle.md) | Array of the available subtitles. | 

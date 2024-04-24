@@ -25,9 +25,9 @@ type StreamingOption struct {
 	Type StreamingOptionType `json:"type"`
 	// Addon that the streaming option is available through. Omitted if the streaming option is not available through an addon. 
 	Addon *Addon `json:"addon,omitempty"`
-	// Deep link to the streaming option's page in the web app of the streaming service. Unlike `videoLink`, this field is guaranteed to be populated. 
+	// Deep link to the streaming option's page in the web app of the streaming service. Unlike videoLink, this field is guaranteed to be populated. 
 	Link string `json:"link"`
-	// Deep link to the video associated with the streaming option. Omitted if there's no direct link to the video. Might have the same value as `link`. 
+	// Deep link to the video associated with the streaming option. Omitted if there's no direct link to the video. Might have the same value as link. 
 	VideoLink *string `json:"videoLink,omitempty"`
 	// Maximum supported video quality of the streaming option.
 	Quality *string `json:"quality,omitempty"`

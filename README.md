@@ -71,16 +71,14 @@ import "github.com/movieofthenight/go-streaming-availability/v4"
 const RapidApiKey = "PUT_YOUR_RAPIDAPI_KEY_HERE"
 
 func main() {
-	configuration := streaming.NewConfiguration()
-	configuration.AddDefaultHeader("X-RapidAPI-Key", RapidApiKey)
-	client := streaming.NewAPIClient(configuration)
+	client := streaming.NewAPIClientFromRapidAPIKey(RapidApiKey, nil)
 	// Start using the client
 }
 ```
 
 ## Examples
 
-### Get The Godfather's Streaming Info
+### Get The Godfather's Streaming Availability Info
 
 ```go
 package main
@@ -97,9 +95,7 @@ import (
 func main() {
 	const RapidApiKey = "PUT_YOUR_RAPIDAPI_KEY_HERE"
 
-	configuration := streaming.NewConfiguration()
-	configuration.AddDefaultHeader("X-RapidAPI-Key", RapidApiKey)
-	client := streaming.NewAPIClient(configuration)
+	client := streaming.NewAPIClientFromRapidAPIKey(RapidApiKey, nil)
 	show, _, err := client.ShowsAPI.GetShow(context.Background(), "tt0068646").Country("us").Execute()
 	if err != nil {
 		log.Fatal(err)
@@ -131,7 +127,6 @@ func main() {
 	}
 }
 ```
-
 
 > Checkout [example_test.go](https://github.com/movieofthenight/go-streaming-availability/blob/main/example_test.go)
 file for the rest of the examples.

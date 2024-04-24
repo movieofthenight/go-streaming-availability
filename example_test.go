@@ -10,24 +10,14 @@ import (
 	"github.com/movieofthenight/go-streaming-availability/v4"
 )
 
-func ExampleNewConfiguration() {
+func ExampleNewAPIClientFromRapidAPIKey() {
 	rapidApiKey, _ := os.LookupEnv("RAPID_API_KEY")
-	configuration := streaming.NewConfiguration()
-	configuration.AddDefaultHeader("X-RapidAPI-Key", rapidApiKey)
-}
-
-func ExampleNewAPIClient() {
-	rapidApiKey, _ := os.LookupEnv("RAPID_API_KEY")
-	configuration := streaming.NewConfiguration()
-	configuration.AddDefaultHeader("X-RapidAPI-Key", rapidApiKey)
-	streaming.NewAPIClient(configuration)
+	streaming.NewAPIClientFromRapidAPIKey(rapidApiKey, nil)
 }
 
 func ExampleShowsAPIService_GetShow() {
 	rapidApiKey, _ := os.LookupEnv("RAPID_API_KEY")
-	configuration := streaming.NewConfiguration()
-	configuration.AddDefaultHeader("X-RapidAPI-Key", rapidApiKey)
-	client := streaming.NewAPIClient(configuration)
+	client := streaming.NewAPIClientFromRapidAPIKey(rapidApiKey, nil)
 	show, _, err := client.ShowsAPI.GetShow(context.Background(), "tt0068646").Country("us").Execute()
 	if err != nil {
 		log.Fatal(err)
@@ -61,9 +51,7 @@ func ExampleShowsAPIService_GetShow() {
 
 func ExampleShowsAPIService_SearchShowsByFilters() {
 	rapidApiKey, _ := os.LookupEnv("RAPID_API_KEY")
-	configuration := streaming.NewConfiguration()
-	configuration.AddDefaultHeader("X-RapidAPI-Key", rapidApiKey)
-	client := streaming.NewAPIClient(configuration)
+	client := streaming.NewAPIClientFromRapidAPIKey(rapidApiKey, nil)
 	show, _, err := client.ShowsAPI.GetShow(context.Background(), "tt0068646").Country("us").Execute()
 	if err != nil {
 		log.Fatal(err)
