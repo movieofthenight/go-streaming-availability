@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ItemType** | **string** | Type of the item. Always \&quot;season\&quot;. | 
+**ItemType** | **string** | Type of the item. Always &#x60;season&#x60;. | 
 **Title** | **string** | Title of the season. | 
 **FirstAirYear** | **int32** | The first year that the season aired. | 
 **LastAirYear** | **int32** | The last year that the season aired. | 

@@ -32,13 +32,13 @@ type ApiGetShowRequest struct {
 	outputLanguage *string
 }
 
-// [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code of the optional target country. If this parameter is not supplied, global streaming availability across all the countries will be returned. If it is supplied, only the streaming availability info from the given country will be returned. If you are only interested in the streaming availability in a single country, then it is recommended to use this parameter to reduce the size of the response and increase the performance of the endpoint. See \&quot;/countries\&quot; endpoint to get the list of supported countries. 
+// [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code of the optional target country. If this parameter is not supplied, global streaming availability across all the countries will be returned. If it is supplied, only the streaming availability info from the given country will be returned. If you are only interested in the streaming availability in a single country, then it is recommended to use this parameter to reduce the size of the response and increase the performance of the endpoint. See &#x60;/countries&#x60; endpoint to get the list of supported countries. 
 func (r ApiGetShowRequest) Country(country string) ApiGetShowRequest {
 	r.country = &country
 	return r
 }
 
-// \&quot;series_granularity\&quot; determines the level of detail for series. It does not affect movies.  If \&quot;series_granularity\&quot; is \&quot;show\&quot;, then the output will not include season and episode info.  If \&quot;series_granularity\&quot; is \&quot;season\&quot;, then the output will include season info but not episode info.  If \&quot;series_granularity\&quot; is \&quot;episode\&quot;, then the output will include season and episode info.  If you do not need season and episode info, then it is recommended to set \&quot;series_granularity\&quot; as \&quot;show\&quot; to reduce the size of the response and increase the performance of the endpoint.  If you need deep links for individual seasons and episodes, then you should set \&quot;series_granularity\&quot; as \&quot;episode\&quot;. In this case response will include full streaming info for seasons and episodes, similar to the streaming info for movies and series; including deep links into seasons and episodes, individual subtitle/audio and video quality info etc. 
+// &#x60;series_granularity&#x60; determines the level of detail for series. It does not affect movies.  If &#x60;series_granularity&#x60; is &#x60;show&#x60;, then the output will not include season and episode info.  If &#x60;series_granularity&#x60; is &#x60;season&#x60;, then the output will include season info but not episode info.  If &#x60;series_granularity&#x60; is &#x60;episode&#x60;, then the output will include season and episode info.  If you do not need season and episode info, then it is recommended to set &#x60;series_granularity&#x60; as &#x60;show&#x60; to reduce the size of the response and increase the performance of the endpoint.  If you need deep links for individual seasons and episodes, then you should set &#x60;series_granularity&#x60; as &#x60;episode&#x60;. In this case response will include full streaming info for seasons and episodes, similar to the streaming info for movies and series; including deep links into seasons and episodes, individual subtitle/audio and video quality info etc. 
 func (r ApiGetShowRequest) SeriesGranularity(seriesGranularity string) ApiGetShowRequest {
 	r.seriesGranularity = &seriesGranularity
 	return r
@@ -57,10 +57,10 @@ func (r ApiGetShowRequest) Execute() (*Show, *http.Response, error) {
 /*
 GetShow Get a Show
 
-Get the details of a show via "id", "imdbId" or "tmdbId", including the global streaming availability info.
+Get the details of a show via `id`, `imdbId` or `tmdbId`, including the global streaming availability info.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id \"id\" of the show. You can also pass an IMDb Id or a TMDB Id as an \"id\". The endpoint will automatically detect the type of the id and fetch the show accordingly.  When passing an IMDb Id, it should be in the format of \"tt<numerical_id>\". (e.g. \"tt0120338\" for Titanic)  When passing a TMDB Id, it should be in the format of \"movie/<numerical_id>\" for movies and \"tv/<numerical_id>\" for series. (e.g. \"tv/1396\" for Breaking Bad and \"movie/597\" for Titanic)  If you are handcrafting the URL, make sure to encode the \"id\" parameter. (e.g. final path should look like \"/shows/movie%2F597\" for Titanic with TMDb id). Here, \"%2F\" is the encoded version of \"/\". To read more about URL encoding, you can check [this link](https://en.wikipedia.org/wiki/Percent-encoding). 
+ @param id `id` of the show. You can also pass an IMDb Id or a TMDB Id as an `id`. The endpoint will automatically detect the type of the id and fetch the show accordingly.  When passing an IMDb Id, it should be in the format of `tt<numerical_id>`. (e.g. `tt0120338` for Titanic)  When passing a TMDB Id, it should be in the format of `movie/<numerical_id>` for movies and `tv/<numerical_id>` for series. (e.g. `tv/1396` for Breaking Bad and `movie/597` for Titanic)  If you are handcrafting the URL, make sure to encode the `id` parameter. (e.g. final path should look like `/shows/movie%2F597` for Titanic with TMDb id). Here, `%2F` is the encoded version of `/`. To read more about URL encoding, you can check [this link](https://en.wikipedia.org/wiki/Percent-encoding). 
  @return ApiGetShowRequest
 */
 func (a *ShowsAPIService) GetShow(ctx context.Context, id string) ApiGetShowRequest {
@@ -216,13 +216,13 @@ type ApiSearchShowsByFiltersRequest struct {
 	cursor *string
 }
 
-// [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code of the target country. See \&quot;/countries\&quot; endpoint to get the list of supported countries. 
+// [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code of the target country. See &#x60;/countries&#x60; endpoint to get the list of supported countries. 
 func (r ApiSearchShowsByFiltersRequest) Country(country string) ApiSearchShowsByFiltersRequest {
 	r.country = &country
 	return r
 }
 
-// A comma separated list of up to 32 catalogs to search in. See \&quot;/countries\&quot; endpoint to get the supported services in each country and their ids.  When multiple catalogs are passed as a comma separated list, any show that is in at least one of the catalogs will be included in the result.  If no catalogs are passed, the endpoint will search in all the available catalogs in the country.  Syntax of the catalogs supplied in the list can be as the followings:  - \&quot;&lt;sevice_id&gt;\&quot;: Searches in the entire catalog of that service, including (if applicable) rentable, buyable shows or shows available through addons e.g. \&quot;netflix\&quot;, \&quot;prime\&quot;, \&quot;apple\&quot;  - \&quot;&lt;sevice_id&gt;.&lt;streaming_option_type&gt;\&quot;: Only returns the shows that are available in that service with the given streaming option type. Valid streaming option types are \&quot;subscription\&quot;, \&quot;free\&quot;, \&quot;rent\&quot;, \&quot;buy\&quot; and \&quot;addon\&quot; e.g. \&quot;peacock.free\&quot; only returns the shows on Peacock that are free to watch, \&quot;prime.subscription\&quot; only returns the shows on Prime Video that are available to watch with a Prime subscription. \&quot;hulu.addon\&quot; only returns the shows on Hulu that are available via an addon, \&quot;prime.rent\&quot; only returns the shows on Prime Video that are rentable.  - \&quot;&lt;sevice_id&gt;.addon.&lt;addon_id&gt;\&quot;: Only returns the shows that are available in that service with the given addon. Check \&quot;/countries\&quot; endpoint to fetch the available addons for a service in each country. Some sample values are: \&quot;hulu.addon.hbo\&quot;, \&quot;prime.addon.hbomaxus\&quot;. 
+// A comma separated list of up to 32 catalogs to search in. See &#x60;/countries&#x60; endpoint to get the supported services in each country and their ids.  When multiple catalogs are passed as a comma separated list, any show that is in at least one of the catalogs will be included in the result.  If no catalogs are passed, the endpoint will search in all the available catalogs in the country.  Syntax of the catalogs supplied in the list can be as the followings:  - &#x60;&lt;sevice_id&gt;&#x60;: Searches in the entire catalog of that service, including (if applicable) rentable, buyable shows or shows available through addons e.g. &#x60;netflix&#x60;, &#x60;prime&#x60;, &#x60;apple&#x60;  - &#x60;&lt;sevice_id&gt;.&lt;streaming_option_type&gt;&#x60;: Only returns the shows that are available in that service with the given streaming option type. Valid streaming option types are &#x60;subscription&#x60;, &#x60;free&#x60;, &#x60;rent&#x60;, &#x60;buy&#x60; and &#x60;addon&#x60; e.g. &#x60;peacock.free&#x60; only returns the shows on Peacock that are free to watch, &#x60;prime.subscription&#x60; only returns the shows on Prime Video that are available to watch with a Prime subscription. &#x60;hulu.addon&#x60; only returns the shows on Hulu that are available via an addon, &#x60;prime.rent&#x60; only returns the shows on Prime Video that are rentable.  - &#x60;&lt;sevice_id&gt;.addon.&lt;addon_id&gt;&#x60;: Only returns the shows that are available in that service with the given addon. Check &#x60;/countries&#x60; endpoint to fetch the available addons for a service in each country. Some sample values are: &#x60;hulu.addon.hbo&#x60;, &#x60;prime.addon.hbomaxus&#x60;. 
 func (r ApiSearchShowsByFiltersRequest) Catalogs(catalogs []string) ApiSearchShowsByFiltersRequest {
 	r.catalogs = &catalogs
 	return r
@@ -240,13 +240,13 @@ func (r ApiSearchShowsByFiltersRequest) ShowType(showType ShowType) ApiSearchSho
 	return r
 }
 
-// A comma seperated list of genre ids to only search within the shows in those genre. See \&quot;/genres\&quot; endpoint to see the available genres and their ids. Use \&quot;genres_relation\&quot; parameter to specify between returning shows that have at least one of the given genres or returning shows that have all of the given genres. 
+// A comma seperated list of genre ids to only search within the shows in those genre. See &#x60;/genres&#x60; endpoint to see the available genres and their ids. Use &#x60;genres_relation&#x60; parameter to specify between returning shows that have at least one of the given genres or returning shows that have all of the given genres. 
 func (r ApiSearchShowsByFiltersRequest) Genres(genres []string) ApiSearchShowsByFiltersRequest {
 	r.genres = &genres
 	return r
 }
 
-// Only used when there are multiple genres supplied in \&quot;genres\&quot; parameter.  When \&quot;or\&quot;, the endpoint returns any show that has at least one of the given genres. When \&quot;and\&quot;, it only returns the shows that have all of the given genres. 
+// Only used when there are multiple genres supplied in &#x60;genres&#x60; parameter.  When &#x60;or&#x60;, the endpoint returns any show that has at least one of the given genres. When &#x60;and&#x60;, it only returns the shows that have all of the given genres. 
 func (r ApiSearchShowsByFiltersRequest) GenresRelation(genresRelation string) ApiSearchShowsByFiltersRequest {
 	r.genresRelation = &genresRelation
 	return r
@@ -288,13 +288,13 @@ func (r ApiSearchShowsByFiltersRequest) Keyword(keyword string) ApiSearchShowsBy
 	return r
 }
 
-// \&quot;series_granularity\&quot; determines the level of detail for series. It does not affect movies.  If \&quot;series_granularity\&quot; is \&quot;show\&quot;, then the output will not include season and episode info.  If \&quot;series_granularity\&quot; is \&quot;season\&quot;, then the output will include season info but not episode info.  If \&quot;series_granularity\&quot; is \&quot;episode\&quot;, then the output will include season and episode info.  If you do not need season and episode info, then it is recommended to set \&quot;series_granularity\&quot; as \&quot;show\&quot; to reduce the size of the response and increase the performance of the endpoint.  If you need deep links for individual seasons and episodes, then you should set \&quot;series_granularity\&quot; as \&quot;episode\&quot;. In this case response will include full streaming info for seasons and episodes, similar to the streaming info for movies and series; including deep links into seasons and episodes, individual subtitle/audio and video quality info etc. 
+// &#x60;series_granularity&#x60; determines the level of detail for series. It does not affect movies.  If &#x60;series_granularity&#x60; is &#x60;show&#x60;, then the output will not include season and episode info.  If &#x60;series_granularity&#x60; is &#x60;season&#x60;, then the output will include season info but not episode info.  If &#x60;series_granularity&#x60; is &#x60;episode&#x60;, then the output will include season and episode info.  If you do not need season and episode info, then it is recommended to set &#x60;series_granularity&#x60; as &#x60;show&#x60; to reduce the size of the response and increase the performance of the endpoint.  If you need deep links for individual seasons and episodes, then you should set &#x60;series_granularity&#x60; as &#x60;episode&#x60;. In this case response will include full streaming info for seasons and episodes, similar to the streaming info for movies and series; including deep links into seasons and episodes, individual subtitle/audio and video quality info etc. 
 func (r ApiSearchShowsByFiltersRequest) SeriesGranularity(seriesGranularity string) ApiSearchShowsByFiltersRequest {
 	r.seriesGranularity = &seriesGranularity
 	return r
 }
 
-// Determines the ordering of the shows. Make sure to set \&quot;descending_order\&quot; parameter as \&quot;true\&quot; when ordering by popularity or rating so that shows with the highest popularity or rating will be returned first. 
+// Determines the ordering of the shows. Make sure to set &#x60;descending_order&#x60; parameter as &#x60;true&#x60; when ordering by popularity or rating so that shows with the highest popularity or rating will be returned first. 
 func (r ApiSearchShowsByFiltersRequest) OrderBy(orderBy string) ApiSearchShowsByFiltersRequest {
 	r.orderBy = &orderBy
 	return r
@@ -306,7 +306,7 @@ func (r ApiSearchShowsByFiltersRequest) DescendingOrder(descendingOrder bool) Ap
 	return r
 }
 
-// Cursor is used for pagination. After each request, the response includes a \&quot;hasMore\&quot; boolean field to tell if there are more results that did not fit into the returned list. If it is set as \&quot;true\&quot;, to get the rest of the result set, send a new request (with the same parameters for other fields), and set the \&quot;cursor\&quot; parameter as the \&quot;nextCursor\&quot; value of the response of the previous request. Do not forget to escape the \&quot;cursor\&quot; value before putting it into a query as it might contain characters such as \&quot;?\&quot;and \&quot;&amp;\&quot;.  The first request naturally does not require a \&quot;cursor\&quot; parameter. 
+// Cursor is used for pagination. After each request, the response includes a &#x60;hasMore&#x60; boolean field to tell if there are more results that did not fit into the returned list. If it is set as &#x60;true&#x60;, to get the rest of the result set, send a new request (with the same parameters for other fields), and set the &#x60;cursor&#x60; parameter as the &#x60;nextCursor&#x60; value of the response of the previous request. Do not forget to escape the &#x60;cursor&#x60; value before putting it into a query as it might contain characters such as &#x60;?&#x60;and &#x60;&amp;&#x60;.  The first request naturally does not require a &#x60;cursor&#x60; parameter. 
 func (r ApiSearchShowsByFiltersRequest) Cursor(cursor string) ApiSearchShowsByFiltersRequest {
 	r.cursor = &cursor
 	return r
@@ -329,8 +329,8 @@ and many more!
 Apart from the info about the given country-service combinations,
 output also includes information about streaming availability in the other services for the given country.
 
-When "show_type" is "movie" or "series_granularity" is "show", items per page is 20.
-When "show_type" is "series" and "series_granularity" is "episode" items per page is 10.
+When `show_type` is `movie` or `series_granularity` is `show`, items per page is 20.
+When `show_type` is `series` and `series_granularity` is `episode` items per page is 10.
 Otherwise items per page is 15.
 
 
@@ -521,7 +521,7 @@ func (r ApiSearchShowsByTitleRequest) Title(title string) ApiSearchShowsByTitleR
 	return r
 }
 
-// [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code of the target country. See \&quot;/countries\&quot; endpoint to get the list of supported countries. 
+// [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code of the target country. See &#x60;/countries&#x60; endpoint to get the list of supported countries. 
 func (r ApiSearchShowsByTitleRequest) Country(country string) ApiSearchShowsByTitleRequest {
 	r.country = &country
 	return r
@@ -533,7 +533,7 @@ func (r ApiSearchShowsByTitleRequest) ShowType(showType ShowType) ApiSearchShows
 	return r
 }
 
-// \&quot;series_granularity\&quot; determines the level of detail for series. It does not affect movies.  If \&quot;series_granularity\&quot; is \&quot;show\&quot;, then the output will not include season and episode info.  If \&quot;series_granularity\&quot; is \&quot;season\&quot;, then the output will include season info but not episode info.  If \&quot;series_granularity\&quot; is \&quot;episode\&quot;, then the output will include season and episode info.  If you do not need season and episode info, then it is recommended to set \&quot;series_granularity\&quot; as \&quot;show\&quot; to reduce the size of the response and increase the performance of the endpoint.  If you need deep links for individual seasons and episodes, then you should set \&quot;series_granularity\&quot; as \&quot;episode\&quot;. In this case response will include full streaming info for seasons and episodes, similar to the streaming info for movies and series; including deep links into seasons and episodes, individual subtitle/audio and video quality info etc. 
+// &#x60;series_granularity&#x60; determines the level of detail for series. It does not affect movies.  If &#x60;series_granularity&#x60; is &#x60;show&#x60;, then the output will not include season and episode info.  If &#x60;series_granularity&#x60; is &#x60;season&#x60;, then the output will include season info but not episode info.  If &#x60;series_granularity&#x60; is &#x60;episode&#x60;, then the output will include season and episode info.  If you do not need season and episode info, then it is recommended to set &#x60;series_granularity&#x60; as &#x60;show&#x60; to reduce the size of the response and increase the performance of the endpoint.  If you need deep links for individual seasons and episodes, then you should set &#x60;series_granularity&#x60; as &#x60;episode&#x60;. In this case response will include full streaming info for seasons and episodes, similar to the streaming info for movies and series; including deep links into seasons and episodes, individual subtitle/audio and video quality info etc. 
 func (r ApiSearchShowsByTitleRequest) SeriesGranularity(seriesGranularity string) ApiSearchShowsByTitleRequest {
 	r.seriesGranularity = &seriesGranularity
 	return r
@@ -553,7 +553,7 @@ func (r ApiSearchShowsByTitleRequest) Execute() ([]Show, *http.Response, error) 
 SearchShowsByTitle Search Shows by title
 
 Search for movies and series by a title.
-Maximum amount of items returned are "20"
+Maximum amount of items returned are `20`
 unless there are more than 20 shows with the exact given title input.
 In that case all the items have 100% match with the title will be returned.
 

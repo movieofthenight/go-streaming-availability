@@ -21,7 +21,7 @@ var _ MappedNullable = &Episode{}
 
 // Episode Details of an episode.
 type Episode struct {
-	// Type of the item. Always \"episode\".
+	// Type of the item. Always `episode`.
 	ItemType string `json:"itemType"`
 	// Title of the episode.
 	Title string `json:"title"`

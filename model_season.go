@@ -21,7 +21,7 @@ var _ MappedNullable = &Season{}
 
 // Season Details of a season.
 type Season struct {
-	// Type of the item. Always \"season\".
+	// Type of the item. Always `season`.
 	ItemType string `json:"itemType"`
 	// Title of the season.
 	Title string `json:"title"`

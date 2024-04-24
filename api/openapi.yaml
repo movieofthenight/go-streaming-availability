@@ -92,8 +92,8 @@ paths:
       - genres
   /shows/{id}:
     get:
-      description: "Get the details of a show via \"id\", \"imdbId\" or \"tmdbId\"\
-        , including the global streaming availability info."
+      description: "Get the details of a show via `id`, `imdbId` or `tmdbId`, including\
+        \ the global streaming availability info."
       externalDocs:
         description: Official Documentation
         url: <external_doc_4>shows#get-a-show</external_doc_4>
@@ -126,8 +126,8 @@ paths:
         Apart from the info about the given country-service combinations,
         output also includes information about streaming availability in the other services for the given country.
 
-        When "show_type" is "movie" or "series_granularity" is "show", items per page is 20.
-        When "show_type" is "series" and "series_granularity" is "episode" items per page is 10.
+        When `show_type` is `movie` or `series_granularity` is `show`, items per page is 20.
+        When `show_type` is `series` and `series_granularity` is `episode` items per page is 10.
         Otherwise items per page is 15.
       externalDocs:
         description: Official Documentation
@@ -162,7 +162,7 @@ paths:
     get:
       description: |
         Search for movies and series by a title.
-        Maximum amount of items returned are "20"
+        Maximum amount of items returned are `20`
         unless there are more than 20 shows with the exact given title input.
         In that case all the items have 100% match with the title will be returned.
 
@@ -190,9 +190,9 @@ paths:
       description: |
         Query the new, removed, updated, expiring or upcoming movies/series/seasons/episodes in a given list of streaming services.
         Results are ordered by the date of the changes.
-        Changes listed per page is "25".
+        Changes listed per page is `25`.
 
-        Changes are listed under "changes" field, and shows affected by these changes are listed under "shows" field.
+        Changes are listed under `changes` field, and shows affected by these changes are listed under `shows` field.
       externalDocs:
         description: Official Documentation
         url: <external_doc_4>shows#search-shows-by-title</external_doc_4>
@@ -222,7 +222,7 @@ components:
     catalogsParam:
       description: |
         A comma separated list of up to 32 catalogs to search in.
-        See "/countries" endpoint to get the supported services in each country and their ids.
+        See `/countries` endpoint to get the supported services in each country and their ids.
 
         When multiple catalogs are passed as a comma separated list, any show that is in at least one of the catalogs will be included in the result.
 
@@ -230,17 +230,17 @@ components:
 
         Syntax of the catalogs supplied in the list can be as the followings:
 
-        - "<sevice_id>": Searches in the entire catalog of that service,
-        including (if applicable) rentable, buyable shows or shows available through addons e.g. "netflix", "prime", "apple"
+        - `<sevice_id>`: Searches in the entire catalog of that service,
+        including (if applicable) rentable, buyable shows or shows available through addons e.g. `netflix`, `prime`, `apple`
 
-        - "<sevice_id>.<streaming_option_type>": Only returns the shows that are available in that service with the given streaming option type.
-        Valid streaming option types are "subscription", "free", "rent", "buy" and "addon"
-        e.g. "peacock.free" only returns the shows on Peacock that are free to watch,
-        "prime.subscription" only returns the shows on Prime Video that are available to watch with a Prime subscription.
-        "hulu.addon" only returns the shows on Hulu that are available via an addon, "prime.rent" only returns the shows on Prime Video that are rentable.
+        - `<sevice_id>.<streaming_option_type>`: Only returns the shows that are available in that service with the given streaming option type.
+        Valid streaming option types are `subscription`, `free`, `rent`, `buy` and `addon`
+        e.g. `peacock.free` only returns the shows on Peacock that are free to watch,
+        `prime.subscription` only returns the shows on Prime Video that are available to watch with a Prime subscription.
+        `hulu.addon` only returns the shows on Hulu that are available via an addon, `prime.rent` only returns the shows on Prime Video that are rentable.
 
-        - "<sevice_id>.addon.<addon_id>": Only returns the shows that are available in that service with the given addon.
-        Check "/countries" endpoint to fetch the available addons for a service in each country. Some sample values are: "hulu.addon.hbo", "prime.addon.hbomaxus".
+        - `<sevice_id>.addon.<addon_id>`: Only returns the shows that are available in that service with the given addon.
+        Check `/countries` endpoint to fetch the available addons for a service in each country. Some sample values are: `hulu.addon.hbo`, `prime.addon.hbomaxus`.
       examples:
         Netflix:
           description: Search in Netflix
@@ -298,7 +298,7 @@ components:
     itemTypeParam:
       description: |
         Type of items to search in.
-        If "item_type" is "show", you can use "show_type" parameter to only search for movies or series.
+        If `item_type` is `show`, you can use `show_type` parameter to only search for movies or series.
       explode: true
       in: query
       name: item_type
@@ -309,8 +309,8 @@ components:
     genresParam:
       description: |
         A comma seperated list of genre ids to only search within the shows in those genre.
-        See "/genres" endpoint to see the available genres and their ids.
-        Use "genres_relation" parameter to specify between returning shows that have at least one of the given genres
+        See `/genres` endpoint to see the available genres and their ids.
+        Use `genres_relation` parameter to specify between returning shows that have at least one of the given genres
         or returning shows that have all of the given genres.
       examples:
         Action:
@@ -336,10 +336,10 @@ components:
       style: form
     genresRelationParam:
       description: |
-        Only used when there are multiple genres supplied in "genres" parameter.
+        Only used when there are multiple genres supplied in `genres` parameter.
 
-        When "or", the endpoint returns any show that has at least one of the given genres.
-        When "and", it only returns the shows that have all of the given genres.
+        When `or`, the endpoint returns any show that has at least one of the given genres.
+        When `and`, it only returns the shows that have all of the given genres.
       explode: true
       in: query
       name: genres_relation
@@ -357,20 +357,20 @@ components:
     fromParam:
       description: |
         [Unix Time Stamp](https://www.unixtimestamp.com/) to only query the changes happened/happening after this date (inclusive).
-        For "past" changes such as "new", "removed" or "updated", the timestamp must be between today and "31" days ago.
-        For "future" changes such as "expiring" or "upcoming", the timestamp must be between today and "31" days from now in the future.
+        For `past` changes such as `new`, `removed` or `updated`, the timestamp must be between today and `31` days ago.
+        For `future` changes such as `expiring` or `upcoming`, the timestamp must be between today and `31` days from now in the future.
 
-        If not supplied, the default value for "past" changes is "31" days ago, and for "future" changes is today.
+        If not supplied, the default value for `past` changes is `31` days ago, and for `future` changes is today.
       examples:
         "1672531200":
           description: "Unix timestamp of January 1, 2023. Note that this is just\
             \ an example value and you cannot directly use this timestamp as it is\
-            \ not within \"31\" days."
+            \ not within `31` days."
           value: 1672531200
         "1690070400":
           description: "Unix timestamp of July 23, 2023. Note that this is just an\
             \ example value and you cannot directly use this timestamp as it is not\
-            \ within \"31\" days."
+            \ within `31` days."
           value: 1690070400
       explode: true
       in: query
@@ -383,20 +383,20 @@ components:
     toParam:
       description: |
         [Unix Time Stamp](https://www.unixtimestamp.com/) to only query the changes happened/happening before this date (inclusive).
-        For "past" changes such as "new", "removed" or "updated", the timestamp must be between today and "31" days ago.
-        For "future" changes such as "expiring" or "upcoming", the timestamp must be between today and "31" days from now in the future.
+        For `past` changes such as `new`, `removed` or `updated`, the timestamp must be between today and `31` days ago.
+        For `future` changes such as `expiring` or `upcoming`, the timestamp must be between today and `31` days from now in the future.
 
-        If not supplied, the default value for "past" changes is today, and for "future" changes is "31" days from now.
+        If not supplied, the default value for `past` changes is today, and for `future` changes is `31` days from now.
       examples:
         "1672531200":
           description: "Unix timestamp of January 1, 2023. Note that this is just\
             \ an example value and you cannot directly use this timestamp as it is\
-            \ not within \"31\" days."
+            \ not within `31` days."
           value: 1672531200
         "1690070400":
           description: "Unix timestamp of July 23, 2023. Note that this is just an\
             \ example value and you cannot directly use this timestamp as it is not\
-            \ within \"31\" days."
+            \ within `31` days."
           value: 1690070400
       explode: true
       in: query
@@ -409,11 +409,11 @@ components:
     includeUnknownDatesParam:
       description: |
         Whether to include the changes with unknown dates.
-        "past" changes such as "new", "removed" or "updated" will always have a timestamp thus this parameter does not affect them.
-        "future" changes such as "expiring" or "upcoming" may not have a timestamp if the exact date is not known
+        `past` changes such as `new`, `removed` or `updated` will always have a timestamp thus this parameter does not affect them.
+        `future` changes such as `expiring` or `upcoming` may not have a timestamp if the exact date is not known
         (e.g. some services do not explicitly state the exact date of some of the upcoming/expiring shows).
-        If set as "true", the changes with unknown dates will be included in the response.
-        If set as "false", the changes with unknown dates will be excluded from the response.
+        If set as `true`, the changes with unknown dates will be included in the response.
+        If set as `false`, the changes with unknown dates will be excluded from the response.
 
         When ordering, the changes with unknown dates will be treated as if their timestamp is 0.
         Thus, they will appear first in the ascending order and last in the descending order.
@@ -496,7 +496,7 @@ components:
     searchFiltersOrderByParam:
       description: |
         Determines the ordering of the shows.
-        Make sure to set "descending_order" parameter as "true" when ordering by popularity or rating
+        Make sure to set `descending_order` parameter as `true` when ordering by popularity or rating
         so that shows with the highest popularity or rating will be returned first.
       explode: true
       in: query
@@ -585,13 +585,13 @@ components:
     cursorParam:
       description: |
         Cursor is used for pagination.
-        After each request, the response includes a "hasMore" boolean field to tell if there are more results that did not fit into the returned list.
-        If it is set as "true", to get the rest of the result set, send a new request
+        After each request, the response includes a `hasMore` boolean field to tell if there are more results that did not fit into the returned list.
+        If it is set as `true`, to get the rest of the result set, send a new request
         (with the same parameters for other fields),
-        and set the "cursor" parameter as the "nextCursor" value of the response of the previous request.
-        Do not forget to escape the "cursor" value before putting it into a query as it might contain characters such as "?"and "&".
+        and set the `cursor` parameter as the `nextCursor` value of the response of the previous request.
+        Do not forget to escape the `cursor` value before putting it into a query as it might contain characters such as `?`and `&`.
 
-        The first request naturally does not require a "cursor" parameter.
+        The first request naturally does not require a `cursor` parameter.
       explode: true
       in: query
       name: cursor
@@ -602,7 +602,7 @@ components:
     countryParam:
       description: |
         [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code of the target country.
-        See "/countries" endpoint to get the list of supported countries.
+        See `/countries` endpoint to get the list of supported countries.
       examples:
         Canada:
           description: ISO 3166-1 alpha-2 code of Canada.
@@ -642,7 +642,7 @@ components:
         If it is supplied, only the streaming availability info from the given country will be returned.
         If you are only interested in the streaming availability in a single country,
         then it is recommended to use this parameter to reduce the size of the response and increase the performance of the endpoint.
-        See "/countries" endpoint to get the list of supported countries.
+        See `/countries` endpoint to get the list of supported countries.
       examples:
         Canada:
           description: ISO 3166-1 alpha-2 code of Canada.
@@ -677,19 +677,19 @@ components:
       style: form
     idParam:
       description: |
-        "id" of the show. You can also pass an IMDb Id or a TMDB Id as an "id".
+        `id` of the show. You can also pass an IMDb Id or a TMDB Id as an `id`.
         The endpoint will automatically detect the type of the id and fetch the show accordingly.
 
         When passing an IMDb Id,
-        it should be in the format of "tt<numerical_id>". (e.g. "tt0120338" for Titanic)
+        it should be in the format of `tt<numerical_id>`. (e.g. `tt0120338` for Titanic)
 
         When passing a TMDB Id,
-        it should be in the format of "movie/<numerical_id>" for movies and "tv/<numerical_id>" for series.
-        (e.g. "tv/1396" for Breaking Bad and "movie/597" for Titanic)
+        it should be in the format of `movie/<numerical_id>` for movies and `tv/<numerical_id>` for series.
+        (e.g. `tv/1396` for Breaking Bad and `movie/597` for Titanic)
 
-        If you are handcrafting the URL, make sure to encode the "id" parameter.
-        (e.g. final path should look like "/shows/movie%2F597" for Titanic with TMDb id).
-        Here, "%2F" is the encoded version of "/".
+        If you are handcrafting the URL, make sure to encode the `id` parameter.
+        (e.g. final path should look like `/shows/movie%2F597` for Titanic with TMDb id).
+        Here, `%2F` is the encoded version of `/`.
         To read more about URL encoding, you can check [this link](https://en.wikipedia.org/wiki/Percent-encoding).
       examples:
         Titanic (IMDb):
@@ -758,18 +758,18 @@ components:
       style: form
     getGranularityParam:
       description: |
-        "series_granularity" determines the level of detail for series. It does not affect movies.
+        `series_granularity` determines the level of detail for series. It does not affect movies.
 
-        If "series_granularity" is "show", then the output will not include season and episode info.
+        If `series_granularity` is `show`, then the output will not include season and episode info.
 
-        If "series_granularity" is "season", then the output will include season info but not episode info.
+        If `series_granularity` is `season`, then the output will include season info but not episode info.
 
-        If "series_granularity" is "episode", then the output will include season and episode info.
+        If `series_granularity` is `episode`, then the output will include season and episode info.
 
-        If you do not need season and episode info, then it is recommended to set "series_granularity" as "show"
+        If you do not need season and episode info, then it is recommended to set `series_granularity` as `show`
         to reduce the size of the response and increase the performance of the endpoint.
 
-        If you need deep links for individual seasons and episodes, then you should set "series_granularity" as "episode".
+        If you need deep links for individual seasons and episodes, then you should set `series_granularity` as `episode`.
         In this case response will include full streaming info for seasons and episodes,
         similar to the streaming info for movies and series; including deep links into seasons and episodes,
         individual subtitle/audio and video quality info etc.
@@ -791,18 +791,18 @@ components:
       style: form
     searchGranularityParam:
       description: |
-        "series_granularity" determines the level of detail for series. It does not affect movies.
+        `series_granularity` determines the level of detail for series. It does not affect movies.
 
-        If "series_granularity" is "show", then the output will not include season and episode info.
+        If `series_granularity` is `show`, then the output will not include season and episode info.
 
-        If "series_granularity" is "season", then the output will include season info but not episode info.
+        If `series_granularity` is `season`, then the output will include season info but not episode info.
 
-        If "series_granularity" is "episode", then the output will include season and episode info.
+        If `series_granularity` is `episode`, then the output will include season and episode info.
 
-        If you do not need season and episode info, then it is recommended to set "series_granularity" as "show"
+        If you do not need season and episode info, then it is recommended to set `series_granularity` as `show`
         to reduce the size of the response and increase the performance of the endpoint.
 
-        If you need deep links for individual seasons and episodes, then you should set "series_granularity" as "episode".
+        If you need deep links for individual seasons and episodes, then you should set `series_granularity` as `episode`.
         In this case response will include full streaming info for seasons and episodes,
         similar to the streaming info for movies and series; including deep links into seasons and episodes,
         individual subtitle/audio and video quality info etc.
@@ -1201,26 +1201,26 @@ components:
     show:
       additionalProperties: false
       description: |
-        A show object represents a movie or a series. Type of the show is determined by the "showType" property,
-        which is either "movie" or "series". Based on this type, some properties are omitted,
-        for example a movie does not have "seasonCount" and "episodeCount" properties.
+        A show object represents a movie or a series. Type of the show is determined by the `showType` property,
+        which is either `movie` or `series`. Based on this type, some properties are omitted,
+        for example a movie does not have `seasonCount` and `episodeCount` properties.
 
         Show object contains the details such as the title, overview, genres, cast, rating and images.
-        You can find the streaming availability information under "streamingOptions" property.
+        You can find the streaming availability information under `streamingOptions` property.
         Each streaming option contains the service info, deep link, video quality, available audios and subtitles
         and more. It also includes the price if the show is available to buy or rent;
         and addon info if the show is available via an addon (such as Apple TV Channels, Prime Video Channels etc.).
 
-        You can also find the seasons of the series under the "seasons" property,
-        and the episodes of a season under the "episodes" property of the "season" object.
-        Via the "streamingOptions" property of seasons and episodes,
+        You can also find the seasons of the series under the `seasons` property,
+        and the episodes of a season under the `episodes` property of the `season` object.
+        Via the `streamingOptions` property of seasons and episodes,
         you can get the individual streaming options of them.
         These streaming options include the same set of properties as the show streaming options,
         so you can use them to get deep links to episodes and seasons, and to see available audios and subtitles.
 
         Note that seasons and episodes are not included in the search results
-        unless you set the "series_granularity" parameter to "seasons" or "episodes".
-        For more info, check out the "series_granularity" parameter of the search endpoints.
+        unless you set the `series_granularity` parameter to `seasons` or `episodes`.
+        For more info, check out the `series_granularity` parameter of the search endpoints.
 
         There are multiple ways to retrieve shows.
         You can retrieve a show by its IMDb or TMDB id via [/shows/{id}](#get-a-show) endpoint;
@@ -1230,7 +1230,7 @@ components:
         and offers advanced ordering options such as ordering by popularity, rating, release year etc.
       properties:
         itemType:
-          description: Type of the item. Always "show".
+          description: Type of the item. Always `show`.
           enum:
           - show
           type: string
@@ -1397,7 +1397,7 @@ components:
       description: Details of a season.
       properties:
         itemType:
-          description: Type of the item. Always "season".
+          description: Type of the item. Always `season`.
           enum:
           - season
           type: string
@@ -1432,7 +1432,7 @@ components:
       description: Details of an episode.
       properties:
         itemType:
-          description: Type of the item. Always "episode".
+          description: Type of the item. Always `episode`.
           enum:
           - episode
           type: string
@@ -1482,13 +1482,13 @@ components:
         link:
           description: |
             Deep link to the streaming option's page in the web app of the streaming service.
-            Unlike "videoLink", this field is guaranteed to be populated.
+            Unlike `videoLink`, this field is guaranteed to be populated.
           type: string
         videoLink:
           description: |
             Deep link to the video associated with the streaming option.
             Omitted if there's no direct link to the video.
-            Might have the same value as "link".
+            Might have the same value as `link`.
           type: string
         quality:
           description: Maximum supported video quality of the streaming option.
@@ -1550,7 +1550,7 @@ components:
         for the given price.
         If the price is null, that means sub-items of the series or the season are available to buy or rent,
         but it is not possible to buy or rent the entire series or the season as a whole at once.
-        In this case, the price of the sub-items can be found in the "episodes" or "seasons" array.
+        In this case, the price of the sub-items can be found in the `episodes` or `seasons` array.
       properties:
         amount:
           description: Numerical amount of the price.
@@ -1597,7 +1597,7 @@ components:
       description: |
         Genres are used to categorize shows.
         Each genre object contains the id and name of the genre.
-        When fetching genres via [/genres](#get-all-genres) endpoint, you can pass the "output_language" parameter
+        When fetching genres via [/genres](#get-all-genres) endpoint, you can pass the `output_language` parameter
         to get the genre names in one of the supported languages.
 
         You can use genre ids to filter shows in the search endpoints.
@@ -1663,15 +1663,15 @@ components:
       description: |
         A change object represents a future or past change in a streaming catalog.
         It contains the details such as the type of the change
-        (could be past change such as like "new", "updated", "removed";
-        or a future change such as "expiring", "upcoming"),
-        the affected item type ("show", "season" or "episode"), timestamp of the change and more.
+        (could be past change such as like `new`, `updated`, `removed`;
+        or a future change such as `expiring`, `upcoming`),
+        the affected item type (`show`, `season` or `episode`), timestamp of the change and more.
 
         Via change endpoints, you can get the most recent updates in the streaming catalogs.
         On top of the changes, you can also get the details of the affected shows. Every change object
-        has a "showId" field.
-        You can find the list of shows affected by the changes in the "shows" field of the response, and match
-        the show ids with the "showId" field of the change objects.
+        has a `showId` field.
+        You can find the list of shows affected by the changes in the `shows` field of the response, and match
+        the show ids with the `showId` field of the change objects.
       properties:
         changeType:
           $ref: '#/components/schemas/changeType'
@@ -1683,12 +1683,12 @@ components:
         showType:
           $ref: '#/components/schemas/showType'
         season:
-          description: Number of the season affected from the change. Omitted if "item_type"
-            is not "season"or "episode".
+          description: Number of the season affected from the change. Omitted if `item_type`
+            is not `season`or `episode`.
           type: integer
         episode:
           description: Number of the episode affected from the change. Omitted if
-            "item_type" is not "episode".
+            `item_type` is not `episode`.
           type: integer
         service:
           $ref: '#/components/schemas/serviceInfo'
@@ -1699,16 +1699,16 @@ components:
         timestamp:
           description: |
             [Unix Time Stamp](https://www.unixtimestamp.com/) of the change.
-            Past changes ("new", "updated", "removed") will always have a timestamp.
-            Future changes ("expiring", "upcoming") will have a timestamp if the exact date is known.
+            Past changes (`new`, `updated`, `removed`) will always have a timestamp.
+            Future changes (`expiring`, `upcoming`) will have a timestamp if the exact date is known.
             If not, timestamp will be omitted, e.g. a show is known to be expiring soon, but the exact date is not known.
           format: int64
           type: integer
         link:
           description: |
             Deep link to the affected streaming option's page in the web app of the streaming service.
-            This field is guaranteed to be populated when "changeType" is "new", "updated", "expiring" or "removed".
-            When "changeType" is "upcoming", this field might be populated or null depending on if the link of the future streaming option is known.
+            This field is guaranteed to be populated when `changeType` is `new`, `updated`, `expiring` or `removed`.
+            When `changeType` is `upcoming`, this field might be populated or null depending on if the link of the future streaming option is known.
           type: string
       required:
       - changeType

@@ -1,7 +1,7 @@
 # Streaming Availability API Go Client
 
 [![go-github release (latest SemVer)](https://img.shields.io/github/v/release/movieofthenight/go-streaming-availability?sort=semver&color=darkgreen)](https://github.com/movieofthenight/go-streaming-availability/releases)
-[![GoDoc](https://img.shields.io/static/v1?label=godoc&message=reference&color=blue)](https://pkg.go.dev/github.com/movieofthenight/go-streaming-availability)
+[![GoDoc](https://img.shields.io/static/v1?label=godoc&message=reference&color=blue)](https://pkg.go.dev/github.com/movieofthenight/go-streaming-availability/v4)
 
 ## Streaming Availability API
 

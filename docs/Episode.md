@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ItemType** | **string** | Type of the item. Always \&quot;episode\&quot;. | 
+**ItemType** | **string** | Type of the item. Always &#x60;episode&#x60;. | 
 **Title** | **string** | Title of the episode. | 
 **AirYear** | **int32** | The year that the episode aired. | 
 **StreamingOptions** |  | Map of the streaming options by the country code. | 

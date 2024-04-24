@@ -38,7 +38,7 @@ type ApiGetChangesRequest struct {
 	outputLanguage *string
 }
 
-// [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code of the target country. See \&quot;/countries\&quot; endpoint to get the list of supported countries. 
+// [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code of the target country. See &#x60;/countries&#x60; endpoint to get the list of supported countries. 
 func (r ApiGetChangesRequest) Country(country string) ApiGetChangesRequest {
 	r.country = &country
 	return r
@@ -50,13 +50,13 @@ func (r ApiGetChangesRequest) ChangeType(changeType ChangeType) ApiGetChangesReq
 	return r
 }
 
-// Type of items to search in. If \&quot;item_type\&quot; is \&quot;show\&quot;, you can use \&quot;show_type\&quot; parameter to only search for movies or series. 
+// Type of items to search in. If &#x60;item_type&#x60; is &#x60;show&#x60;, you can use &#x60;show_type&#x60; parameter to only search for movies or series. 
 func (r ApiGetChangesRequest) ItemType(itemType ItemType) ApiGetChangesRequest {
 	r.itemType = &itemType
 	return r
 }
 
-// A comma separated list of up to 32 catalogs to search in. See \&quot;/countries\&quot; endpoint to get the supported services in each country and their ids.  When multiple catalogs are passed as a comma separated list, any show that is in at least one of the catalogs will be included in the result.  If no catalogs are passed, the endpoint will search in all the available catalogs in the country.  Syntax of the catalogs supplied in the list can be as the followings:  - \&quot;&lt;sevice_id&gt;\&quot;: Searches in the entire catalog of that service, including (if applicable) rentable, buyable shows or shows available through addons e.g. \&quot;netflix\&quot;, \&quot;prime\&quot;, \&quot;apple\&quot;  - \&quot;&lt;sevice_id&gt;.&lt;streaming_option_type&gt;\&quot;: Only returns the shows that are available in that service with the given streaming option type. Valid streaming option types are \&quot;subscription\&quot;, \&quot;free\&quot;, \&quot;rent\&quot;, \&quot;buy\&quot; and \&quot;addon\&quot; e.g. \&quot;peacock.free\&quot; only returns the shows on Peacock that are free to watch, \&quot;prime.subscription\&quot; only returns the shows on Prime Video that are available to watch with a Prime subscription. \&quot;hulu.addon\&quot; only returns the shows on Hulu that are available via an addon, \&quot;prime.rent\&quot; only returns the shows on Prime Video that are rentable.  - \&quot;&lt;sevice_id&gt;.addon.&lt;addon_id&gt;\&quot;: Only returns the shows that are available in that service with the given addon. Check \&quot;/countries\&quot; endpoint to fetch the available addons for a service in each country. Some sample values are: \&quot;hulu.addon.hbo\&quot;, \&quot;prime.addon.hbomaxus\&quot;. 
+// A comma separated list of up to 32 catalogs to search in. See &#x60;/countries&#x60; endpoint to get the supported services in each country and their ids.  When multiple catalogs are passed as a comma separated list, any show that is in at least one of the catalogs will be included in the result.  If no catalogs are passed, the endpoint will search in all the available catalogs in the country.  Syntax of the catalogs supplied in the list can be as the followings:  - &#x60;&lt;sevice_id&gt;&#x60;: Searches in the entire catalog of that service, including (if applicable) rentable, buyable shows or shows available through addons e.g. &#x60;netflix&#x60;, &#x60;prime&#x60;, &#x60;apple&#x60;  - &#x60;&lt;sevice_id&gt;.&lt;streaming_option_type&gt;&#x60;: Only returns the shows that are available in that service with the given streaming option type. Valid streaming option types are &#x60;subscription&#x60;, &#x60;free&#x60;, &#x60;rent&#x60;, &#x60;buy&#x60; and &#x60;addon&#x60; e.g. &#x60;peacock.free&#x60; only returns the shows on Peacock that are free to watch, &#x60;prime.subscription&#x60; only returns the shows on Prime Video that are available to watch with a Prime subscription. &#x60;hulu.addon&#x60; only returns the shows on Hulu that are available via an addon, &#x60;prime.rent&#x60; only returns the shows on Prime Video that are rentable.  - &#x60;&lt;sevice_id&gt;.addon.&lt;addon_id&gt;&#x60;: Only returns the shows that are available in that service with the given addon. Check &#x60;/countries&#x60; endpoint to fetch the available addons for a service in each country. Some sample values are: &#x60;hulu.addon.hbo&#x60;, &#x60;prime.addon.hbomaxus&#x60;. 
 func (r ApiGetChangesRequest) Catalogs(catalogs []string) ApiGetChangesRequest {
 	r.catalogs = &catalogs
 	return r
@@ -68,25 +68,25 @@ func (r ApiGetChangesRequest) ShowType(showType ShowType) ApiGetChangesRequest {
 	return r
 }
 
-// [Unix Time Stamp](https://www.unixtimestamp.com/) to only query the changes happened/happening after this date (inclusive). For \&quot;past\&quot; changes such as \&quot;new\&quot;, \&quot;removed\&quot; or \&quot;updated\&quot;, the timestamp must be between today and \&quot;31\&quot; days ago. For \&quot;future\&quot; changes such as \&quot;expiring\&quot; or \&quot;upcoming\&quot;, the timestamp must be between today and \&quot;31\&quot; days from now in the future.  If not supplied, the default value for \&quot;past\&quot; changes is \&quot;31\&quot; days ago, and for \&quot;future\&quot; changes is today. 
+// [Unix Time Stamp](https://www.unixtimestamp.com/) to only query the changes happened/happening after this date (inclusive). For &#x60;past&#x60; changes such as &#x60;new&#x60;, &#x60;removed&#x60; or &#x60;updated&#x60;, the timestamp must be between today and &#x60;31&#x60; days ago. For &#x60;future&#x60; changes such as &#x60;expiring&#x60; or &#x60;upcoming&#x60;, the timestamp must be between today and &#x60;31&#x60; days from now in the future.  If not supplied, the default value for &#x60;past&#x60; changes is &#x60;31&#x60; days ago, and for &#x60;future&#x60; changes is today. 
 func (r ApiGetChangesRequest) From(from int64) ApiGetChangesRequest {
 	r.from = &from
 	return r
 }
 
-// [Unix Time Stamp](https://www.unixtimestamp.com/) to only query the changes happened/happening before this date (inclusive). For \&quot;past\&quot; changes such as \&quot;new\&quot;, \&quot;removed\&quot; or \&quot;updated\&quot;, the timestamp must be between today and \&quot;31\&quot; days ago. For \&quot;future\&quot; changes such as \&quot;expiring\&quot; or \&quot;upcoming\&quot;, the timestamp must be between today and \&quot;31\&quot; days from now in the future.  If not supplied, the default value for \&quot;past\&quot; changes is today, and for \&quot;future\&quot; changes is \&quot;31\&quot; days from now. 
+// [Unix Time Stamp](https://www.unixtimestamp.com/) to only query the changes happened/happening before this date (inclusive). For &#x60;past&#x60; changes such as &#x60;new&#x60;, &#x60;removed&#x60; or &#x60;updated&#x60;, the timestamp must be between today and &#x60;31&#x60; days ago. For &#x60;future&#x60; changes such as &#x60;expiring&#x60; or &#x60;upcoming&#x60;, the timestamp must be between today and &#x60;31&#x60; days from now in the future.  If not supplied, the default value for &#x60;past&#x60; changes is today, and for &#x60;future&#x60; changes is &#x60;31&#x60; days from now. 
 func (r ApiGetChangesRequest) To(to int64) ApiGetChangesRequest {
 	r.to = &to
 	return r
 }
 
-// Whether to include the changes with unknown dates. \&quot;past\&quot; changes such as \&quot;new\&quot;, \&quot;removed\&quot; or \&quot;updated\&quot; will always have a timestamp thus this parameter does not affect them. \&quot;future\&quot; changes such as \&quot;expiring\&quot; or \&quot;upcoming\&quot; may not have a timestamp if the exact date is not known (e.g. some services do not explicitly state the exact date of some of the upcoming/expiring shows). If set as \&quot;true\&quot;, the changes with unknown dates will be included in the response. If set as \&quot;false\&quot;, the changes with unknown dates will be excluded from the response.  When ordering, the changes with unknown dates will be treated as if their timestamp is 0. Thus, they will appear first in the ascending order and last in the descending order. 
+// Whether to include the changes with unknown dates. &#x60;past&#x60; changes such as &#x60;new&#x60;, &#x60;removed&#x60; or &#x60;updated&#x60; will always have a timestamp thus this parameter does not affect them. &#x60;future&#x60; changes such as &#x60;expiring&#x60; or &#x60;upcoming&#x60; may not have a timestamp if the exact date is not known (e.g. some services do not explicitly state the exact date of some of the upcoming/expiring shows). If set as &#x60;true&#x60;, the changes with unknown dates will be included in the response. If set as &#x60;false&#x60;, the changes with unknown dates will be excluded from the response.  When ordering, the changes with unknown dates will be treated as if their timestamp is 0. Thus, they will appear first in the ascending order and last in the descending order. 
 func (r ApiGetChangesRequest) IncludeUnknownDates(includeUnknownDates bool) ApiGetChangesRequest {
 	r.includeUnknownDates = &includeUnknownDates
 	return r
 }
 
-// Cursor is used for pagination. After each request, the response includes a \&quot;hasMore\&quot; boolean field to tell if there are more results that did not fit into the returned list. If it is set as \&quot;true\&quot;, to get the rest of the result set, send a new request (with the same parameters for other fields), and set the \&quot;cursor\&quot; parameter as the \&quot;nextCursor\&quot; value of the response of the previous request. Do not forget to escape the \&quot;cursor\&quot; value before putting it into a query as it might contain characters such as \&quot;?\&quot;and \&quot;&amp;\&quot;.  The first request naturally does not require a \&quot;cursor\&quot; parameter. 
+// Cursor is used for pagination. After each request, the response includes a &#x60;hasMore&#x60; boolean field to tell if there are more results that did not fit into the returned list. If it is set as &#x60;true&#x60;, to get the rest of the result set, send a new request (with the same parameters for other fields), and set the &#x60;cursor&#x60; parameter as the &#x60;nextCursor&#x60; value of the response of the previous request. Do not forget to escape the &#x60;cursor&#x60; value before putting it into a query as it might contain characters such as &#x60;?&#x60;and &#x60;&amp;&#x60;.  The first request naturally does not require a &#x60;cursor&#x60; parameter. 
 func (r ApiGetChangesRequest) Cursor(cursor string) ApiGetChangesRequest {
 	r.cursor = &cursor
 	return r
@@ -113,9 +113,9 @@ GetChanges Get Changes
 
 Query the new, removed, updated, expiring or upcoming movies/series/seasons/episodes in a given list of streaming services.
 Results are ordered by the date of the changes.
-Changes listed per page is "25".
+Changes listed per page is `25`.
 
-Changes are listed under "changes" field, and shows affected by these changes are listed under "shows" field.
+Changes are listed under `changes` field, and shows affected by these changes are listed under `shows` field.
 
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
