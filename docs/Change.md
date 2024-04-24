@@ -4,18 +4,23 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Season** | Pointer to **int32** | Season number. Omitted if \&quot;target_type\&quot; is not \&quot;season\&quot;or \&quot;episode\&quot;. | [optional] 
-**Episode** | Pointer to **int32** | Episode number. Omitted if \&quot;target_type\&quot; is not \&quot;episode\&quot;. | [optional] 
-**Service** | **string** | Service id of the change. | 
-**StreamingType** | [**StreamingType**](StreamingType.md) |  | 
-**Addon** | Pointer to **string** | Addon id, if the \&quot;streamingType\&quot; is \&quot;addon\&quot;. Otherwise omitted. | [optional] 
-**Time** | **int32** | [Unix Time Stamp](https://www.unixtimestamp.com/) of the change.  | 
+**ChangeType** | [**ChangeType**](ChangeType.md) | Type of the change. | 
+**ItemType** | [**ItemType**](ItemType.md) | Type of the item affected from the change. | 
+**ShowId** | **string** | Id of the show affected from the change. | 
+**ShowType** | [**ShowType**](ShowType.md) | Type of the show affected from the change. | 
+**Season** | Pointer to **int32** | Number of the season affected from the change. Omitted if \&quot;item_type\&quot; is not \&quot;season\&quot;or \&quot;episode\&quot;. | [optional] 
+**Episode** | Pointer to **int32** | Number of the episode affected from the change. Omitted if \&quot;item_type\&quot; is not \&quot;episode\&quot;. | [optional] 
+**Service** | [**ServiceInfo**](ServiceInfo.md) | Service affected from the change. | 
+**StreamingOptionType** | [**StreamingOptionType**](StreamingOptionType.md) |  | 
+**Addon** | Pointer to [**Addon**](Addon.md) | Addon info, if the \&quot;streamingOptionType\&quot; is \&quot;addon\&quot;. Otherwise omitted. | [optional] 
+**Timestamp** | Pointer to **int64** | [Unix Time Stamp](https://www.unixtimestamp.com/) of the change. Past changes (\&quot;new\&quot;, \&quot;updated\&quot;, \&quot;removed\&quot;) will always have a timestamp. Future changes (\&quot;expiring\&quot;, \&quot;upcoming\&quot;) will have a timestamp if the exact date is known. If not, timestamp will be omitted, e.g. a show is known to be expiring soon, but the exact date is not known.  | [optional] 
+**Link** | Pointer to **string** | Deep link to the affected streaming option&#39;s page in the web app of the streaming service. This field is guaranteed to be populated when \&quot;changeType\&quot; is \&quot;new\&quot;, \&quot;updated\&quot;, \&quot;expiring\&quot; or \&quot;removed\&quot;. When \&quot;changeType\&quot; is \&quot;upcoming\&quot;, this field might be populated or null depending on if the link of the future streaming option is known.  | [optional] 
 
 ## Methods
 
 ### NewChange
 
-`func NewChange(service string, streamingType StreamingType, time int32, ) *Change`
+`func NewChange(changeType ChangeType, itemType ItemType, showId string, showType ShowType, service ServiceInfo, streamingOptionType StreamingOptionType, ) *Change`
 
 NewChange instantiates a new Change object
 This constructor will assign default values to properties that have it defined,
@@ -29,6 +34,86 @@ will change when the set of required properties is changed
 NewChangeWithDefaults instantiates a new Change object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetChangeType
+
+`func (o *Change) GetChangeType() ChangeType`
+
+GetChangeType returns the ChangeType field if non-nil, zero value otherwise.
+
+### GetChangeTypeOk
+
+`func (o *Change) GetChangeTypeOk() (*ChangeType, bool)`
+
+GetChangeTypeOk returns a tuple with the ChangeType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetChangeType
+
+`func (o *Change) SetChangeType(v ChangeType)`
+
+SetChangeType sets ChangeType field to given value.
+
+
+### GetItemType
+
+`func (o *Change) GetItemType() ItemType`
+
+GetItemType returns the ItemType field if non-nil, zero value otherwise.
+
+### GetItemTypeOk
+
+`func (o *Change) GetItemTypeOk() (*ItemType, bool)`
+
+GetItemTypeOk returns a tuple with the ItemType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetItemType
+
+`func (o *Change) SetItemType(v ItemType)`
+
+SetItemType sets ItemType field to given value.
+
+
+### GetShowId
+
+`func (o *Change) GetShowId() string`
+
+GetShowId returns the ShowId field if non-nil, zero value otherwise.
+
+### GetShowIdOk
+
+`func (o *Change) GetShowIdOk() (*string, bool)`
+
+GetShowIdOk returns a tuple with the ShowId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetShowId
+
+`func (o *Change) SetShowId(v string)`
+
+SetShowId sets ShowId field to given value.
+
+
+### GetShowType
+
+`func (o *Change) GetShowType() ShowType`
+
+GetShowType returns the ShowType field if non-nil, zero value otherwise.
+
+### GetShowTypeOk
+
+`func (o *Change) GetShowTypeOk() (*ShowType, bool)`
+
+GetShowTypeOk returns a tuple with the ShowType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetShowType
+
+`func (o *Change) SetShowType(v ShowType)`
+
+SetShowType sets ShowType field to given value.
+
 
 ### GetSeason
 
@@ -82,60 +167,60 @@ HasEpisode returns a boolean if a field has been set.
 
 ### GetService
 
-`func (o *Change) GetService() string`
+`func (o *Change) GetService() ServiceInfo`
 
 GetService returns the Service field if non-nil, zero value otherwise.
 
 ### GetServiceOk
 
-`func (o *Change) GetServiceOk() (*string, bool)`
+`func (o *Change) GetServiceOk() (*ServiceInfo, bool)`
 
 GetServiceOk returns a tuple with the Service field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetService
 
-`func (o *Change) SetService(v string)`
+`func (o *Change) SetService(v ServiceInfo)`
 
 SetService sets Service field to given value.
 
 
-### GetStreamingType
+### GetStreamingOptionType
 
-`func (o *Change) GetStreamingType() StreamingType`
+`func (o *Change) GetStreamingOptionType() StreamingOptionType`
 
-GetStreamingType returns the StreamingType field if non-nil, zero value otherwise.
+GetStreamingOptionType returns the StreamingOptionType field if non-nil, zero value otherwise.
 
-### GetStreamingTypeOk
+### GetStreamingOptionTypeOk
 
-`func (o *Change) GetStreamingTypeOk() (*StreamingType, bool)`
+`func (o *Change) GetStreamingOptionTypeOk() (*StreamingOptionType, bool)`
 
-GetStreamingTypeOk returns a tuple with the StreamingType field if it's non-nil, zero value otherwise
+GetStreamingOptionTypeOk returns a tuple with the StreamingOptionType field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetStreamingType
+### SetStreamingOptionType
 
-`func (o *Change) SetStreamingType(v StreamingType)`
+`func (o *Change) SetStreamingOptionType(v StreamingOptionType)`
 
-SetStreamingType sets StreamingType field to given value.
+SetStreamingOptionType sets StreamingOptionType field to given value.
 
 
 ### GetAddon
 
-`func (o *Change) GetAddon() string`
+`func (o *Change) GetAddon() Addon`
 
 GetAddon returns the Addon field if non-nil, zero value otherwise.
 
 ### GetAddonOk
 
-`func (o *Change) GetAddonOk() (*string, bool)`
+`func (o *Change) GetAddonOk() (*Addon, bool)`
 
 GetAddonOk returns a tuple with the Addon field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAddon
 
-`func (o *Change) SetAddon(v string)`
+`func (o *Change) SetAddon(v Addon)`
 
 SetAddon sets Addon field to given value.
 
@@ -145,25 +230,55 @@ SetAddon sets Addon field to given value.
 
 HasAddon returns a boolean if a field has been set.
 
-### GetTime
+### GetTimestamp
 
-`func (o *Change) GetTime() int32`
+`func (o *Change) GetTimestamp() int64`
 
-GetTime returns the Time field if non-nil, zero value otherwise.
+GetTimestamp returns the Timestamp field if non-nil, zero value otherwise.
 
-### GetTimeOk
+### GetTimestampOk
 
-`func (o *Change) GetTimeOk() (*int32, bool)`
+`func (o *Change) GetTimestampOk() (*int64, bool)`
 
-GetTimeOk returns a tuple with the Time field if it's non-nil, zero value otherwise
+GetTimestampOk returns a tuple with the Timestamp field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetTime
+### SetTimestamp
 
-`func (o *Change) SetTime(v int32)`
+`func (o *Change) SetTimestamp(v int64)`
 
-SetTime sets Time field to given value.
+SetTimestamp sets Timestamp field to given value.
 
+### HasTimestamp
+
+`func (o *Change) HasTimestamp() bool`
+
+HasTimestamp returns a boolean if a field has been set.
+
+### GetLink
+
+`func (o *Change) GetLink() string`
+
+GetLink returns the Link field if non-nil, zero value otherwise.
+
+### GetLinkOk
+
+`func (o *Change) GetLinkOk() (*string, bool)`
+
+GetLinkOk returns a tuple with the Link field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLink
+
+`func (o *Change) SetLink(v string)`
+
+SetLink sets Link field to given value.
+
+### HasLink
+
+`func (o *Change) HasLink() bool`
+
+HasLink returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

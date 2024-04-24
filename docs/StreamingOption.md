@@ -4,23 +4,24 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Service** | **string** | Id of the streaming service. | 
-**StreamingType** | [**StreamingType**](StreamingType.md) |  | 
-**Addon** | Pointer to **string** | Addon id, if the \&quot;streamingType\&quot; is \&quot;addon\&quot;. Otherwise omitted. | [optional] 
-**Link** | **string** | Deep link to the streaming option&#39;s page in the streaming service. Guaranteed to be populated. | 
+**Service** | [**ServiceInfo**](ServiceInfo.md) |  | 
+**Type** | [**StreamingOptionType**](StreamingOptionType.md) |  | 
+**Addon** | Pointer to [**Addon**](Addon.md) | Addon that the streaming option is available through. Omitted if the streaming option is not available through an addon.  | [optional] 
+**Link** | **string** | Deep link to the streaming option&#39;s page in the web app of the streaming service. Unlike \&quot;videoLink\&quot;, this field is guaranteed to be populated.  | 
 **VideoLink** | Pointer to **string** | Deep link to the video associated with the streaming option. Omitted if there&#39;s no direct link to the video. Might have the same value as \&quot;link\&quot;.  | [optional] 
-**Quality** | Pointer to **string** | Maximum video quality of the streaming option. Omitted if the quality is unknown. | [optional] 
+**Quality** | Pointer to **string** | Maximum supported video quality of the streaming option. | [optional] 
 **Audios** | [**[]Locale**](Locale.md) | Array of the available audios. | 
 **Subtitles** | [**[]Subtitle**](Subtitle.md) | Array of the available subtitles. | 
 **Price** | Pointer to [**Price**](Price.md) |  | [optional] 
-**Leaving** | Pointer to **int64** | [Unix Time Stamp](https://www.unixtimestamp.com/) of the date that this streaming option is expiring. In other words, last day to watch. A value of 1 means the streaming option is expiring soon, but there&#39;s no specific date info is found. Omitted if there&#39;s no known expiry date.  | [optional] 
-**AvailableSince** | **int64** | [Unix Time Stamp](https://www.unixtimestamp.com/) of the date that this streaming option was found on the service.  | 
+**ExpiresSoon** | **bool** | Whether the streaming option expires within a month. | 
+**ExpiresOn** | Pointer to **int64** | [Unix Time Stamp](https://www.unixtimestamp.com/) of the date that the streaming option is expiring. In other words, last day to watch.  | [optional] 
+**AvailableSince** | **int64** | [Unix Time Stamp](https://www.unixtimestamp.com/) of the date that this streaming option was detected.  | 
 
 ## Methods
 
 ### NewStreamingOption
 
-`func NewStreamingOption(service string, streamingType StreamingType, link string, audios []Locale, subtitles []Subtitle, availableSince int64, ) *StreamingOption`
+`func NewStreamingOption(service ServiceInfo, type_ StreamingOptionType, link string, audios []Locale, subtitles []Subtitle, expiresSoon bool, availableSince int64, ) *StreamingOption`
 
 NewStreamingOption instantiates a new StreamingOption object
 This constructor will assign default values to properties that have it defined,
@@ -37,60 +38,60 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetService
 
-`func (o *StreamingOption) GetService() string`
+`func (o *StreamingOption) GetService() ServiceInfo`
 
 GetService returns the Service field if non-nil, zero value otherwise.
 
 ### GetServiceOk
 
-`func (o *StreamingOption) GetServiceOk() (*string, bool)`
+`func (o *StreamingOption) GetServiceOk() (*ServiceInfo, bool)`
 
 GetServiceOk returns a tuple with the Service field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetService
 
-`func (o *StreamingOption) SetService(v string)`
+`func (o *StreamingOption) SetService(v ServiceInfo)`
 
 SetService sets Service field to given value.
 
 
-### GetStreamingType
+### GetType
 
-`func (o *StreamingOption) GetStreamingType() StreamingType`
+`func (o *StreamingOption) GetType() StreamingOptionType`
 
-GetStreamingType returns the StreamingType field if non-nil, zero value otherwise.
+GetType returns the Type field if non-nil, zero value otherwise.
 
-### GetStreamingTypeOk
+### GetTypeOk
 
-`func (o *StreamingOption) GetStreamingTypeOk() (*StreamingType, bool)`
+`func (o *StreamingOption) GetTypeOk() (*StreamingOptionType, bool)`
 
-GetStreamingTypeOk returns a tuple with the StreamingType field if it's non-nil, zero value otherwise
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetStreamingType
+### SetType
 
-`func (o *StreamingOption) SetStreamingType(v StreamingType)`
+`func (o *StreamingOption) SetType(v StreamingOptionType)`
 
-SetStreamingType sets StreamingType field to given value.
+SetType sets Type field to given value.
 
 
 ### GetAddon
 
-`func (o *StreamingOption) GetAddon() string`
+`func (o *StreamingOption) GetAddon() Addon`
 
 GetAddon returns the Addon field if non-nil, zero value otherwise.
 
 ### GetAddonOk
 
-`func (o *StreamingOption) GetAddonOk() (*string, bool)`
+`func (o *StreamingOption) GetAddonOk() (*Addon, bool)`
 
 GetAddonOk returns a tuple with the Addon field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAddon
 
-`func (o *StreamingOption) SetAddon(v string)`
+`func (o *StreamingOption) SetAddon(v Addon)`
 
 SetAddon sets Addon field to given value.
 
@@ -235,30 +236,50 @@ SetPrice sets Price field to given value.
 
 HasPrice returns a boolean if a field has been set.
 
-### GetLeaving
+### GetExpiresSoon
 
-`func (o *StreamingOption) GetLeaving() int64`
+`func (o *StreamingOption) GetExpiresSoon() bool`
 
-GetLeaving returns the Leaving field if non-nil, zero value otherwise.
+GetExpiresSoon returns the ExpiresSoon field if non-nil, zero value otherwise.
 
-### GetLeavingOk
+### GetExpiresSoonOk
 
-`func (o *StreamingOption) GetLeavingOk() (*int64, bool)`
+`func (o *StreamingOption) GetExpiresSoonOk() (*bool, bool)`
 
-GetLeavingOk returns a tuple with the Leaving field if it's non-nil, zero value otherwise
+GetExpiresSoonOk returns a tuple with the ExpiresSoon field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetLeaving
+### SetExpiresSoon
 
-`func (o *StreamingOption) SetLeaving(v int64)`
+`func (o *StreamingOption) SetExpiresSoon(v bool)`
 
-SetLeaving sets Leaving field to given value.
+SetExpiresSoon sets ExpiresSoon field to given value.
 
-### HasLeaving
 
-`func (o *StreamingOption) HasLeaving() bool`
+### GetExpiresOn
 
-HasLeaving returns a boolean if a field has been set.
+`func (o *StreamingOption) GetExpiresOn() int64`
+
+GetExpiresOn returns the ExpiresOn field if non-nil, zero value otherwise.
+
+### GetExpiresOnOk
+
+`func (o *StreamingOption) GetExpiresOnOk() (*int64, bool)`
+
+GetExpiresOnOk returns a tuple with the ExpiresOn field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExpiresOn
+
+`func (o *StreamingOption) SetExpiresOn(v int64)`
+
+SetExpiresOn sets ExpiresOn field to given value.
+
+### HasExpiresOn
+
+`func (o *StreamingOption) HasExpiresOn() bool`
+
+HasExpiresOn returns a boolean if a field has been set.
 
 ### GetAvailableSince
 

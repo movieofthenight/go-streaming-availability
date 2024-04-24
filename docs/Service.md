@@ -8,15 +8,15 @@ Name | Type | Description | Notes
 **Name** | **string** | Name of the service. | 
 **HomePage** | **string** | Link to the homepage of the service. | 
 **ThemeColorCode** | **string** | Associated theme color hex code of the service. | 
-**Images** | [**ImageSet**](ImageSet.md) |  | 
-**SupportedStreamingTypes** | [**SupportedStreamingTypes**](SupportedStreamingTypes.md) |  | 
-**Addons** | [**map[string]Addon**](Addon.md) | Map of id to details of the addons supported by the service in this country. | 
+**ImageSet** | [**ServiceImageSet**](ServiceImageSet.md) | Image set of the service. | 
+**StreamingOptionTypes** | [**StreamingOptionTypes**](StreamingOptionTypes.md) |  | 
+**Addons** |  | Map of the supported addons by their ids. | 
 
 ## Methods
 
 ### NewService
 
-`func NewService(id string, name string, homePage string, themeColorCode string, images ImageSet, supportedStreamingTypes SupportedStreamingTypes, addons map[string]Addon, ) *Service`
+`func NewService(id string, name string, homePage string, themeColorCode string, imageSet ServiceImageSet, streamingOptionTypes StreamingOptionTypes, addons map[string]Addon, ) *Service`
 
 NewService instantiates a new Service object
 This constructor will assign default values to properties that have it defined,
@@ -111,44 +111,44 @@ and a boolean to check if the value has been set.
 SetThemeColorCode sets ThemeColorCode field to given value.
 
 
-### GetImages
+### GetImageSet
 
-`func (o *Service) GetImages() ImageSet`
+`func (o *Service) GetImageSet() ServiceImageSet`
 
-GetImages returns the Images field if non-nil, zero value otherwise.
+GetImageSet returns the ImageSet field if non-nil, zero value otherwise.
 
-### GetImagesOk
+### GetImageSetOk
 
-`func (o *Service) GetImagesOk() (*ImageSet, bool)`
+`func (o *Service) GetImageSetOk() (*ServiceImageSet, bool)`
 
-GetImagesOk returns a tuple with the Images field if it's non-nil, zero value otherwise
+GetImageSetOk returns a tuple with the ImageSet field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetImages
+### SetImageSet
 
-`func (o *Service) SetImages(v ImageSet)`
+`func (o *Service) SetImageSet(v ServiceImageSet)`
 
-SetImages sets Images field to given value.
+SetImageSet sets ImageSet field to given value.
 
 
-### GetSupportedStreamingTypes
+### GetStreamingOptionTypes
 
-`func (o *Service) GetSupportedStreamingTypes() SupportedStreamingTypes`
+`func (o *Service) GetStreamingOptionTypes() StreamingOptionTypes`
 
-GetSupportedStreamingTypes returns the SupportedStreamingTypes field if non-nil, zero value otherwise.
+GetStreamingOptionTypes returns the StreamingOptionTypes field if non-nil, zero value otherwise.
 
-### GetSupportedStreamingTypesOk
+### GetStreamingOptionTypesOk
 
-`func (o *Service) GetSupportedStreamingTypesOk() (*SupportedStreamingTypes, bool)`
+`func (o *Service) GetStreamingOptionTypesOk() (*StreamingOptionTypes, bool)`
 
-GetSupportedStreamingTypesOk returns a tuple with the SupportedStreamingTypes field if it's non-nil, zero value otherwise
+GetStreamingOptionTypesOk returns a tuple with the StreamingOptionTypes field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetSupportedStreamingTypes
+### SetStreamingOptionTypes
 
-`func (o *Service) SetSupportedStreamingTypes(v SupportedStreamingTypes)`
+`func (o *Service) SetStreamingOptionTypes(v StreamingOptionTypes)`
 
-SetSupportedStreamingTypes sets SupportedStreamingTypes field to given value.
+SetStreamingOptionTypes sets StreamingOptionTypes field to given value.
 
 
 ### GetAddons

@@ -5,17 +5,16 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | Id of the addon. | 
-**DisplayName** | **string** | Name of the addon. | 
+**Name** | **string** | Name of the addon. | 
 **HomePage** | **string** | Link to the homepage of the addon. | 
 **ThemeColorCode** | **string** | Associated theme color hex code of the addon. | 
-**Image** | **string** | Link to the logo of the addon. Deprecated, use \&quot;images\&quot; instead. | 
-**Images** | [**ImageSet**](ImageSet.md) |  | 
+**ImageSet** | [**ServiceImageSet**](ServiceImageSet.md) | Image set of the addon. | 
 
 ## Methods
 
 ### NewAddon
 
-`func NewAddon(id string, displayName string, homePage string, themeColorCode string, image string, images ImageSet, ) *Addon`
+`func NewAddon(id string, name string, homePage string, themeColorCode string, imageSet ServiceImageSet, ) *Addon`
 
 NewAddon instantiates a new Addon object
 This constructor will assign default values to properties that have it defined,
@@ -50,24 +49,24 @@ and a boolean to check if the value has been set.
 SetId sets Id field to given value.
 
 
-### GetDisplayName
+### GetName
 
-`func (o *Addon) GetDisplayName() string`
+`func (o *Addon) GetName() string`
 
-GetDisplayName returns the DisplayName field if non-nil, zero value otherwise.
+GetName returns the Name field if non-nil, zero value otherwise.
 
-### GetDisplayNameOk
+### GetNameOk
 
-`func (o *Addon) GetDisplayNameOk() (*string, bool)`
+`func (o *Addon) GetNameOk() (*string, bool)`
 
-GetDisplayNameOk returns a tuple with the DisplayName field if it's non-nil, zero value otherwise
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetDisplayName
+### SetName
 
-`func (o *Addon) SetDisplayName(v string)`
+`func (o *Addon) SetName(v string)`
 
-SetDisplayName sets DisplayName field to given value.
+SetName sets Name field to given value.
 
 
 ### GetHomePage
@@ -110,44 +109,24 @@ and a boolean to check if the value has been set.
 SetThemeColorCode sets ThemeColorCode field to given value.
 
 
-### GetImage
+### GetImageSet
 
-`func (o *Addon) GetImage() string`
+`func (o *Addon) GetImageSet() ServiceImageSet`
 
-GetImage returns the Image field if non-nil, zero value otherwise.
+GetImageSet returns the ImageSet field if non-nil, zero value otherwise.
 
-### GetImageOk
+### GetImageSetOk
 
-`func (o *Addon) GetImageOk() (*string, bool)`
+`func (o *Addon) GetImageSetOk() (*ServiceImageSet, bool)`
 
-GetImageOk returns a tuple with the Image field if it's non-nil, zero value otherwise
+GetImageSetOk returns a tuple with the ImageSet field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetImage
+### SetImageSet
 
-`func (o *Addon) SetImage(v string)`
+`func (o *Addon) SetImageSet(v ServiceImageSet)`
 
-SetImage sets Image field to given value.
-
-
-### GetImages
-
-`func (o *Addon) GetImages() ImageSet`
-
-GetImages returns the Images field if non-nil, zero value otherwise.
-
-### GetImagesOk
-
-`func (o *Addon) GetImagesOk() (*ImageSet, bool)`
-
-GetImagesOk returns a tuple with the Images field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetImages
-
-`func (o *Addon) SetImages(v ImageSet)`
-
-SetImages sets Images field to given value.
+SetImageSet sets ImageSet field to given value.
 
 
 

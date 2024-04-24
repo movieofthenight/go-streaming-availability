@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CountryCode** | **string** | 2-letter ISO code of the country. | 
+**CountryCode** | **string** | [ISO 3166-1 alpha-2 code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the country.  | 
 **Name** | **string** | Name of the country. | 
-**Services** | [**map[string]Service**](Service.md) | Map of service id to details of the service in this country. | 
+**Services** | [**[]Service**](Service.md) | Array of the supported services in the country, ordered by popularity. | 
 
 ## Methods
 
 ### NewCountry
 
-`func NewCountry(countryCode string, name string, services map[string]Service, ) *Country`
+`func NewCountry(countryCode string, name string, services []Service, ) *Country`
 
 NewCountry instantiates a new Country object
 This constructor will assign default values to properties that have it defined,
@@ -69,20 +69,20 @@ SetName sets Name field to given value.
 
 ### GetServices
 
-`func (o *Country) GetServices() map[string]Service`
+`func (o *Country) GetServices() []Service`
 
 GetServices returns the Services field if non-nil, zero value otherwise.
 
 ### GetServicesOk
 
-`func (o *Country) GetServicesOk() (*map[string]Service, bool)`
+`func (o *Country) GetServicesOk() (*[]Service, bool)`
 
 GetServicesOk returns a tuple with the Services field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetServices
 
-`func (o *Country) SetServices(v map[string]Service)`
+`func (o *Country) SetServices(v []Service)`
 
 SetServices sets Services field to given value.
 

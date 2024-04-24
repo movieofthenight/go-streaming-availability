@@ -4,30 +4,33 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** | Type of the show. | 
+**ItemType** | **string** | Type of the item. Always \&quot;show\&quot;. | 
+**ShowType** | [**ShowType**](ShowType.md) | Type of the show. Based on the type, some properties might be omitted. | 
+**Id** | **string** | Id of the show. | 
+**ImdbId** | **string** | [IMDb](https://www.imdb.com/) id of the show. | 
+**TmdbId** | **string** | [TMDD](https://www.themoviedb.org/) id of the show. | 
 **Title** | **string** | Title of the show. | 
-**Overview** | **string** | A brief overview of the plot. | 
-**Year** | Pointer to **int32** | The year that the movie was released. | [optional] 
+**Overview** | **string** | A brief overview of the overall plot of the show. | 
+**ReleaseYear** | Pointer to **int32** | The year that the movie was released. | [optional] 
 **FirstAirYear** | Pointer to **int32** | The first year that the series aired. | [optional] 
 **LastAirYear** | Pointer to **int32** | The last year that the series aired. | [optional] 
-**ImdbId** | **string** | [IMDb](https://www.imdb.com/) ID of the show. | 
-**TmdbId** | **int32** | [TMDb](https://www.themoviedb.org/) ID of the show. | 
 **OriginalTitle** | **string** | Original title of the show. | 
-**Genres** | [**[]Genre**](Genre.md) | Array of the genres associated with the show. | 
+**Genres** | [**[]Genre**](Genre.md) | Array of the genres of the show. | 
 **Directors** | Pointer to **[]string** | Array of the directors of the movie. | [optional] 
 **Creators** | Pointer to **[]string** | Array of the creators of the series. | [optional] 
 **Cast** | **[]string** | Array of the cast of the show. | 
-**Status** | Pointer to [**SeriesStatus**](SeriesStatus.md) |  | [optional] 
-**SeasonCount** | Pointer to **int32** | Number of seasons that are either available or announced. | [optional] 
-**EpisodeCount** | Pointer to **int32** | Number of episodes that are either available or announced. | [optional] 
-**StreamingInfo** | [**map[string][]StreamingOption**](array.md) | Country to streaming availability info mapping of a show. | 
-**Seasons** | Pointer to [**[]Season**](Season.md) |  | [optional] 
+**Rating** | **int32** | Rating of the show. This is calculated by taking the average of ratings found online from multiple sources. | 
+**SeasonCount** | Pointer to **int32** | Number of seasons that are either aired or announced for a series. | [optional] 
+**EpisodeCount** | Pointer to **int32** | Number of episodes that are either aired or announced for a series. | [optional] 
+**ImageSet** | [**ShowImageSet**](ShowImageSet.md) | Image set of the show. | 
+**StreamingOptions** |  | Map of the streaming options by the country code. | 
+**Seasons** | Pointer to [**[]Season**](Season.md) | Array of the seasons belong to the series. | [optional] 
 
 ## Methods
 
 ### NewShow
 
-`func NewShow(type_ string, title string, overview string, imdbId string, tmdbId int32, originalTitle string, genres []Genre, cast []string, streamingInfo map[string][]StreamingOption, ) *Show`
+`func NewShow(itemType string, showType ShowType, id string, imdbId string, tmdbId string, title string, overview string, originalTitle string, genres []Genre, cast []string, rating int32, imageSet ShowImageSet, streamingOptions map[string][]StreamingOption, ) *Show`
 
 NewShow instantiates a new Show object
 This constructor will assign default values to properties that have it defined,
@@ -42,24 +45,104 @@ NewShowWithDefaults instantiates a new Show object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetType
+### GetItemType
 
-`func (o *Show) GetType() string`
+`func (o *Show) GetItemType() string`
 
-GetType returns the Type field if non-nil, zero value otherwise.
+GetItemType returns the ItemType field if non-nil, zero value otherwise.
 
-### GetTypeOk
+### GetItemTypeOk
 
-`func (o *Show) GetTypeOk() (*string, bool)`
+`func (o *Show) GetItemTypeOk() (*string, bool)`
 
-GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+GetItemTypeOk returns a tuple with the ItemType field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetType
+### SetItemType
 
-`func (o *Show) SetType(v string)`
+`func (o *Show) SetItemType(v string)`
 
-SetType sets Type field to given value.
+SetItemType sets ItemType field to given value.
+
+
+### GetShowType
+
+`func (o *Show) GetShowType() ShowType`
+
+GetShowType returns the ShowType field if non-nil, zero value otherwise.
+
+### GetShowTypeOk
+
+`func (o *Show) GetShowTypeOk() (*ShowType, bool)`
+
+GetShowTypeOk returns a tuple with the ShowType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetShowType
+
+`func (o *Show) SetShowType(v ShowType)`
+
+SetShowType sets ShowType field to given value.
+
+
+### GetId
+
+`func (o *Show) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *Show) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *Show) SetId(v string)`
+
+SetId sets Id field to given value.
+
+
+### GetImdbId
+
+`func (o *Show) GetImdbId() string`
+
+GetImdbId returns the ImdbId field if non-nil, zero value otherwise.
+
+### GetImdbIdOk
+
+`func (o *Show) GetImdbIdOk() (*string, bool)`
+
+GetImdbIdOk returns a tuple with the ImdbId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetImdbId
+
+`func (o *Show) SetImdbId(v string)`
+
+SetImdbId sets ImdbId field to given value.
+
+
+### GetTmdbId
+
+`func (o *Show) GetTmdbId() string`
+
+GetTmdbId returns the TmdbId field if non-nil, zero value otherwise.
+
+### GetTmdbIdOk
+
+`func (o *Show) GetTmdbIdOk() (*string, bool)`
+
+GetTmdbIdOk returns a tuple with the TmdbId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTmdbId
+
+`func (o *Show) SetTmdbId(v string)`
+
+SetTmdbId sets TmdbId field to given value.
 
 
 ### GetTitle
@@ -102,30 +185,30 @@ and a boolean to check if the value has been set.
 SetOverview sets Overview field to given value.
 
 
-### GetYear
+### GetReleaseYear
 
-`func (o *Show) GetYear() int32`
+`func (o *Show) GetReleaseYear() int32`
 
-GetYear returns the Year field if non-nil, zero value otherwise.
+GetReleaseYear returns the ReleaseYear field if non-nil, zero value otherwise.
 
-### GetYearOk
+### GetReleaseYearOk
 
-`func (o *Show) GetYearOk() (*int32, bool)`
+`func (o *Show) GetReleaseYearOk() (*int32, bool)`
 
-GetYearOk returns a tuple with the Year field if it's non-nil, zero value otherwise
+GetReleaseYearOk returns a tuple with the ReleaseYear field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetYear
+### SetReleaseYear
 
-`func (o *Show) SetYear(v int32)`
+`func (o *Show) SetReleaseYear(v int32)`
 
-SetYear sets Year field to given value.
+SetReleaseYear sets ReleaseYear field to given value.
 
-### HasYear
+### HasReleaseYear
 
-`func (o *Show) HasYear() bool`
+`func (o *Show) HasReleaseYear() bool`
 
-HasYear returns a boolean if a field has been set.
+HasReleaseYear returns a boolean if a field has been set.
 
 ### GetFirstAirYear
 
@@ -176,46 +259,6 @@ SetLastAirYear sets LastAirYear field to given value.
 `func (o *Show) HasLastAirYear() bool`
 
 HasLastAirYear returns a boolean if a field has been set.
-
-### GetImdbId
-
-`func (o *Show) GetImdbId() string`
-
-GetImdbId returns the ImdbId field if non-nil, zero value otherwise.
-
-### GetImdbIdOk
-
-`func (o *Show) GetImdbIdOk() (*string, bool)`
-
-GetImdbIdOk returns a tuple with the ImdbId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetImdbId
-
-`func (o *Show) SetImdbId(v string)`
-
-SetImdbId sets ImdbId field to given value.
-
-
-### GetTmdbId
-
-`func (o *Show) GetTmdbId() int32`
-
-GetTmdbId returns the TmdbId field if non-nil, zero value otherwise.
-
-### GetTmdbIdOk
-
-`func (o *Show) GetTmdbIdOk() (*int32, bool)`
-
-GetTmdbIdOk returns a tuple with the TmdbId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTmdbId
-
-`func (o *Show) SetTmdbId(v int32)`
-
-SetTmdbId sets TmdbId field to given value.
-
 
 ### GetOriginalTitle
 
@@ -327,30 +370,25 @@ and a boolean to check if the value has been set.
 SetCast sets Cast field to given value.
 
 
-### GetStatus
+### GetRating
 
-`func (o *Show) GetStatus() SeriesStatus`
+`func (o *Show) GetRating() int32`
 
-GetStatus returns the Status field if non-nil, zero value otherwise.
+GetRating returns the Rating field if non-nil, zero value otherwise.
 
-### GetStatusOk
+### GetRatingOk
 
-`func (o *Show) GetStatusOk() (*SeriesStatus, bool)`
+`func (o *Show) GetRatingOk() (*int32, bool)`
 
-GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
+GetRatingOk returns a tuple with the Rating field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetStatus
+### SetRating
 
-`func (o *Show) SetStatus(v SeriesStatus)`
+`func (o *Show) SetRating(v int32)`
 
-SetStatus sets Status field to given value.
+SetRating sets Rating field to given value.
 
-### HasStatus
-
-`func (o *Show) HasStatus() bool`
-
-HasStatus returns a boolean if a field has been set.
 
 ### GetSeasonCount
 
@@ -402,24 +440,44 @@ SetEpisodeCount sets EpisodeCount field to given value.
 
 HasEpisodeCount returns a boolean if a field has been set.
 
-### GetStreamingInfo
+### GetImageSet
 
-`func (o *Show) GetStreamingInfo() map[string][]StreamingOption`
+`func (o *Show) GetImageSet() ShowImageSet`
 
-GetStreamingInfo returns the StreamingInfo field if non-nil, zero value otherwise.
+GetImageSet returns the ImageSet field if non-nil, zero value otherwise.
 
-### GetStreamingInfoOk
+### GetImageSetOk
 
-`func (o *Show) GetStreamingInfoOk() (*map[string][]StreamingOption, bool)`
+`func (o *Show) GetImageSetOk() (*ShowImageSet, bool)`
 
-GetStreamingInfoOk returns a tuple with the StreamingInfo field if it's non-nil, zero value otherwise
+GetImageSetOk returns a tuple with the ImageSet field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetStreamingInfo
+### SetImageSet
 
-`func (o *Show) SetStreamingInfo(v map[string][]StreamingOption)`
+`func (o *Show) SetImageSet(v ShowImageSet)`
 
-SetStreamingInfo sets StreamingInfo field to given value.
+SetImageSet sets ImageSet field to given value.
+
+
+### GetStreamingOptions
+
+`func (o *Show) GetStreamingOptions() map[string][]StreamingOption`
+
+GetStreamingOptions returns the StreamingOptions field if non-nil, zero value otherwise.
+
+### GetStreamingOptionsOk
+
+`func (o *Show) GetStreamingOptionsOk() (*map[string][]StreamingOption, bool)`
+
+GetStreamingOptionsOk returns a tuple with the StreamingOptions field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStreamingOptions
+
+`func (o *Show) SetStreamingOptions(v map[string][]StreamingOption)`
+
+SetStreamingOptions sets StreamingOptions field to given value.
 
 
 ### GetSeasons

@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** | Type of the item. Always \&quot;season\&quot;. | 
+**ItemType** | **string** | Type of the item. Always \&quot;season\&quot;. | 
 **Title** | **string** | Title of the season. | 
 **FirstAirYear** | **int32** | The first year that the season aired. | 
 **LastAirYear** | **int32** | The last year that the season aired. | 
-**StreamingInfo** | [**map[string][]StreamingOption**](array.md) | Country to streaming availability info mapping of a show. | 
-**Episodes** | [**[]Episode**](Episode.md) | Array of the episodes belong to the season. | 
+**StreamingOptions** |  | Map of the streaming options by the country code. | 
+**Episodes** | Pointer to [**[]Episode**](Episode.md) | Array of the episodes belong to the season. | [optional] 
 
 ## Methods
 
 ### NewSeason
 
-`func NewSeason(type_ string, title string, firstAirYear int32, lastAirYear int32, streamingInfo map[string][]StreamingOption, episodes []Episode, ) *Season`
+`func NewSeason(itemType string, title string, firstAirYear int32, lastAirYear int32, streamingOptions map[string][]StreamingOption, ) *Season`
 
 NewSeason instantiates a new Season object
 This constructor will assign default values to properties that have it defined,
@@ -30,24 +30,24 @@ NewSeasonWithDefaults instantiates a new Season object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetType
+### GetItemType
 
-`func (o *Season) GetType() string`
+`func (o *Season) GetItemType() string`
 
-GetType returns the Type field if non-nil, zero value otherwise.
+GetItemType returns the ItemType field if non-nil, zero value otherwise.
 
-### GetTypeOk
+### GetItemTypeOk
 
-`func (o *Season) GetTypeOk() (*string, bool)`
+`func (o *Season) GetItemTypeOk() (*string, bool)`
 
-GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+GetItemTypeOk returns a tuple with the ItemType field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetType
+### SetItemType
 
-`func (o *Season) SetType(v string)`
+`func (o *Season) SetItemType(v string)`
 
-SetType sets Type field to given value.
+SetItemType sets ItemType field to given value.
 
 
 ### GetTitle
@@ -110,24 +110,24 @@ and a boolean to check if the value has been set.
 SetLastAirYear sets LastAirYear field to given value.
 
 
-### GetStreamingInfo
+### GetStreamingOptions
 
-`func (o *Season) GetStreamingInfo() map[string][]StreamingOption`
+`func (o *Season) GetStreamingOptions() map[string][]StreamingOption`
 
-GetStreamingInfo returns the StreamingInfo field if non-nil, zero value otherwise.
+GetStreamingOptions returns the StreamingOptions field if non-nil, zero value otherwise.
 
-### GetStreamingInfoOk
+### GetStreamingOptionsOk
 
-`func (o *Season) GetStreamingInfoOk() (*map[string][]StreamingOption, bool)`
+`func (o *Season) GetStreamingOptionsOk() (*map[string][]StreamingOption, bool)`
 
-GetStreamingInfoOk returns a tuple with the StreamingInfo field if it's non-nil, zero value otherwise
+GetStreamingOptionsOk returns a tuple with the StreamingOptions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetStreamingInfo
+### SetStreamingOptions
 
-`func (o *Season) SetStreamingInfo(v map[string][]StreamingOption)`
+`func (o *Season) SetStreamingOptions(v map[string][]StreamingOption)`
 
-SetStreamingInfo sets StreamingInfo field to given value.
+SetStreamingOptions sets StreamingOptions field to given value.
 
 
 ### GetEpisodes
@@ -149,6 +149,11 @@ and a boolean to check if the value has been set.
 
 SetEpisodes sets Episodes field to given value.
 
+### HasEpisodes
+
+`func (o *Season) HasEpisodes() bool`
+
+HasEpisodes returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

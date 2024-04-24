@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ClosedCaptions** | Pointer to **bool** | Whether closed captions are available for the subtitle. | [optional] 
-**Locale** | Pointer to [**Locale**](Locale.md) |  | [optional] 
+**ClosedCaptions** | **bool** | Whether closed captions are available for the subtitle. | 
+**Locale** | [**Locale**](Locale.md) |  | 
 
 ## Methods
 
 ### NewSubtitle
 
-`func NewSubtitle() *Subtitle`
+`func NewSubtitle(closedCaptions bool, locale Locale, ) *Subtitle`
 
 NewSubtitle instantiates a new Subtitle object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetClosedCaptions sets ClosedCaptions field to given value.
 
-### HasClosedCaptions
-
-`func (o *Subtitle) HasClosedCaptions() bool`
-
-HasClosedCaptions returns a boolean if a field has been set.
 
 ### GetLocale
 
@@ -70,11 +65,6 @@ and a boolean to check if the value has been set.
 
 SetLocale sets Locale field to given value.
 
-### HasLocale
-
-`func (o *Subtitle) HasLocale() bool`
-
-HasLocale returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Amount** | **string** | Numerical amount of the price. | 
-**Currency** | **string** | ISO 4217 alphabetic code of the currency. | 
+**Currency** | **string** | [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) alphabetic code of the currency. | 
 **Formatted** | **string** | Formatted price, including both the amount and the currency. | 
 
 ## Methods

@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Language** | **string** | [ISO 639-2](https://en.wikipedia.org/wiki/ISO_639-2) code of the associated language with the locale. | 
-**Region** | **string** | [ISO 3166-1 alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) code of the country, or [UN M49](https://en.wikipedia.org/wiki/UN_M49) code of the area associated language with the locale, or an empty string if no region info is available.  | 
+**Region** | Pointer to **string** | [ISO 3166-1 alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) code of the country, or [UN M49](https://en.wikipedia.org/wiki/UN_M49) code of the area associated with the locale.  | [optional] 
 
 ## Methods
 
 ### NewLocale
 
-`func NewLocale(language string, region string, ) *Locale`
+`func NewLocale(language string, ) *Locale`
 
 NewLocale instantiates a new Locale object
 This constructor will assign default values to properties that have it defined,
@@ -65,6 +65,11 @@ and a boolean to check if the value has been set.
 
 SetRegion sets Region field to given value.
 
+### HasRegion
+
+`func (o *Locale) HasRegion() bool`
+
+HasRegion returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

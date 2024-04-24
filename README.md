@@ -21,8 +21,6 @@ To send more requests, you can upgrade to paid plans whenever you like.
 
 - [Subscription Page on RapidAPI](https://rapidapi.com/movie-of-the-night-movie-of-the-night-default/api/streaming-availability/pricing)
 
-- [Full Documentation of All Available Endpoints](https://www.movieofthenight.com/about/api/documentation)
-
 - [Contact Form](https://www.movieofthenight.com/contact)
 
 - [Home Page of the API on RapidAPI](https://rapidapi.com/movie-of-the-night-movie-of-the-night-default/api/streaming-availability/)
@@ -51,7 +49,8 @@ movies, series, seasons and episodes,
 (e.g. via subscription, to buy/rent, for free, available via an addons),
   - Price and currency information for buyable/rentable shows
 - Channel and addon support (e.g. Apple TV Channels, Hulu Addons, Prime Video Channels)
-- Output also includes TMDB and IMDb ids for every show.
+- Posters, backdrops, cast & director information, genres, rating and many other details of the shows
+- Output also includes TMDB and IMDb ids for every show
 
 
 ## Installation
@@ -59,7 +58,7 @@ movies, series, seasons and episodes,
 Run
 
 ```shell
-go get github.com/movieofthenight/go-streaming-availability/v3
+go get github.com/movieofthenight/go-streaming-availability/v4
 ```
 
 ## Usage
@@ -67,21 +66,21 @@ go get github.com/movieofthenight/go-streaming-availability/v3
 ```go
 package main
 
-import "github.com/movieofthenight/go-streaming-availability/v3"
+import "github.com/movieofthenight/go-streaming-availability/v4"
 
 const RapidApiKey = "PUT_YOUR_RAPIDAPI_KEY_HERE"
 
 func main() {
 	configuration := streaming.NewConfiguration()
 	configuration.AddDefaultHeader("X-RapidAPI-Key", RapidApiKey)
-	client := streaming.NewAPIClient(configuration).DefaultAPI
+	client := streaming.NewAPIClient(configuration)
 	// Start using the client
 }
 ```
 
 ## Examples
 
-### Get The Dark Knight's Streaming Info
+### Get The Godfather's Streaming Info
 
 ```go
 package main
@@ -92,7 +91,7 @@ import (
 	"log"
 	"strings"
 
-	"github.com/movieofthenight/go-streaming-availability/v3"
+	"github.com/movieofthenight/go-streaming-availability/v4"
 )
 
 func main() {
@@ -100,25 +99,35 @@ func main() {
 
 	configuration := streaming.NewConfiguration()
 	configuration.AddDefaultHeader("X-RapidAPI-Key", RapidApiKey)
-	client := streaming.NewAPIClient(configuration).DefaultAPI
-
-	country := "us"       // Update with other country codes as you want, we support 59 countries!
-	imdbId := "tt0468569" // Imdb id of The Dark Knight
-
-	response, _, err := client.GetById(context.Background()).ImdbId(imdbId).Execute()
+	client := streaming.NewAPIClient(configuration)
+	show, _, err := client.ShowsAPI.GetShow(context.Background(), "tt0068646").Country("us").Execute()
 	if err != nil {
 		log.Fatal(err)
 	}
-	result := response.Result
-	for _, streamingOption := range result.StreamingInfo[country] {
-		fmt.Printf("%s (%d) is available on %s via %s at link %s", result.GetTitle(), result.GetYear(), streamingOption.GetService(), streamingOption.GetStreamingType(), streamingOption.GetLink())
-		if streamingOption.HasQuality() {
-			fmt.Printf(" with %s quality", strings.ToUpper(streamingOption.GetQuality()))
+	if show == nil {
+		log.Fatal("Show not found")
+	}
+	fmt.Printf("Title: %s\n", show.Title)
+	fmt.Printf("Overview: %s\n", show.Overview)
+	for _, streamingOption := range show.StreamingOptions["us"] {
+		fmt.Printf("Available on %s", streamingOption.Service.Name)
+		switch streamingOption.Type {
+		case streaming.ADDON:
+			fmt.Printf(" via addon %s", streamingOption.Addon.Name)
+		case streaming.BUY:
+			fmt.Print(" to buy")
+		case streaming.RENT:
+			fmt.Print(" to rent")
+		case streaming.FREE:
+			fmt.Print(" for free")
 		}
 		if streamingOption.HasPrice() {
 			fmt.Printf(" for %s", streamingOption.Price.Formatted)
 		}
-		fmt.Println()
+		if streamingOption.HasQuality() {
+			fmt.Printf(" in %s quality", strings.ToUpper(*streamingOption.Quality))
+		}
+		fmt.Printf(" at %s\n", streamingOption.Link)
 	}
 }
 ```
@@ -165,25 +174,6 @@ Once we receive the message we will take a look into the problems and fix the da
 - **I need a client library in another language.**
   - Send us a message via [our contact form](https://www.movieofthenight.com/contact),
   and we will get back to you.
-
-- **I need further details (e.g. posters, summaries, cast) about the shows. What can I do?**
-  - Streaming Availability API works very well with
-  [TMDB API](https://developer.themoviedb.org/docs), which can provide all the other
-  info (that is not related to streaming availability) you need.
-  You can pass the returned `tmdbId` field to the TMDB API's
-  [movie-details](https://developer.themoviedb.org/reference/movie-details)
-  or
-  [tv-series-details](https://developer.themoviedb.org/reference/tv-series-details)
-  endpoints
-  and get the other details of the shows.
-
-- **What is the difference between Streaming Availability API and TMDB API?**
-  - The Movie Database (TMDB) is a community built movie and TV database, similar to IMDb.
-  Their free API provides access to their database which includes posters, summaries, cast,
-  and many other details about the shows. TMDB API's own streaming availability information
-  data does not include deep links or any of the other features of this API such as
-  available subtitles, audios, video qualities etc. Thus Streaming Availability API
-  and TMDB API work hand in hand to get you all the details of the shows.
 
 - **What is RapidAPI?**
   - RapidAPI is the world's largest API marketplace. We use RapidAPI to handle the

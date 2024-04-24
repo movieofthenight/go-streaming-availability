@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** | Type of the item. Always \&quot;episode\&quot;. | 
+**ItemType** | **string** | Type of the item. Always \&quot;episode\&quot;. | 
 **Title** | **string** | Title of the episode. | 
-**Year** | **int32** | The year that the movie was released. | 
-**StreamingInfo** | [**map[string][]StreamingOption**](array.md) | Country to streaming availability info mapping of a show. | 
+**AirYear** | **int32** | The year that the episode aired. | 
+**StreamingOptions** |  | Map of the streaming options by the country code. | 
 
 ## Methods
 
 ### NewEpisode
 
-`func NewEpisode(type_ string, title string, year int32, streamingInfo map[string][]StreamingOption, ) *Episode`
+`func NewEpisode(itemType string, title string, airYear int32, streamingOptions map[string][]StreamingOption, ) *Episode`
 
 NewEpisode instantiates a new Episode object
 This constructor will assign default values to properties that have it defined,
@@ -28,24 +28,24 @@ NewEpisodeWithDefaults instantiates a new Episode object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetType
+### GetItemType
 
-`func (o *Episode) GetType() string`
+`func (o *Episode) GetItemType() string`
 
-GetType returns the Type field if non-nil, zero value otherwise.
+GetItemType returns the ItemType field if non-nil, zero value otherwise.
 
-### GetTypeOk
+### GetItemTypeOk
 
-`func (o *Episode) GetTypeOk() (*string, bool)`
+`func (o *Episode) GetItemTypeOk() (*string, bool)`
 
-GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+GetItemTypeOk returns a tuple with the ItemType field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetType
+### SetItemType
 
-`func (o *Episode) SetType(v string)`
+`func (o *Episode) SetItemType(v string)`
 
-SetType sets Type field to given value.
+SetItemType sets ItemType field to given value.
 
 
 ### GetTitle
@@ -68,44 +68,44 @@ and a boolean to check if the value has been set.
 SetTitle sets Title field to given value.
 
 
-### GetYear
+### GetAirYear
 
-`func (o *Episode) GetYear() int32`
+`func (o *Episode) GetAirYear() int32`
 
-GetYear returns the Year field if non-nil, zero value otherwise.
+GetAirYear returns the AirYear field if non-nil, zero value otherwise.
 
-### GetYearOk
+### GetAirYearOk
 
-`func (o *Episode) GetYearOk() (*int32, bool)`
+`func (o *Episode) GetAirYearOk() (*int32, bool)`
 
-GetYearOk returns a tuple with the Year field if it's non-nil, zero value otherwise
+GetAirYearOk returns a tuple with the AirYear field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetYear
+### SetAirYear
 
-`func (o *Episode) SetYear(v int32)`
+`func (o *Episode) SetAirYear(v int32)`
 
-SetYear sets Year field to given value.
+SetAirYear sets AirYear field to given value.
 
 
-### GetStreamingInfo
+### GetStreamingOptions
 
-`func (o *Episode) GetStreamingInfo() map[string][]StreamingOption`
+`func (o *Episode) GetStreamingOptions() map[string][]StreamingOption`
 
-GetStreamingInfo returns the StreamingInfo field if non-nil, zero value otherwise.
+GetStreamingOptions returns the StreamingOptions field if non-nil, zero value otherwise.
 
-### GetStreamingInfoOk
+### GetStreamingOptionsOk
 
-`func (o *Episode) GetStreamingInfoOk() (*map[string][]StreamingOption, bool)`
+`func (o *Episode) GetStreamingOptionsOk() (*map[string][]StreamingOption, bool)`
 
-GetStreamingInfoOk returns a tuple with the StreamingInfo field if it's non-nil, zero value otherwise
+GetStreamingOptionsOk returns a tuple with the StreamingOptions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetStreamingInfo
+### SetStreamingOptions
 
-`func (o *Episode) SetStreamingInfo(v map[string][]StreamingOption)`
+`func (o *Episode) SetStreamingOptions(v map[string][]StreamingOption)`
 
-SetStreamingInfo sets StreamingInfo field to given value.
+SetStreamingOptions sets StreamingOptions field to given value.
 
 
 

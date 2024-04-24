@@ -2,83 +2,78 @@ package streaming_test
 
 import (
 	"context"
-	"net/http"
+	"log"
 	"os"
+	"strings"
 	"testing"
-	"time"
 
-	"github.com/movieofthenight/go-streaming-availability/v3"
+	"github.com/movieofthenight/go-streaming-availability/v4"
 )
 
-func TestStreaming(t *testing.T) {
-	rapidApiKey, rapidApiKeyFound := os.LookupEnv("RAPID_API_KEY")
-	if !rapidApiKeyFound {
-		t.Fatal("RAPID_API_KEY not found")
-	}
+func TestGetTheGodfather(t *testing.T) {
+	rapidApiKey, _ := os.LookupEnv("RAPID_API_KEY")
 	configuration := streaming.NewConfiguration()
 	configuration.AddDefaultHeader("X-RapidAPI-Key", rapidApiKey)
-	client := streaming.NewAPIClient(configuration).DefaultAPI
-	for testName, testFunc := range testFuncMap {
-		t.Run(testName, func(t *testing.T) {
-			c, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-			defer cancel()
-			testFunc(t, client, c)
-		})
-	}
-}
-
-type testFunc func(t *testing.T, client *streaming.DefaultAPIService, c context.Context)
-
-var testFuncMap = map[string]testFunc{
-	"countries":       testCountries,
-	"genres":          testGenres,
-	"getById":         testGyById,
-	"searchByFilters": testSearchByFilters,
-	"searchByTitle":   testSearchByTitle,
-	"changes":         testChanges,
-	"leaving":         testLeaving,
-}
-
-func testCountries(t *testing.T, client *streaming.DefaultAPIService, c context.Context) {
-	validate(t, client.Countries(c).Execute)
-}
-
-func testGenres(t *testing.T, client *streaming.DefaultAPIService, c context.Context) {
-	validate(t, client.Genres(c).Execute)
-}
-
-func testGyById(t *testing.T, client *streaming.DefaultAPIService, c context.Context) {
-	validate(t, client.GetById(c).ImdbId("tt0120338").Execute)
-}
-
-func testSearchByFilters(t *testing.T, client *streaming.DefaultAPIService, c context.Context) {
-	validate(t, client.SearchByFilters(c).Country("us").Services("netflix").Execute)
-}
-
-func testSearchByTitle(t *testing.T, client *streaming.DefaultAPIService, c context.Context) {
-	validate(t, client.SearchByTitle(c).Country("us").Title("batman").Execute)
-}
-
-func testChanges(t *testing.T, client *streaming.DefaultAPIService, c context.Context) {
-	validate(t, client.Changes(c).Country("us").Services("netflix").ChangeType("updated").TargetType("show").Execute)
-}
-
-func testLeaving(t *testing.T, client *streaming.DefaultAPIService, c context.Context) {
-	validate(t, client.Leaving(c).Country("us").Services("netflix").TargetType("show").Execute)
-}
-
-func validate[T any](t *testing.T, exec func() (*T, *http.Response, error)) {
-	apiResponse, httpResponse, err := exec()
+	client := streaming.NewAPIClient(configuration)
+	show, _, err := client.ShowsAPI.GetShow(context.Background(), "tt0068646").Country("us").Execute()
 	if err != nil {
-		t.Fatal(err)
+		log.Fatal(err)
 	}
-	if httpResponse == nil {
-		t.Fatal("httpResponse is nil")
+	if show == nil {
+		log.Fatal("Show not found")
 	}
-	if httpResponse.StatusCode != http.StatusOK {
-		t.Fatal("httpResponse.StatusCode != http.StatusOK")
+	t.Logf("Title: %s\n", show.Title)
+	t.Logf("Overview: %s\n", show.Overview)
+	for _, streamingOption := range show.StreamingOptions["us"] {
+		t.Logf("Available on %s", streamingOption.Service.Name)
+		switch streamingOption.Type {
+		case streaming.ADDON:
+			t.Logf(" via addon %s", streamingOption.Addon.Name)
+		case streaming.BUY:
+			t.Log(" to buy")
+		case streaming.RENT:
+			t.Log(" to rent")
+		case streaming.FREE:
+			t.Log(" for free")
+		}
+		if streamingOption.Price != nil {
+			t.Logf(" for %s", streamingOption.Price.Formatted)
+		}
+		if streamingOption.Quality != nil {
+			t.Logf(" in %s quality", strings.ToUpper(*streamingOption.Quality))
+		}
+		t.Logf(" at %s\n", streamingOption.Link)
 	}
-	if apiResponse == nil {
-		t.Fatal("apiResponse is nil")
+}
+
+func TestSearchPopularComedyShowsOnNetflix(t *testing.T) {
+	rapidApiKey, _ := os.LookupEnv("RAPID_API_KEY")
+	configuration := streaming.NewConfiguration()
+	configuration.AddDefaultHeader("X-RapidAPI-Key", rapidApiKey)
+	client := streaming.NewAPIClient(configuration)
+	searchResult, _, err := client.ShowsAPI.SearchShowsByFilters(context.Background()).
+		Genres([]string{"comedy"}).
+		OrderBy("popularity_1year").
+		DescendingOrder(true).
+		Country("us").
+		Catalogs([]string{"netflix"}).Execute()
+	if err != nil {
+		log.Fatal(err)
+	}
+	if searchResult == nil {
+		log.Fatal("Search result not found")
+	}
+	if len(searchResult.Shows) == 0 {
+		log.Fatal("No shows found")
+	}
+	for _, show := range searchResult.Shows {
+		t.Logf("Title: %s\n", show.Title)
+		t.Logf("Overview: %s\n", show.Overview)
+		for _, streamingOption := range show.StreamingOptions["us"] {
+			if streamingOption.Service.Id != "netflix" {
+				continue
+			}
+			t.Logf("Link: %s\n", streamingOption.Link)
+		}
 	}
 }

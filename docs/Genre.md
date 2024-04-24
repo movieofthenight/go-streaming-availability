@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **int32** | Id of the genre | 
+**Id** | **string** | Id of a genre. | 
 **Name** | **string** | Name of the genre | 
 
 ## Methods
 
 ### NewGenre
 
-`func NewGenre(id int32, name string, ) *Genre`
+`func NewGenre(id string, name string, ) *Genre`
 
 NewGenre instantiates a new Genre object
 This constructor will assign default values to properties that have it defined,
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetId
 
-`func (o *Genre) GetId() int32`
+`func (o *Genre) GetId() string`
 
 GetId returns the Id field if non-nil, zero value otherwise.
 
 ### GetIdOk
 
-`func (o *Genre) GetIdOk() (*int32, bool)`
+`func (o *Genre) GetIdOk() (*string, bool)`
 
 GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetId
 
-`func (o *Genre) SetId(v int32)`
+`func (o *Genre) SetId(v string)`
 
 SetId sets Id field to given value.
 
