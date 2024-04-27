@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## GetChanges
 
-> ChangesResult GetChanges(ctx).Country(country).ChangeType(changeType).ItemType(itemType).Catalogs(catalogs).ShowType(showType).From(from).To(to).IncludeUnknownDates(includeUnknownDates).Cursor(cursor).DescendingOrder(descendingOrder).OutputLanguage(outputLanguage).Execute()
+> ChangesResult GetChanges(ctx).Country(country).ChangeType(changeType).ItemType(itemType).Catalogs(catalogs).ShowType(showType).From(from).To(to).IncludeUnknownDates(includeUnknownDates).Cursor(cursor).OrderDirection(orderDirection).OutputLanguage(outputLanguage).Execute()
 
 Get Changes
 
@@ -38,12 +38,12 @@ func main() {
 	to := int64(1672531200) // int64 | [Unix Time Stamp](https://www.unixtimestamp.com/) to only query the changes happened/happening before this date (inclusive). For past changes such as new, removed or updated, the timestamp must be between today and 31 days ago. For future changes such as expiring or upcoming, the timestamp must be between today and 31 days from now in the future.  If not supplied, the default value for past changes is today, and for future changes is 31 days from now.  (optional)
 	includeUnknownDates := true // bool | Whether to include the changes with unknown dates. past changes such as new, removed or updated will always have a timestamp thus this parameter does not affect them. future changes such as expiring or upcoming may not have a timestamp if the exact date is not known (e.g. some services do not explicitly state the exact date of some of the upcoming/expiring shows). If set as true, the changes with unknown dates will be included in the response. If set as false, the changes with unknown dates will be excluded from the response.  When ordering, the changes with unknown dates will be treated as if their timestamp is 0. Thus, they will appear first in the ascending order and last in the descending order.  (optional) (default to false)
 	cursor := "cursor_example" // string | Cursor is used for pagination. After each request, the response includes a hasMore boolean field to tell if there are more results that did not fit into the returned list. If it is set as true, to get the rest of the result set, send a new request (with the same parameters for other fields), and set the cursor parameter as the nextCursor value of the response of the previous request. Do not forget to escape the cursor value before putting it into a query as it might contain characters such as ?and &.  The first request naturally does not require a cursor parameter.  (optional)
-	descendingOrder := true // bool | The results are ordered in descending order if set true. (optional) (default to false)
+	orderDirection := openapiclient.orderDirection("asc") // OrderDirection | Determines whether to order the results in ascending or descending order.  (optional)
 	outputLanguage := "outputLanguage_example" // string | [ISO 639-1 code](https://en.wikipedia.org/wiki/ISO_639-1) of the output language. Determines in which language the output  will be in.  (optional) (default to "en")
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ChangesAPI.GetChanges(context.Background()).Country(country).ChangeType(changeType).ItemType(itemType).Catalogs(catalogs).ShowType(showType).From(from).To(to).IncludeUnknownDates(includeUnknownDates).Cursor(cursor).DescendingOrder(descendingOrder).OutputLanguage(outputLanguage).Execute()
+	resp, r, err := apiClient.ChangesAPI.GetChanges(context.Background()).Country(country).ChangeType(changeType).ItemType(itemType).Catalogs(catalogs).ShowType(showType).From(from).To(to).IncludeUnknownDates(includeUnknownDates).Cursor(cursor).OrderDirection(orderDirection).OutputLanguage(outputLanguage).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ChangesAPI.GetChanges``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -73,7 +73,7 @@ Name | Type | Description  | Notes
  **to** | **int64** | [Unix Time Stamp](https://www.unixtimestamp.com/) to only query the changes happened/happening before this date (inclusive). For past changes such as new, removed or updated, the timestamp must be between today and 31 days ago. For future changes such as expiring or upcoming, the timestamp must be between today and 31 days from now in the future.  If not supplied, the default value for past changes is today, and for future changes is 31 days from now.  | 
  **includeUnknownDates** | **bool** | Whether to include the changes with unknown dates. past changes such as new, removed or updated will always have a timestamp thus this parameter does not affect them. future changes such as expiring or upcoming may not have a timestamp if the exact date is not known (e.g. some services do not explicitly state the exact date of some of the upcoming/expiring shows). If set as true, the changes with unknown dates will be included in the response. If set as false, the changes with unknown dates will be excluded from the response.  When ordering, the changes with unknown dates will be treated as if their timestamp is 0. Thus, they will appear first in the ascending order and last in the descending order.  | [default to false]
  **cursor** | **string** | Cursor is used for pagination. After each request, the response includes a hasMore boolean field to tell if there are more results that did not fit into the returned list. If it is set as true, to get the rest of the result set, send a new request (with the same parameters for other fields), and set the cursor parameter as the nextCursor value of the response of the previous request. Do not forget to escape the cursor value before putting it into a query as it might contain characters such as ?and &amp;.  The first request naturally does not require a cursor parameter.  | 
- **descendingOrder** | **bool** | The results are ordered in descending order if set true. | [default to false]
+ **orderDirection** | [**OrderDirection**](OrderDirection.md) | Determines whether to order the results in ascending or descending order.  | 
  **outputLanguage** | **string** | [ISO 639-1 code](https://en.wikipedia.org/wiki/ISO_639-1) of the output language. Determines in which language the output  will be in.  | [default to &quot;en&quot;]
 
 ### Return type

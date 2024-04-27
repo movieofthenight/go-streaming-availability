@@ -23,6 +23,7 @@ docs/HorizontalImage.md
 docs/ItemType.md
 docs/Locale.md
 docs/ModelError.md
+docs/OrderDirection.md
 docs/Price.md
 docs/SearchResult.md
 docs/Season.md
@@ -52,6 +53,7 @@ model_genre.go
 model_horizontal_image.go
 model_item_type.go
 model_locale.go
+model_order_direction.go
 model_price.go
 model_search_result.go
 model_season.go

@@ -148,7 +148,7 @@ paths:
       - $ref: '#/components/parameters/keywordParam'
       - $ref: '#/components/parameters/searchGranularityParam'
       - $ref: '#/components/parameters/searchFiltersOrderByParam'
-      - $ref: '#/components/parameters/descendingOrderParam'
+      - $ref: '#/components/parameters/searchFiltersOrderDirectionParam'
       - $ref: '#/components/parameters/cursorParam'
       responses:
         "200":
@@ -207,7 +207,7 @@ paths:
       - $ref: '#/components/parameters/toParam'
       - $ref: '#/components/parameters/includeUnknownDatesParam'
       - $ref: '#/components/parameters/cursorParam'
-      - $ref: '#/components/parameters/descendingOrderParam'
+      - $ref: '#/components/parameters/changesOrderDirectionParam'
       - $ref: '#/components/parameters/outputLanguageParam'
       responses:
         "200":
@@ -522,15 +522,29 @@ components:
           popularity_1month: Order by popularity in the last 31 days in the country.
           popularity_1week: Order by popularity in the last 7 days in the country.
       style: form
-    descendingOrderParam:
-      description: The results are ordered in descending order if set true.
+    searchFiltersOrderDirectionParam:
+      description: |
+        Determines whether to order the results in ascending or descending order.
+
+        Default value when ordering alphabetically or based on dates/times is asc.
+
+        Default value when ordering by rating or popularity is desc.
       explode: true
       in: query
-      name: descending_order
+      name: order_direction
       required: false
       schema:
-        default: false
-        type: boolean
+        $ref: '#/components/schemas/orderDirection'
+      style: form
+    changesOrderDirectionParam:
+      description: |
+        Determines whether to order the results in ascending or descending order.
+      explode: true
+      in: query
+      name: order_direction
+      required: false
+      schema:
+        $ref: '#/components/schemas/orderDirection'
       style: form
     originalLanguageParam:
       description: |
@@ -956,7 +970,6 @@ components:
                 catalogs: disney
                 genres: scifi
                 order_by: rating
-                descending_order: true
             Popular RomCom Series on Max Addon in Hulu US:
               externalValue: https://www.movieofthenight.com/v4/examples/shows/search/filters/hulu-us-max-addon-popular-romcom-series
               summary: Popular RomCom Series on Max Addon in Hulu US
@@ -965,7 +978,6 @@ components:
                 catalogs: hulu.addon.max
                 genres: "romance,comedy"
                 order_by: popularity_1year
-                descending_order: true
             Rentable Movies from 2000s on Apple TV and Prime Video UK:
               externalValue: https://www.movieofthenight.com/v4/examples/shows/search/filters/apple-prime-uk-rentable-2010s-movies
               summary: Rentable Movies from 2010s on Apple TV and Prime Video UK
@@ -976,7 +988,6 @@ components:
                 year_max: 2019
                 show_type: movie
                 order_by: rating
-                descending_order: true
           schema:
             $ref: '#/components/schemas/searchResult'
       description: Response to a search by filters query.
@@ -1811,6 +1822,14 @@ components:
         $ref: '#/components/schemas/country'
       description: "Map of supported countries by their [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)\
         \ codes"
+    orderDirection:
+      enum:
+      - asc
+      - desc
+      type: string
+      x-enumDescriptions:
+        asc: Use ascending order.
+        desc: Use descending order.
   securitySchemes:
     X-Rapid-API-Key:
       description: "Rapid API Key can be retrieved from [Rapid API](https://rapidapi.com/movie-of-the-night-movie-of-the-night-default/api/streaming-availability/pricing)."

@@ -50,7 +50,6 @@ func TestSearchPopularComedyShowsOnNetflix(t *testing.T) {
 	searchResult, _, err := client.ShowsAPI.SearchShowsByFilters(context.Background()).
 		Genres([]string{"comedy"}).
 		OrderBy("popularity_1year").
-		DescendingOrder(true).
 		Country("us").
 		Catalogs([]string{"netflix"}).Execute()
 	if err != nil {

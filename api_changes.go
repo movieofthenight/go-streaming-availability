@@ -34,7 +34,7 @@ type ApiGetChangesRequest struct {
 	to *int64
 	includeUnknownDates *bool
 	cursor *string
-	descendingOrder *bool
+	orderDirection *OrderDirection
 	outputLanguage *string
 }
 
@@ -92,9 +92,9 @@ func (r ApiGetChangesRequest) Cursor(cursor string) ApiGetChangesRequest {
 	return r
 }
 
-// The results are ordered in descending order if set true.
-func (r ApiGetChangesRequest) DescendingOrder(descendingOrder bool) ApiGetChangesRequest {
-	r.descendingOrder = &descendingOrder
+// Determines whether to order the results in ascending or descending order. 
+func (r ApiGetChangesRequest) OrderDirection(orderDirection OrderDirection) ApiGetChangesRequest {
+	r.orderDirection = &orderDirection
 	return r
 }
 
@@ -182,11 +182,8 @@ func (a *ChangesAPIService) GetChangesExecute(r ApiGetChangesRequest) (*ChangesR
 	if r.cursor != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "")
 	}
-	if r.descendingOrder != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "descending_order", r.descendingOrder, "")
-	} else {
-		var defaultValue bool = false
-		r.descendingOrder = &defaultValue
+	if r.orderDirection != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "order_direction", r.orderDirection, "")
 	}
 	if r.outputLanguage != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "output_language", r.outputLanguage, "")

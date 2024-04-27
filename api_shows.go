@@ -212,7 +212,7 @@ type ApiSearchShowsByFiltersRequest struct {
 	keyword *string
 	seriesGranularity *string
 	orderBy *string
-	descendingOrder *bool
+	orderDirection *OrderDirection
 	cursor *string
 }
 
@@ -300,9 +300,9 @@ func (r ApiSearchShowsByFiltersRequest) OrderBy(orderBy string) ApiSearchShowsBy
 	return r
 }
 
-// The results are ordered in descending order if set true.
-func (r ApiSearchShowsByFiltersRequest) DescendingOrder(descendingOrder bool) ApiSearchShowsByFiltersRequest {
-	r.descendingOrder = &descendingOrder
+// Determines whether to order the results in ascending or descending order.  Default value when ordering alphabetically or based on dates/times is asc.  Default value when ordering by rating or popularity is desc. 
+func (r ApiSearchShowsByFiltersRequest) OrderDirection(orderDirection OrderDirection) ApiSearchShowsByFiltersRequest {
+	r.orderDirection = &orderDirection
 	return r
 }
 
@@ -420,11 +420,8 @@ func (a *ShowsAPIService) SearchShowsByFiltersExecute(r ApiSearchShowsByFiltersR
 		var defaultValue string = "original_title"
 		r.orderBy = &defaultValue
 	}
-	if r.descendingOrder != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "descending_order", r.descendingOrder, "")
-	} else {
-		var defaultValue bool = false
-		r.descendingOrder = &defaultValue
+	if r.orderDirection != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "order_direction", r.orderDirection, "")
 	}
 	if r.cursor != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "")
