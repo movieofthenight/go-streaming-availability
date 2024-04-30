@@ -1242,8 +1242,6 @@ components:
       properties:
         itemType:
           description: Type of the item. Always show.
-          enum:
-          - show
           type: string
         showType:
           $ref: '#/components/schemas/showType'
@@ -1409,8 +1407,6 @@ components:
       properties:
         itemType:
           description: Type of the item. Always season.
-          enum:
-          - season
           type: string
         title:
           description: Title of the season.
@@ -1444,8 +1440,6 @@ components:
       properties:
         itemType:
           description: Type of the item. Always episode.
-          enum:
-          - episode
           type: string
         title:
           description: Title of the episode.
