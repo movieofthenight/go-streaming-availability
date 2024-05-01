@@ -10,8 +10,11 @@ import (
 	"github.com/movieofthenight/go-streaming-availability/v4"
 )
 
-func TestGetTheGodfather(t *testing.T) {
-	rapidApiKey, _ := os.LookupEnv("RAPID_API_KEY")
+func TestShowsAPIService_GetShow(t *testing.T) {
+	rapidApiKey, rapidApiKeyFound := os.LookupEnv("RAPID_API_KEY")
+	if !rapidApiKeyFound {
+		t.Fatal("RAPID_API_KEY not found")
+	}
 	client := streaming.NewAPIClientFromRapidAPIKey(rapidApiKey, nil)
 	show, _, err := client.ShowsAPI.GetShow(context.Background(), "tt0068646").Country("us").Execute()
 	if err != nil {
@@ -44,8 +47,11 @@ func TestGetTheGodfather(t *testing.T) {
 	}
 }
 
-func TestSearchPopularComedyShowsOnNetflix(t *testing.T) {
-	rapidApiKey, _ := os.LookupEnv("RAPID_API_KEY")
+func TestShowsAPIService_SearchShowsByFilters(t *testing.T) {
+	rapidApiKey, rapidApiKeyFound := os.LookupEnv("RAPID_API_KEY")
+	if !rapidApiKeyFound {
+		t.Fatal("RAPID_API_KEY not found")
+	}
 	client := streaming.NewAPIClientFromRapidAPIKey(rapidApiKey, nil)
 	searchResult, _, err := client.ShowsAPI.SearchShowsByFilters(context.Background()).
 		Genres([]string{"comedy"}).
@@ -70,5 +76,92 @@ func TestSearchPopularComedyShowsOnNetflix(t *testing.T) {
 			}
 			t.Logf("Link: %s\n", streamingOption.Link)
 		}
+	}
+}
+
+func TestApiSearchShowsByFiltersRequest_ExecuteWithAutoPagination(t *testing.T) {
+	rapidApiKey, rapidApiKeyFound := os.LookupEnv("RAPID_API_KEY")
+	if !rapidApiKeyFound {
+		t.Fatal("RAPID_API_KEY not found")
+	}
+	client := streaming.NewAPIClientFromRapidAPIKey(rapidApiKey, nil)
+	shows, err := client.ShowsAPI.SearchShowsByFilters(context.Background()).
+		Genres([]string{"comedy"}).
+		OrderBy("popularity_1year").
+		Country("us").
+		Catalogs([]string{"netflix"}).ExecuteWithAutoPagination(3)
+	if err != nil {
+		log.Fatal(err)
+	}
+	for shows.Next() {
+		show := shows.Get()
+		t.Logf("Title: %s\n", show.Title)
+		t.Logf("Overview: %s\n", show.Overview)
+		for _, streamingOption := range show.StreamingOptions["us"] {
+			if streamingOption.Service.Id != "netflix" {
+				continue
+			}
+			t.Logf("Link: %s\n", streamingOption.Link)
+		}
+	}
+	if shows.Err() != nil {
+		log.Fatal(shows.Err())
+	}
+}
+
+func TestApiSearchShowsByFiltersRequest_ExecuteWithAutoPagination2(t *testing.T) {
+	rapidApiKey, rapidApiKeyFound := os.LookupEnv("RAPID_API_KEY")
+	if !rapidApiKeyFound {
+		t.Fatal("RAPID_API_KEY not found")
+	}
+	client := streaming.NewAPIClientFromRapidAPIKey(rapidApiKey, nil)
+	shows, err := client.ShowsAPI.SearchShowsByFilters(context.Background()).
+		Genres([]string{"comedy"}).
+		OrderBy("popularity_1year").
+		YearMax(2020).
+		YearMin(2019).
+		Country("us").
+		Catalogs([]string{"netflix"}).ExecuteWithAutoPagination(0)
+	if err != nil {
+		log.Fatal(err)
+	}
+	for shows.Next() {
+		show := shows.Get()
+		t.Logf("Title: %s\n", show.Title)
+		t.Logf("Overview: %s\n", show.Overview)
+		for _, streamingOption := range show.StreamingOptions["us"] {
+			if streamingOption.Service.Id != "netflix" {
+				continue
+			}
+			t.Logf("Link: %s\n", streamingOption.Link)
+		}
+	}
+	if shows.Err() != nil {
+		log.Fatal(shows.Err())
+	}
+}
+
+func TestApiGetChangesRequest_ExecuteWithAutoPagination(t *testing.T) {
+	rapidApiKey, rapidApiKeyFound := os.LookupEnv("RAPID_API_KEY")
+	if !rapidApiKeyFound {
+		t.Fatal("RAPID_API_KEY not found")
+	}
+	client := streaming.NewAPIClientFromRapidAPIKey(rapidApiKey, nil)
+	changes, err := client.ChangesAPI.GetChanges(context.Background()).
+		Catalogs([]string{"netflix"}).
+		ItemType("show").
+		ChangeType("new").
+		Country("us").
+		ExecuteWithAutoPagination(2)
+	if err != nil {
+		log.Fatal(err)
+	}
+	for changes.Next() {
+		change := changes.Get()
+		t.Logf("Title: %s\n", change.Show.Title)
+		t.Logf("Overview: %s\n", change.Show.Overview)
+	}
+	if changes.Err() != nil {
+		log.Fatal(changes.Err())
 	}
 }

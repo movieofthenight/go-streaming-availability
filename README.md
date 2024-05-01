@@ -131,6 +131,48 @@ func main() {
 > Checkout [example_test.go](https://github.com/movieofthenight/go-streaming-availability/blob/main/example_test.go)
 file for the rest of the examples.
 
+## Auto Pagination
+
+This client supports auto-pagination for the paginated endpoints.
+
+If you'd like to use auto-pagination,
+you can call the `ExecuteWithAutoPagination` function
+instead of the `Execute` function.
+
+An example call without auto pagination:
+
+```go
+searchResult, _, err := client.ShowsAPI.SearchShowsByFilters(context.Background()).
+	Genres([]string{"comedy"}).
+	OrderBy("popularity_1year").
+	Country("us").
+	Catalogs([]string{"netflix"}).Execute()
+```
+
+An example call with auto pagination
+that fetches at most 3 pages:
+
+```go
+shows, err := client.ShowsAPI.SearchShowsByFilters(context.Background()).
+	Genres([]string{"comedy"}).
+	OrderBy("popularity_1year").
+	Country("us").
+	Catalogs([]string{"netflix"}).ExecuteWithAutoPagination(3)
+```
+
+Then you can iterate over the results in the following way:
+
+```go
+for shows.Next() {
+	show := shows.Get()
+	// Do something with the show
+}
+// Check if there was an error during pagination
+if shows.Err() != nil {
+	log.Fatal(shows.Err())
+}
+```
+
 ## Terms & Conditions and Attribution
 
 While the client libraries have MIT licenses,

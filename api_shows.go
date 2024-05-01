@@ -331,7 +331,7 @@ output also includes information about streaming availability in the other servi
 
 When show_type is movie or series_granularity is show, items per page is 20.
 When show_type is series and series_granularity is episode items per page is 10.
-Otherwise items per page is 15.
+Otherwise, items per page is 15.
 
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
