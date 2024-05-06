@@ -32,8 +32,8 @@ type Service struct {
 	// Image set of the service.
 	ImageSet ServiceImageSet `json:"imageSet"`
 	StreamingOptionTypes StreamingOptionTypes `json:"streamingOptionTypes"`
-	// Map of the supported addons by their ids.
-	Addons map[string]Addon `json:"addons"`
+	// Array of the supported addons in the service.
+	Addons []Addon `json:"addons"`
 }
 
 type _Service Service
@@ -42,7 +42,7 @@ type _Service Service
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewService(id string, name string, homePage string, themeColorCode string, imageSet ServiceImageSet, streamingOptionTypes StreamingOptionTypes, addons map[string]Addon) *Service {
+func NewService(id string, name string, homePage string, themeColorCode string, imageSet ServiceImageSet, streamingOptionTypes StreamingOptionTypes, addons []Addon) *Service {
 	this := Service{}
 	this.Id = id
 	this.Name = name
@@ -207,9 +207,9 @@ func (o *Service) SetStreamingOptionTypes(v StreamingOptionTypes) {
 }
 
 // GetAddons returns the Addons field value
-func (o *Service) GetAddons() map[string]Addon {
+func (o *Service) GetAddons() []Addon {
 	if o == nil {
-		var ret map[string]Addon
+		var ret []Addon
 		return ret
 	}
 
@@ -218,15 +218,15 @@ func (o *Service) GetAddons() map[string]Addon {
 
 // GetAddonsOk returns a tuple with the Addons field value
 // and a boolean to check if the value has been set.
-func (o *Service) GetAddonsOk() (map[string]Addon, bool) {
+func (o *Service) GetAddonsOk() ([]Addon, bool) {
 	if o == nil {
-		return map[string]Addon{}, false
+		return nil, false
 	}
 	return o.Addons, true
 }
 
 // SetAddons sets field value
-func (o *Service) SetAddons(v map[string]Addon) {
+func (o *Service) SetAddons(v []Addon) {
 	o.Addons = v
 }
 

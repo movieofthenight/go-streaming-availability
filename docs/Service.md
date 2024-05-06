@@ -10,13 +10,13 @@ Name | Type | Description | Notes
 **ThemeColorCode** | **string** | Associated theme color hex code of the service. | 
 **ImageSet** | [**ServiceImageSet**](ServiceImageSet.md) | Image set of the service. | 
 **StreamingOptionTypes** | [**StreamingOptionTypes**](StreamingOptionTypes.md) |  | 
-**Addons** |  | Map of the supported addons by their ids. | 
+**Addons** | [**[]Addon**](Addon.md) | Array of the supported addons in the service. | 
 
 ## Methods
 
 ### NewService
 
-`func NewService(id string, name string, homePage string, themeColorCode string, imageSet ServiceImageSet, streamingOptionTypes StreamingOptionTypes, addons map[string]Addon, ) *Service`
+`func NewService(id string, name string, homePage string, themeColorCode string, imageSet ServiceImageSet, streamingOptionTypes StreamingOptionTypes, addons []Addon, ) *Service`
 
 NewService instantiates a new Service object
 This constructor will assign default values to properties that have it defined,
@@ -153,20 +153,20 @@ SetStreamingOptionTypes sets StreamingOptionTypes field to given value.
 
 ### GetAddons
 
-`func (o *Service) GetAddons() map[string]Addon`
+`func (o *Service) GetAddons() []Addon`
 
 GetAddons returns the Addons field if non-nil, zero value otherwise.
 
 ### GetAddonsOk
 
-`func (o *Service) GetAddonsOk() (*map[string]Addon, bool)`
+`func (o *Service) GetAddonsOk() (*[]Addon, bool)`
 
 GetAddonsOk returns a tuple with the Addons field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAddons
 
-`func (o *Service) SetAddons(v map[string]Addon)`
+`func (o *Service) SetAddons(v []Addon)`
 
 SetAddons sets Addons field to given value.
 

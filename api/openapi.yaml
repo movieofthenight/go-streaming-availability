@@ -13,22 +13,22 @@ security:
 tags:
 - externalDocs:
     description: Official Documentation
-    url: <external_doc_4>shows</external_doc_4>
+    url: https://docs.movieofthenight.com/resource/shows
   name: shows
   x-schema: show
 - externalDocs:
     description: Official Documentation
-    url: <external_doc_4>countries</external_doc_4>
+    url: https://docs.movieofthenight.com/resource/countries
   name: countries
   x-schema: country
 - externalDocs:
     description: Official Documentation
-    url: <external_doc_4>genres</external_doc_4>
+    url: https://docs.movieofthenight.com/resource/genres
   name: genres
   x-schema: genre
 - externalDocs:
     description: Official Documentation
-    url: <external_doc_4>changes</external_doc_4>
+    url: https://docs.movieofthenight.com/resource/changes
   name: changes
   x-schema: change
 paths:
@@ -40,7 +40,7 @@ paths:
         Details of services include names, logos, supported streaming types (subscription, rent, buy, free etc.) and list of available addons/channels.
       externalDocs:
         description: Official Documentation
-        url: <external_doc_4>countries#get-all-countries</external_doc_4>
+        url: https://docs.movieofthenight.com/resource/countries#get-all-countries
       operationId: getCountries
       parameters:
       - $ref: '#/components/parameters/outputLanguageParam'
@@ -60,7 +60,7 @@ paths:
         Details of services include names, logos, supported streaming types (subscription, rent, buy, free etc.) and list of available addons/channels.
       externalDocs:
         description: Official Documentation
-        url: <external_doc_4>countries#get-a-country</external_doc_4>
+        url: https://docs.movieofthenight.com/resource/countries#get-a-country
       operationId: getCountry
       parameters:
       - $ref: '#/components/parameters/countryCodeParam'
@@ -78,7 +78,7 @@ paths:
       description: Get the list of supported genres.
       externalDocs:
         description: Official Documentation
-        url: <external_doc_4>genres#get-all-genres</external_doc_4>
+        url: https://docs.movieofthenight.com/resource/genres#get-all-genres
       operationId: getGenres
       parameters:
       - $ref: '#/components/parameters/outputLanguageParam'
@@ -96,7 +96,7 @@ paths:
         \ the global streaming availability info."
       externalDocs:
         description: Official Documentation
-        url: <external_doc_4>shows#get-a-show</external_doc_4>
+        url: https://docs.movieofthenight.com/resource/shows#get-a-show
       operationId: getShow
       parameters:
       - $ref: '#/components/parameters/idParam'
@@ -125,13 +125,14 @@ paths:
         and many more!
         Apart from the info about the given country-service combinations,
         output also includes information about streaming availability in the other services for the given country.
+        Streaming availability info from the other countries are not included in the response.
 
         When show_type is movie or series_granularity is show, items per page is 20.
         When show_type is series and series_granularity is episode items per page is 10.
         Otherwise, items per page is 15.
       externalDocs:
         description: Official Documentation
-        url: <external_doc_4>shows#search-shows-by-filters</external_doc_4>
+        url: https://docs.movieofthenight.com/resource/shows#search-shows-by-filters
       operationId: searchShowsByFilters
       parameters:
       - $ref: '#/components/parameters/countryParam'
@@ -166,10 +167,16 @@ paths:
         unless there are more than 20 shows with the exact given title input.
         In that case all the items have 100% match with the title will be returned.
 
+        Streaming availability info for the target country is included in the response,
+        but not for the other countries.
+
+        Results might include shows that are not streamable in the target country.
+        Only criteria for the search are the title and the show type.
+
         No pagination is supported.
       externalDocs:
         description: Official Documentation
-        url: <external_doc_4>shows#search-shows-by-title</external_doc_4>
+        url: https://docs.movieofthenight.com/resource/shows#search-shows-by-title
       operationId: searchShowsByTitle
       parameters:
       - $ref: '#/components/parameters/titleParam'
@@ -195,7 +202,7 @@ paths:
         Changes are listed under changes field, and shows affected by these changes are listed under shows field.
       externalDocs:
         description: Official Documentation
-        url: <external_doc_4>shows#search-shows-by-title</external_doc_4>
+        url: https://docs.movieofthenight.com/resource/shows#search-shows-by-title
       operationId: getChanges
       parameters:
       - $ref: '#/components/parameters/countryParam'
@@ -842,7 +849,7 @@ components:
         application/json:
           examples:
             Countries:
-              externalValue: https://www.movieofthenight.com/openapi/example/countries
+              externalValue: https://www.movieofthenight.com/v4/examples/countries
               summary: Countries
           schema:
             $ref: '#/components/schemas/countryMap'
@@ -1163,17 +1170,16 @@ components:
           streamingOptionTypes:
             $ref: '#/components/schemas/streamingOptionTypes'
           addons:
-            $ref: '#/components/schemas/addonMap'
+            description: Array of the supported addons in the service.
+            items:
+              $ref: '#/components/schemas/addon'
+            type: array
         required:
         - addons
         - streamingOptionTypes
       description: Details of a streaming service localized according to the parent
         country.
       title: service
-    addonMap:
-      additionalProperties:
-        $ref: '#/components/schemas/addon'
-      description: Map of the supported addons by their ids.
     streamingOptionsMap:
       additionalProperties:
         description: Array of the streaming options found in a country.
