@@ -5,6 +5,7 @@ All URIs are relative to *https://streaming-availability.p.rapidapi.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**GetShow**](ShowsAPI.md#GetShow) | **Get** /shows/{id} | Get a Show
+[**GetTopShows**](ShowsAPI.md#GetTopShows) | **Get** /shows/top | Get Top Shows
 [**SearchShowsByFilters**](ShowsAPI.md#SearchShowsByFilters) | **Get** /shows/search/filters | Search Shows by filters
 [**SearchShowsByTitle**](ShowsAPI.md#SearchShowsByTitle) | **Get** /shows/search/title | Search Shows by title
 
@@ -31,7 +32,7 @@ import (
 )
 
 func main() {
-	id := "tt0120338" // string | id of the show. You can also pass an IMDb Id or a TMDB Id as an id. The endpoint will automatically detect the type of the id and fetch the show accordingly.  When passing an IMDb Id, it should be in the format of tt<numerical_id>. (e.g. tt0120338 for Titanic)  When passing a TMDB Id, it should be in the format of movie/<numerical_id> for movies and tv/<numerical_id> for series. (e.g. tv/1396 for Breaking Bad and movie/597 for Titanic)  If you are handcrafting the URL, make sure to encode the id parameter. (e.g. final path should look like /shows/movie%2F597 for Titanic with TMDb id). Here, %2F is the encoded version of /. To read more about URL encoding, you can check [this link](https://en.wikipedia.org/wiki/Percent-encoding). 
+	id := "tt0120338" // string | id of the show. You can also pass an IMDb Id or a TMDB Id as an id. The endpoint will automatically detect the type of the id and fetch the show accordingly.  When passing an IMDb Id, it should be in the format of tt<numerical_id>. (e.g. tt0120338 for Titanic)  When passing a TMDB Id, it should be in the format of movie/<numerical_id> for movies and tv/<numerical_id> for series. (e.g. tv/1396 for Breaking Bad and movie/597 for Titanic) 
 	country := "ca" // string | [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code of the optional target country. If this parameter is not supplied, global streaming availability across all the countries will be returned. If it is supplied, only the streaming availability info from the given country will be returned. If you are only interested in the streaming availability in a single country, then it is recommended to use this parameter to reduce the size of the response and increase the performance of the endpoint. See /countries endpoint to get the list of supported countries.  (optional)
 	seriesGranularity := "seriesGranularity_example" // string | series_granularity determines the level of detail for series. It does not affect movies.  If series_granularity is show, then the output will not include season and episode info.  If series_granularity is season, then the output will include season info but not episode info.  If series_granularity is episode, then the output will include season and episode info.  If you do not need season and episode info, then it is recommended to set series_granularity as show to reduce the size of the response and increase the performance of the endpoint.  If you need deep links for individual seasons and episodes, then you should set series_granularity as episode. In this case response will include full streaming info for seasons and episodes, similar to the streaming info for movies and series; including deep links into seasons and episodes, individual subtitle/audio and video quality info etc.  (optional) (default to "episode")
 	outputLanguage := "outputLanguage_example" // string | [ISO 639-1 code](https://en.wikipedia.org/wiki/ISO_639-1) of the output language. Determines in which language the output  will be in.  (optional) (default to "en")
@@ -54,7 +55,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | id of the show. You can also pass an IMDb Id or a TMDB Id as an id. The endpoint will automatically detect the type of the id and fetch the show accordingly.  When passing an IMDb Id, it should be in the format of tt&lt;numerical_id&gt;. (e.g. tt0120338 for Titanic)  When passing a TMDB Id, it should be in the format of movie/&lt;numerical_id&gt; for movies and tv/&lt;numerical_id&gt; for series. (e.g. tv/1396 for Breaking Bad and movie/597 for Titanic)  If you are handcrafting the URL, make sure to encode the id parameter. (e.g. final path should look like /shows/movie%2F597 for Titanic with TMDb id). Here, %2F is the encoded version of /. To read more about URL encoding, you can check [this link](https://en.wikipedia.org/wiki/Percent-encoding).  | 
+**id** | **string** | id of the show. You can also pass an IMDb Id or a TMDB Id as an id. The endpoint will automatically detect the type of the id and fetch the show accordingly.  When passing an IMDb Id, it should be in the format of tt&lt;numerical_id&gt;. (e.g. tt0120338 for Titanic)  When passing a TMDB Id, it should be in the format of movie/&lt;numerical_id&gt; for movies and tv/&lt;numerical_id&gt; for series. (e.g. tv/1396 for Breaking Bad and movie/597 for Titanic)  | 
 
 ### Other Parameters
 
@@ -71,6 +72,78 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Show**](Show.md)
+
+### Authorization
+
+[X-Rapid-API-Key](../README.md#X-Rapid-API-Key)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetTopShows
+
+> []Show GetTopShows(ctx).Country(country).Service(service).OutputLanguage(outputLanguage).ShowType(showType).Execute()
+
+Get Top Shows
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/movieofthenight/go-streaming-availability"
+)
+
+func main() {
+	country := "ca" // string | [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code of the target country. See /countries endpoint to get the list of supported countries. 
+	service := "netflix" // string | Id of the target service. 
+	outputLanguage := "outputLanguage_example" // string | [ISO 639-1 code](https://en.wikipedia.org/wiki/ISO_639-1) of the output language. Determines in which language the output  will be in.  (optional) (default to "en")
+	showType := openapiclient.showType("movie") // ShowType | Type of shows to search in. If not supplied, both movies and series will be included in the search results.  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ShowsAPI.GetTopShows(context.Background()).Country(country).Service(service).OutputLanguage(outputLanguage).ShowType(showType).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ShowsAPI.GetTopShows``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetTopShows`: []Show
+	fmt.Fprintf(os.Stdout, "Response from `ShowsAPI.GetTopShows`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetTopShowsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **country** | **string** | [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code of the target country. See /countries endpoint to get the list of supported countries.  | 
+ **service** | **string** | Id of the target service.  | 
+ **outputLanguage** | **string** | [ISO 639-1 code](https://en.wikipedia.org/wiki/ISO_639-1) of the output language. Determines in which language the output  will be in.  | [default to &quot;en&quot;]
+ **showType** | [**ShowType**](ShowType.md) | Type of shows to search in. If not supplied, both movies and series will be included in the search results.  | 
+
+### Return type
+
+[**[]Show**](Show.md)
 
 ### Authorization
 

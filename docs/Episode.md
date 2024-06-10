@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ItemType** | **string** | Type of the item. Always episode. | 
 **Title** | **string** | Title of the episode. | 
+**Overview** | Pointer to **string** | A brief overview of the plot of the episode. | [optional] 
 **AirYear** | **int32** | The year that the episode aired. | 
 **StreamingOptions** |  | Map of the streaming options by the country code. | 
 
@@ -67,6 +68,31 @@ and a boolean to check if the value has been set.
 
 SetTitle sets Title field to given value.
 
+
+### GetOverview
+
+`func (o *Episode) GetOverview() string`
+
+GetOverview returns the Overview field if non-nil, zero value otherwise.
+
+### GetOverviewOk
+
+`func (o *Episode) GetOverviewOk() (*string, bool)`
+
+GetOverviewOk returns a tuple with the Overview field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOverview
+
+`func (o *Episode) SetOverview(v string)`
+
+SetOverview sets Overview field to given value.
+
+### HasOverview
+
+`func (o *Episode) HasOverview() bool`
+
+HasOverview returns a boolean if a field has been set.
 
 ### GetAirYear
 

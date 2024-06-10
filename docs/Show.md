@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **ShowType** | [**ShowType**](ShowType.md) | Type of the show. Based on the type, some properties might be omitted. | 
 **Id** | **string** | Id of the show. | 
 **ImdbId** | **string** | [IMDb](https://www.imdb.com/) id of the show. | 
-**TmdbId** | **string** | [TMDD](https://www.themoviedb.org/) id of the show. | 
+**TmdbId** | **string** | [TMDB](https://www.themoviedb.org/) id of the show. | 
 **Title** | **string** | Title of the show. | 
 **Overview** | **string** | A brief overview of the overall plot of the show. | 
 **ReleaseYear** | Pointer to **int32** | The year that the movie was released. | [optional] 
@@ -22,6 +22,7 @@ Name | Type | Description | Notes
 **Rating** | **int32** | Rating of the show. This is calculated by taking the average of ratings found online from multiple sources. | 
 **SeasonCount** | Pointer to **int32** | Number of seasons that are either aired or announced for a series. | [optional] 
 **EpisodeCount** | Pointer to **int32** | Number of episodes that are either aired or announced for a series. | [optional] 
+**Runtime** | Pointer to **int32** | Runtime of the movie in minutes. | [optional] 
 **ImageSet** | [**ShowImageSet**](ShowImageSet.md) | Image set of the show. | 
 **StreamingOptions** |  | Map of the streaming options by the country code. | 
 **Seasons** | Pointer to [**[]Season**](Season.md) | Array of the seasons belong to the series. | [optional] 
@@ -439,6 +440,31 @@ SetEpisodeCount sets EpisodeCount field to given value.
 `func (o *Show) HasEpisodeCount() bool`
 
 HasEpisodeCount returns a boolean if a field has been set.
+
+### GetRuntime
+
+`func (o *Show) GetRuntime() int32`
+
+GetRuntime returns the Runtime field if non-nil, zero value otherwise.
+
+### GetRuntimeOk
+
+`func (o *Show) GetRuntimeOk() (*int32, bool)`
+
+GetRuntimeOk returns a tuple with the Runtime field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRuntime
+
+`func (o *Show) SetRuntime(v int32)`
+
+SetRuntime sets Runtime field to given value.
+
+### HasRuntime
+
+`func (o *Show) HasRuntime() bool`
+
+HasRuntime returns a boolean if a field has been set.
 
 ### GetImageSet
 

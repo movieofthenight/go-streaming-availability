@@ -2,9 +2,10 @@ openapi: 3.1.0
 info:
   description: "Streaming Availability API allows getting streaming availability information\
     \ of movies and series; and querying the list of available shows on streaming\
-    \ services such as Netflix, Disney+, Apple TV, Max and Hulu across 59 countries!"
+    \ services such as Netflix, Disney+, Apple TV, Max and Hulu across 60 countries!"
+  termsOfService: https://github.com/movieofthenight/streaming-availability-api/blob/main/TERMS.md
   title: Streaming Availability API
-  version: 4.0.0
+  version: 4.1.0
 servers:
 - description: Official API Server
   url: https://streaming-availability.p.rapidapi.com
@@ -192,6 +193,39 @@ paths:
       summary: Search Shows by title
       tags:
       - shows
+  /shows/top:
+    get:
+      description: |
+        Get the official top shows in a service.
+        Top shows are determined by the streaming service itself.
+
+        Supported streaming services are:
+        - Netflix: netflix
+        - Amazon Prime Video: prime
+        - Apple TV: apple
+        - Max: hbo
+
+        For unsupported services, this endpoint will return an empty list.
+
+        Series granularity is always show for this endpoint,
+        meaning that the output will not include season and episode info.
+      externalDocs:
+        description: Official Documentation
+        url: https://docs.movieofthenight.com/resource/shows#get-top-shows
+      operationId: getTopShows
+      parameters:
+      - $ref: '#/components/parameters/countryParam'
+      - $ref: '#/components/parameters/serviceParam'
+      - $ref: '#/components/parameters/outputLanguageParam'
+      - $ref: '#/components/parameters/showTypeParam'
+      responses:
+        "200":
+          $ref: '#/components/responses/topShowsResponse'
+        default:
+          $ref: '#/components/responses/errorResponse'
+      summary: Get Top Shows
+      tags:
+      - shows
   /changes:
     get:
       description: |
@@ -200,6 +234,9 @@ paths:
         Changes listed per page is 25.
 
         Changes are listed under changes field, and shows affected by these changes are listed under shows field.
+
+        Note that upcoming changes are only supported for Apple TV, Disney+, Max, Netflix and Prime Video.
+        For other services, upcoming changes will return an empty list.
       externalDocs:
         description: Official Documentation
         url: https://docs.movieofthenight.com/resource/shows#search-shows-by-title
@@ -226,6 +263,26 @@ paths:
       - changes
 components:
   parameters:
+    serviceParam:
+      description: |
+        Id of the target service.
+      examples:
+        Netflix:
+          description: Netflix
+          value: netflix
+        Amazon Prime Video:
+          description: Amazon Prime Video
+          value: prime
+        Apple TV:
+          description: Apple TV
+          value: apple
+      explode: true
+      in: query
+      name: service
+      required: true
+      schema:
+        type: string
+      style: form
     catalogsParam:
       description: |
         A comma separated list of up to 32 catalogs to search in.
@@ -325,7 +382,7 @@ components:
           value: action
         Romantic Comedy:
           description: Romantic Comedy
-          value: "romantic,comedy"
+          value: "romance,comedy"
         War Drama:
           description: War Drama
           value: "war,drama"
@@ -707,11 +764,6 @@ components:
         When passing a TMDB Id,
         it should be in the format of movie/<numerical_id> for movies and tv/<numerical_id> for series.
         (e.g. tv/1396 for Breaking Bad and movie/597 for Titanic)
-
-        If you are handcrafting the URL, make sure to encode the id parameter.
-        (e.g. final path should look like /shows/movie%2F597 for Titanic with TMDb id).
-        Here, %2F is the encoded version of /.
-        To read more about URL encoding, you can check [this link](https://en.wikipedia.org/wiki/Percent-encoding).
       examples:
         Titanic (IMDb):
           description: IMDb ID of the movie Titanic.
@@ -1025,6 +1077,29 @@ components:
               $ref: '#/components/schemas/show'
             type: array
       description: Response to a search by title query.
+    topShowsResponse:
+      content:
+        application/json:
+          examples:
+            Top Series on Netflix US:
+              externalValue: https://www.movieofthenight.com/v4/examples/shows/netflix/top/series
+              summary: Top Series on Netflix US
+              x-parameters:
+                country: us
+                service: netflix
+                show_type: series
+            Top Shows on Apple TV+ UK:
+              externalValue: https://www.movieofthenight.com/v4/examples/shows/apple/top
+              summary: Top Shows on Apple TV+ UK
+              x-parameters:
+                country: gb
+                service: apple
+          schema:
+            description: Array of the top shows.
+            items:
+              $ref: '#/components/schemas/show'
+            type: array
+      description: Response to a top shows query.
     changesResponse:
       content:
         application/json:
@@ -1068,7 +1143,6 @@ components:
       description: Response to a change set query.
   schemas:
     addon:
-      additionalProperties: false
       description: Details of an addon.
       properties:
         id:
@@ -1093,7 +1167,6 @@ components:
       - themeColorCode
       title: addon
     streamingOptionTypes:
-      additionalProperties: false
       description: Availability of the streaming option types in the service.
       properties:
         addon:
@@ -1119,7 +1192,6 @@ components:
       - subscription
       title: streamingOptionTypes
     serviceImageSet:
-      additionalProperties: false
       description: Image set of a service or an addon.
       properties:
         lightThemeImage:
@@ -1137,7 +1209,6 @@ components:
       - whiteImage
       title: serviceImageSet
     serviceInfo:
-      additionalProperties: false
       description: Details of the streaming service localized according to the parent
         country.
       properties:
@@ -1165,8 +1236,7 @@ components:
     service:
       allOf:
       - $ref: '#/components/schemas/serviceInfo'
-      - additionalProperties: false
-        properties:
+      - properties:
           streamingOptionTypes:
             $ref: '#/components/schemas/streamingOptionTypes'
           addons:
@@ -1187,7 +1257,6 @@ components:
           $ref: '#/components/schemas/streamingOption'
       description: Map of the streaming options by the country code.
     country:
-      additionalProperties: false
       description: |
         Countries are the primary way to get the supported streaming services and addons
         (such as list of available Apple TV and Prime Video channels) in a region.
@@ -1216,7 +1285,6 @@ components:
       - services
       title: country
     show:
-      additionalProperties: false
       description: |
         A show object represents a movie or a series. Type of the show is determined by the showType property,
         which is either movie or series. Based on this type, some properties are omitted,
@@ -1258,7 +1326,7 @@ components:
           description: "[IMDb](https://www.imdb.com/) id of the show."
           type: string
         tmdbId:
-          description: "[TMDD](https://www.themoviedb.org/) id of the show."
+          description: "[TMDB](https://www.themoviedb.org/) id of the show."
           type: string
         title:
           description: Title of the show.
@@ -1312,6 +1380,9 @@ components:
           description: Number of episodes that are either aired or announced for a
             series.
           type: integer
+        runtime:
+          description: Runtime of the movie in minutes.
+          type: integer
         imageSet:
           $ref: '#/components/schemas/showImageSet'
         streamingOptions:
@@ -1341,7 +1412,6 @@ components:
       - tmdbId
       title: show
     showImageSet:
-      additionalProperties: false
       description: Image set of a show.
       properties:
         verticalPoster:
@@ -1357,7 +1427,6 @@ components:
       - verticalPoster
       title: showImageSet
     horizontalImage:
-      additionalProperties: false
       description: Horizontal image of a show.
       properties:
         w360:
@@ -1383,7 +1452,6 @@ components:
       - w720
       title: horizontalImage
     verticalImage:
-      additionalProperties: false
       description: Horizontal image of a show.
       properties:
         w240:
@@ -1450,6 +1518,9 @@ components:
         title:
           description: Title of the episode.
           type: string
+        overview:
+          description: A brief overview of the plot of the episode.
+          type: string
         airYear:
           description: The year that the episode aired.
           type: integer
@@ -1481,7 +1552,6 @@ components:
         rent: Available for rental.
         addon: Available via an addon.
     streamingOption:
-      additionalProperties: false
       description: A streaming option.
       properties:
         service:
@@ -1550,7 +1620,6 @@ components:
       - type
       title: streamingOption
     price:
-      additionalProperties: false
       description: |
         Price of the renting or buying the item.
 
@@ -1767,7 +1836,6 @@ components:
         expiring: Expiring from the catalog soon.
         upcoming: Will be added to the catalog soon.
     error:
-      additionalProperties: false
       properties:
         message:
           type: string
@@ -1775,7 +1843,6 @@ components:
       - message
       title: error
     searchResult:
-      additionalProperties: false
       properties:
         shows:
           description: Array of shows.
@@ -1792,7 +1859,6 @@ components:
       - hasMore
       - shows
     changesResult:
-      additionalProperties: false
       properties:
         changes:
           description: Array of the changes.
