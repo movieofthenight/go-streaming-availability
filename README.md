@@ -40,6 +40,8 @@ or popularity over different time periods
 (e.g.: get the all-time most popular movies on Netflix US,
 get the most popular series in the last 7 days
 on Amazon Prime and Disney+ in the United Kingdom)
+- Get the list of upcoming & expiring titles
+- Get the daily Top 10 lists
 - Returned streaming availability info includes:
   - Deep links into the streaming services for
 movies, series, seasons and episodes,
@@ -194,6 +196,9 @@ If you have any questions or need further assistance, please don't hesitate to r
 
 ## FAQ
 
+- **How often the data is updated?**
+  - The data is updated daily.
+
 - **I run into an issue. How can I get help?**
   - If the issue is related to the API itself, please create a post
 [here](https://rapidapi.com/movie-of-the-night-movie-of-the-night-default/api/streaming-availability/discussions),
@@ -231,8 +236,8 @@ RapidAPI and start using the Streaming Availability API through RapidAPI right a
 | ---------- | ------------ | ------------------- |
 | `netflix` | Netflix | 59 Countries |
 | `prime` | Prime Video | 56 Countries |
-| `disney` | Disney+ | 51 Countries |
-| `hbo` | Max | 24 Countries |
+| `disney` | Disney+ | 46 Countries |
+| `hbo` | Max | 28 Countries |
 | `hulu` | Hulu | United States |
 | `peacock` | Peacock | United States |
 | `paramount` | Paramount+ | 18 Countries |

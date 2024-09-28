@@ -473,7 +473,7 @@ func (r ApiSearchShowsByFiltersRequest) SeriesGranularity(seriesGranularity stri
 	return r
 }
 
-// Determines the ordering of the shows. Make sure to set descending_order parameter as true when ordering by popularity or rating so that shows with the highest popularity or rating will be returned first. 
+// Determines the ordering of the shows.  You can switch between ascending and descending order by using the order_direction parameter. 
 func (r ApiSearchShowsByFiltersRequest) OrderBy(orderBy string) ApiSearchShowsByFiltersRequest {
 	r.orderBy = &orderBy
 	return r
