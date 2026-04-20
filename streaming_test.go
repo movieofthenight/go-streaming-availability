@@ -7,15 +7,15 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/movieofthenight/go-streaming-availability/v4"
+	streaming "github.com/movieofthenight/go-streaming-availability/v4"
 )
 
 func TestShowsAPIService_GetShow(t *testing.T) {
-	rapidApiKey, rapidApiKeyFound := os.LookupEnv("RAPID_API_KEY")
-	if !rapidApiKeyFound {
-		t.Fatal("RAPID_API_KEY not found")
+	apiKey, apiKeyFound := os.LookupEnv("API_KEY")
+	if !apiKeyFound {
+		t.Fatal("API_KEY not found")
 	}
-	client := streaming.NewAPIClientFromRapidAPIKey(rapidApiKey, nil)
+	client := streaming.NewAPIClientFromApiKey(apiKey, nil)
 	show, _, err := client.ShowsAPI.GetShow(context.Background(), "tt0068646").Country("us").Execute()
 	if err != nil {
 		log.Fatal(err)
@@ -48,11 +48,11 @@ func TestShowsAPIService_GetShow(t *testing.T) {
 }
 
 func TestShowsAPIService_SearchShowsByFilters(t *testing.T) {
-	rapidApiKey, rapidApiKeyFound := os.LookupEnv("RAPID_API_KEY")
+	rapidApiKey, rapidApiKeyFound := os.LookupEnv("API_KEY")
 	if !rapidApiKeyFound {
-		t.Fatal("RAPID_API_KEY not found")
+		t.Fatal("API_KEY not found")
 	}
-	client := streaming.NewAPIClientFromRapidAPIKey(rapidApiKey, nil)
+	client := streaming.NewAPIClientFromApiKey(rapidApiKey, nil)
 	searchResult, _, err := client.ShowsAPI.SearchShowsByFilters(context.Background()).
 		Genres([]string{"comedy"}).
 		OrderBy("popularity_1year").
@@ -80,11 +80,11 @@ func TestShowsAPIService_SearchShowsByFilters(t *testing.T) {
 }
 
 func TestApiSearchShowsByFiltersRequest_ExecuteWithAutoPagination(t *testing.T) {
-	rapidApiKey, rapidApiKeyFound := os.LookupEnv("RAPID_API_KEY")
+	rapidApiKey, rapidApiKeyFound := os.LookupEnv("API_KEY")
 	if !rapidApiKeyFound {
-		t.Fatal("RAPID_API_KEY not found")
+		t.Fatal("API_KEY not found")
 	}
-	client := streaming.NewAPIClientFromRapidAPIKey(rapidApiKey, nil)
+	client := streaming.NewAPIClientFromApiKey(rapidApiKey, nil)
 	shows, err := client.ShowsAPI.SearchShowsByFilters(context.Background()).
 		Genres([]string{"comedy"}).
 		OrderBy("popularity_1year").
@@ -110,11 +110,11 @@ func TestApiSearchShowsByFiltersRequest_ExecuteWithAutoPagination(t *testing.T) 
 }
 
 func TestApiSearchShowsByFiltersRequest_ExecuteWithAutoPagination2(t *testing.T) {
-	rapidApiKey, rapidApiKeyFound := os.LookupEnv("RAPID_API_KEY")
+	rapidApiKey, rapidApiKeyFound := os.LookupEnv("API_KEY")
 	if !rapidApiKeyFound {
-		t.Fatal("RAPID_API_KEY not found")
+		t.Fatal("API_KEY not found")
 	}
-	client := streaming.NewAPIClientFromRapidAPIKey(rapidApiKey, nil)
+	client := streaming.NewAPIClientFromApiKey(rapidApiKey, nil)
 	shows, err := client.ShowsAPI.SearchShowsByFilters(context.Background()).
 		Genres([]string{"comedy"}).
 		OrderBy("popularity_1year").
@@ -142,11 +142,11 @@ func TestApiSearchShowsByFiltersRequest_ExecuteWithAutoPagination2(t *testing.T)
 }
 
 func TestApiGetChangesRequest_ExecuteWithAutoPagination(t *testing.T) {
-	rapidApiKey, rapidApiKeyFound := os.LookupEnv("RAPID_API_KEY")
+	rapidApiKey, rapidApiKeyFound := os.LookupEnv("API_KEY")
 	if !rapidApiKeyFound {
-		t.Fatal("RAPID_API_KEY not found")
+		t.Fatal("API_KEY not found")
 	}
-	client := streaming.NewAPIClientFromRapidAPIKey(rapidApiKey, nil)
+	client := streaming.NewAPIClientFromApiKey(rapidApiKey, nil)
 	changes, err := client.ChangesAPI.GetChanges(context.Background()).
 		Catalogs([]string{"netflix"}).
 		ItemType("show").

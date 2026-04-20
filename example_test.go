@@ -7,23 +7,23 @@ import (
 	"os"
 	"strings"
 
-	"github.com/movieofthenight/go-streaming-availability/v4"
+	streaming "github.com/movieofthenight/go-streaming-availability/v4"
 )
 
-func ExampleNewAPIClientFromRapidAPIKey() {
-	rapidApiKey, rapidApiKeyFound := os.LookupEnv("RAPID_API_KEY")
-	if !rapidApiKeyFound {
-		log.Fatal("RAPID_API_KEY not found")
+func ExampleNewAPIClientFromApiKey() {
+	apiKey, apiKeyFound := os.LookupEnv("API_KEY")
+	if !apiKeyFound {
+		log.Fatal("API_KEY not found")
 	}
-	streaming.NewAPIClientFromRapidAPIKey(rapidApiKey, nil)
+	streaming.NewAPIClientFromApiKey(apiKey, nil)
 }
 
 func ExampleShowsAPIService_GetShow() {
-	rapidApiKey, rapidApiKeyFound := os.LookupEnv("RAPID_API_KEY")
-	if !rapidApiKeyFound {
-		log.Fatal("RAPID_API_KEY not found")
+	apiKey, apiKeyFound := os.LookupEnv("API_KEY")
+	if !apiKeyFound {
+		log.Fatal("API_KEY not found")
 	}
-	client := streaming.NewAPIClientFromRapidAPIKey(rapidApiKey, nil)
+	client := streaming.NewAPIClientFromApiKey(apiKey, nil)
 	show, _, err := client.ShowsAPI.GetShow(context.Background(), "tt0068646").Country("us").Execute()
 	if err != nil {
 		log.Fatal(err)
@@ -56,11 +56,11 @@ func ExampleShowsAPIService_GetShow() {
 }
 
 func ExampleShowsAPIService_SearchShowsByFilters() {
-	rapidApiKey, rapidApiKeyFound := os.LookupEnv("RAPID_API_KEY")
-	if !rapidApiKeyFound {
-		log.Fatal("RAPID_API_KEY not found")
+	apiKey, apiKeyFound := os.LookupEnv("API_KEY")
+	if !apiKeyFound {
+		log.Fatal("API_KEY not found")
 	}
-	client := streaming.NewAPIClientFromRapidAPIKey(rapidApiKey, nil)
+	client := streaming.NewAPIClientFromApiKey(apiKey, nil)
 	searchResult, _, err := client.ShowsAPI.SearchShowsByFilters(context.Background()).
 		Genres([]string{"comedy"}).
 		OrderBy("popularity_1year").
@@ -88,11 +88,11 @@ func ExampleShowsAPIService_SearchShowsByFilters() {
 }
 
 func ExampleApiSearchShowsByFiltersRequest_ExecuteWithAutoPagination() {
-	rapidApiKey, rapidApiKeyFound := os.LookupEnv("RAPID_API_KEY")
-	if !rapidApiKeyFound {
-		log.Fatal("RAPID_API_KEY not found")
+	apiKey, apiKeyFound := os.LookupEnv("API_KEY")
+	if !apiKeyFound {
+		log.Fatal("API_KEY not found")
 	}
-	client := streaming.NewAPIClientFromRapidAPIKey(rapidApiKey, nil)
+	client := streaming.NewAPIClientFromApiKey(apiKey, nil)
 	shows, err := client.ShowsAPI.SearchShowsByFilters(context.Background()).
 		Genres([]string{"comedy"}).
 		OrderBy("popularity_1year").

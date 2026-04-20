@@ -1,6 +1,6 @@
 # \ShowsAPI
 
-All URIs are relative to *https://streaming-availability.p.rapidapi.com*
+All URIs are relative to *https://api.movieofthenight.com/v4*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -75,7 +75,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[X-Rapid-API-Key](../README.md#X-Rapid-API-Key)
+[X-API-Key](../README.md#X-API-Key), [X-RapidAPI-Key](../README.md#X-RapidAPI-Key)
 
 ### HTTP request headers
 
@@ -147,7 +147,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[X-Rapid-API-Key](../README.md#X-Rapid-API-Key)
+[X-API-Key](../README.md#X-API-Key), [X-RapidAPI-Key](../README.md#X-RapidAPI-Key)
 
 ### HTTP request headers
 
@@ -243,7 +243,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[X-Rapid-API-Key](../README.md#X-Rapid-API-Key)
+[X-API-Key](../README.md#X-API-Key), [X-RapidAPI-Key](../README.md#X-RapidAPI-Key)
 
 ### HTTP request headers
 
@@ -317,7 +317,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[X-Rapid-API-Key](../README.md#X-Rapid-API-Key)
+[X-API-Key](../README.md#X-API-Key), [X-RapidAPI-Key](../README.md#X-RapidAPI-Key)
 
 ### HTTP request headers
 

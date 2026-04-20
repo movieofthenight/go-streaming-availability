@@ -89,12 +89,16 @@ type Configuration struct {
 func NewConfiguration() *Configuration {
 	cfg := &Configuration{
 		DefaultHeader:    make(map[string]string),
-		UserAgent:        "go-streaming-availability/v4.4.0",
+		UserAgent:        "go-streaming-availability/v4.5.0",
 		Debug:            false,
 		Servers:          ServerConfigurations{
 			{
+				URL: "https://api.movieofthenight.com/v4",
+				Description: "Use this server if you got your API key from developers.movieofthenight.com, pass the API key as X-API-Key in HTTP headers ",
+			},
+			{
 				URL: "https://streaming-availability.p.rapidapi.com",
-				Description: "Official API Server",
+				Description: "Use this server if you got your API key from rapidapi.com, pass the API key as X-Rapid-API-Key in HTTP headers ",
 			},
 		},
 		OperationServers: map[string]ServerConfigurations{
