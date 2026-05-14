@@ -1,7 +1,7 @@
 /*
 Streaming Availability API
 
-Streaming Availability API allows getting streaming availability information of movies and series; and querying the list of available shows on streaming services such as Netflix, Disney+, Apple TV, Max and Hulu across 60 countries!
+Streaming Availability API allows getting streaming availability information of movies and series; and querying the list of available shows on streaming services such as Netflix, Disney+, Apple TV, Max and Hulu across 66 countries!
 
 API version: 4.1.0
 */
@@ -258,6 +258,7 @@ Supported streaming services are:
 - Disney+: disney
 - Apple TV: apple
 - Max: hbo
+- Crunchyroll crunchyroll
 
 For unsupported services, this endpoint will return an empty list.
 
